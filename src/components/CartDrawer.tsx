@@ -7,6 +7,7 @@ type CartDrawerProps = {
   onContinueShopping: () => void;
   items: CartItem[];
   onUpdateQuantity: (id: string, delta: number) => void;
+  getItemStock: (item: CartItem) => number;
   onRemove: (id: string) => void;
   onCheckout: () => void;
 };
@@ -17,6 +18,7 @@ export function CartDrawer({
   onContinueShopping,
   items,
   onUpdateQuantity,
+  getItemStock,
   onRemove,
   onCheckout,
 }: CartDrawerProps) {
@@ -116,7 +118,8 @@ export function CartDrawer({
                         </span>
                         <button
                           onClick={() => onUpdateQuantity(item.id, 1)}
-                          className="p-1.5 text-gray-500 hover:text-black transition-colors"
+                          disabled={item.quantity >= getItemStock(item)}
+                          className="p-1.5 text-gray-500 hover:text-black transition-colors disabled:cursor-not-allowed disabled:opacity-30"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
@@ -125,6 +128,11 @@ export function CartDrawer({
                         R$ {(item.product.price * item.quantity).toFixed(2).replace('.', ',')}
                       </span>
                     </div>
+                    {!item.product.isKit && (
+                      <p className="mt-2 text-[11px] text-gray-500">
+                        Estoque disponivel: {getItemStock(item)}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

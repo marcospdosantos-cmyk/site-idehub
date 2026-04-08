@@ -2,6 +2,46 @@ import React, { useState } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import { CheckoutData } from '../types';
 
+const CHECKOUT_STORAGE_KEY = 'idehub-checkout';
+
+const getStoredCheckoutData = (): CheckoutData => {
+  if (typeof window === 'undefined') {
+    return {
+      name: '',
+      address: '',
+      paymentMethod: 'Pix',
+    };
+  }
+
+  try {
+    const storedData = window.localStorage.getItem(CHECKOUT_STORAGE_KEY);
+    if (!storedData) {
+      return {
+        name: '',
+        address: '',
+        paymentMethod: 'Pix',
+      };
+    }
+
+    const parsedData = JSON.parse(storedData);
+
+    return {
+      name: typeof parsedData.name === 'string' ? parsedData.name : '',
+      address: typeof parsedData.address === 'string' ? parsedData.address : '',
+      paymentMethod:
+        parsedData.paymentMethod === 'Cartão de Crédito' || parsedData.paymentMethod === 'Cartão de Débito'
+          ? parsedData.paymentMethod
+          : 'Pix',
+    };
+  } catch {
+    return {
+      name: '',
+      address: '',
+      paymentMethod: 'Pix',
+    };
+  }
+};
+
 type CheckoutModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -10,11 +50,11 @@ type CheckoutModalProps = {
 };
 
 export function CheckoutModal({ isOpen, onClose, onSubmit, total }: CheckoutModalProps) {
-  const [formData, setFormData] = useState<CheckoutData>({
-    name: '',
-    address: '',
-    paymentMethod: 'Pix',
-  });
+  const [formData, setFormData] = useState<CheckoutData>(() => getStoredCheckoutData());
+
+  React.useEffect(() => {
+    window.localStorage.setItem(CHECKOUT_STORAGE_KEY, JSON.stringify(formData));
+  }, [formData]);
 
   if (!isOpen) return null;
 

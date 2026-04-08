@@ -8,6 +8,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
+import { blankInventory } from './data/inventory';
 
 const WHATSAPP_NUMBER = '5542999488235';
 const CART_STORAGE_KEY = 'idehub-cart';
@@ -55,6 +56,7 @@ export default function App() {
   const [pendingWhatsappConfirmation, setPendingWhatsappConfirmation] = useState(false);
   const [showWhatsappConfirmation, setShowWhatsappConfirmation] = useState(false);
   const [showOrderSuccess, setShowOrderSuccess] = useState(false);
+  const [cartFeedback, setCartFeedback] = useState<string | null>(null);
   const [whatsappOpenedAt, setWhatsappOpenedAt] = useState<number | null>(null);
   const productsSectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -79,18 +81,38 @@ export default function App() {
     return groups;
   }, [filteredProducts]);
 
+  const getItemStock = (item: Pick<CartItem, 'product' | 'selectedColor' | 'selectedSize'>) => {
+    if (item.product.isKit) return 999;
+
+    const color = item.selectedColor ?? item.product.colors?.[0];
+    const size = item.selectedSize ?? 'Único';
+
+    if (!color) return 0;
+
+    return blankInventory[item.product.category]?.[color]?.[size] ?? 0;
+  };
+
   const handleAddToCart = (item: Omit<CartItem, 'id'>) => {
     const id = `${item.product.id}-${item.selectedSize || ''}-${item.selectedColor || ''}-${item.kitNotes || ''}`;
+    const availableStock = getItemStock(item);
 
     setCart((prev) => {
       const existing = prev.find((i) => i.id === id);
       if (existing) {
+        if (existing.quantity >= availableStock) {
+          setCartFeedback('Voce ja atingiu o estoque disponivel desse item.');
+          return prev;
+        }
+
         return prev.map((i) =>
-          i.id === id ? { ...i, quantity: i.quantity + item.quantity } : i
+          i.id === id
+            ? { ...i, quantity: Math.min(i.quantity + item.quantity, availableStock) }
+            : i
         );
       }
       return [...prev, { ...item, id }];
     });
+    setCartFeedback('Produto adicionado ao carrinho.');
     setIsCartOpen(true);
   };
 
@@ -98,7 +120,14 @@ export default function App() {
     setCart((prev) =>
       prev.map((item) => {
         if (item.id === id) {
-          const newQuantity = Math.max(0, item.quantity + delta);
+          const availableStock = getItemStock(item);
+          const nextQuantity = item.quantity + delta;
+          const newQuantity = Math.max(0, Math.min(nextQuantity, availableStock));
+
+          if (delta > 0 && nextQuantity > availableStock) {
+            setCartFeedback('Quantidade ajustada ao estoque disponivel.');
+          }
+
           return { ...item, quantity: newQuantity };
         }
         return item;
@@ -167,6 +196,16 @@ export default function App() {
 
     return () => window.clearTimeout(timer);
   }, [showOrderSuccess]);
+
+  useEffect(() => {
+    if (!cartFeedback) return;
+
+    const timer = window.setTimeout(() => {
+      setCartFeedback(null);
+    }, 2600);
+
+    return () => window.clearTimeout(timer);
+  }, [cartFeedback]);
 
   useEffect(() => {
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
@@ -325,6 +364,7 @@ export default function App() {
         onContinueShopping={handleContinueShopping}
         items={cart}
         onUpdateQuantity={handleUpdateQuantity}
+        getItemStock={getItemStock}
         onRemove={handleRemoveItem}
         onCheckout={() => {
           setIsCartOpen(false);
@@ -380,6 +420,12 @@ export default function App() {
           <p className="text-sm font-semibold text-emerald-700">
             Pedido confirmado no WhatsApp. Carrinho limpo com sucesso.
           </p>
+        </div>
+      )}
+
+      {cartFeedback && (
+        <div className="fixed bottom-6 right-6 z-50 w-[calc(100%-2rem)] max-w-sm border border-orange-200 bg-white/95 p-4 shadow-2xl backdrop-blur-sm sm:w-full">
+          <p className="text-sm font-semibold text-orange-700">{cartFeedback}</p>
         </div>
       )}
     </div>
