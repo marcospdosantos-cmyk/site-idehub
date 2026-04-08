@@ -11,8 +11,14 @@ type ProductModalProps = {
 };
 
 export function ProductModal({ product, onClose, onAddToCart }: ProductModalProps) {
+  const firstAvailableColor = product.colors?.find((color) => {
+    if (product.isKit) return true;
+    const stock = blankInventory[product.category]?.[color]?.[product.sizes?.[0] || 'Único'] ?? 0;
+    return stock > 0;
+  }) || product.colors?.[0] || '';
+
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] || '');
-  const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
+  const [selectedColor, setSelectedColor] = useState<string>(firstAvailableColor);
   const [kitNotes, setKitNotes] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -96,6 +102,11 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
               <span className="text-3xl font-black text-black tracking-tighter">
                 R$ {product.price.toFixed(2).replace('.', ',')}
               </span>
+              {product.isKit && (
+                <span className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-stone-500">
+                  Estoque sob consulta*
+                </span>
+              )}
             </div>
           </div>
 
@@ -157,17 +168,39 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {product.colors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => { setSelectedColor(color); setCurrentImageIndex(0); }}
-                        className={`px-4 py-2 rounded-none text-sm font-medium transition-colors border ${
-                          selectedColor === color
-                            ? 'bg-black text-white border-black'
-                            : 'bg-white text-gray-900 border-gray-200 hover:border-gray-400'
-                        }`}
-                      >
-                        {color}
-                      </button>
+                      (() => {
+                        const stock = product.sizes
+                          ? getStock(color, selectedSize)
+                          : (product.isKit ? 999 : (blankInventory[product.category]?.[color]?.['Único'] ?? 0));
+                        const isOutOfStock = !product.isKit && stock === 0;
+
+                        return (
+                          <button
+                            key={color}
+                            onClick={() => {
+                              if (isOutOfStock) return;
+                              setSelectedColor(color);
+                              setCurrentImageIndex(0);
+                            }}
+                            className={`px-4 py-2 rounded-none text-sm font-medium transition-colors border ${
+                              selectedColor === color
+                                ? 'bg-black text-white border-black'
+                                : isOutOfStock
+                                  ? 'bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed'
+                                  : 'bg-white text-gray-900 border-gray-200 hover:border-gray-400'
+                            }`}
+                          >
+                            <div className="flex flex-col items-center">
+                              <span>{color}</span>
+                              {!product.isKit && !product.sizes && (
+                                <span className={`text-[10px] mt-0.5 ${isOutOfStock ? 'text-red-400 font-medium' : 'opacity-70'}`}>
+                                  {isOutOfStock ? 'Esgotado' : `${stock} disp.`}
+                                </span>
+                              )}
+                            </div>
+                          </button>
+                        );
+                      })()
                     ))}
                   </div>
                 </div>
