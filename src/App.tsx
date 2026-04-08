@@ -57,6 +57,7 @@ export default function App() {
   const [showWhatsappConfirmation, setShowWhatsappConfirmation] = useState(false);
   const [showOrderSuccess, setShowOrderSuccess] = useState(false);
   const [cartFeedback, setCartFeedback] = useState<string | null>(null);
+  const [isCartFeedbackVisible, setIsCartFeedbackVisible] = useState(false);
   const [whatsappOpenedAt, setWhatsappOpenedAt] = useState<number | null>(null);
   const productsSectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -92,6 +93,11 @@ export default function App() {
     return blankInventory[item.product.category]?.[color]?.[size] ?? 0;
   };
 
+  const triggerCartFeedback = (message: string) => {
+    setCartFeedback(message);
+    setIsCartFeedbackVisible(true);
+  };
+
   const handleAddToCart = (item: Omit<CartItem, 'id'>) => {
     const id = `${item.product.id}-${item.selectedSize || ''}-${item.selectedColor || ''}-${item.kitNotes || ''}`;
     const availableStock = getItemStock(item);
@@ -100,7 +106,7 @@ export default function App() {
       const existing = prev.find((i) => i.id === id);
       if (existing) {
         if (existing.quantity >= availableStock) {
-          setCartFeedback('Voce ja atingiu o estoque disponivel desse item.');
+          triggerCartFeedback('Voce ja atingiu o estoque disponivel desse item.');
           return prev;
         }
 
@@ -112,7 +118,7 @@ export default function App() {
       }
       return [...prev, { ...item, id }];
     });
-    setCartFeedback('Produto adicionado ao carrinho.');
+    triggerCartFeedback('Produto adicionado ao carrinho.');
     setIsCartOpen(true);
   };
 
@@ -125,7 +131,7 @@ export default function App() {
           const newQuantity = Math.max(0, Math.min(nextQuantity, availableStock));
 
           if (delta > 0 && nextQuantity > availableStock) {
-            setCartFeedback('Quantidade ajustada ao estoque disponivel.');
+            triggerCartFeedback('Quantidade ajustada ao estoque disponivel.');
           }
 
           return { ...item, quantity: newQuantity };
@@ -200,11 +206,18 @@ export default function App() {
   useEffect(() => {
     if (!cartFeedback) return;
 
-    const timer = window.setTimeout(() => {
-      setCartFeedback(null);
-    }, 2600);
+    const fadeOutTimer = window.setTimeout(() => {
+      setIsCartFeedbackVisible(false);
+    }, 1900);
 
-    return () => window.clearTimeout(timer);
+    const cleanupTimer = window.setTimeout(() => {
+      setCartFeedback(null);
+    }, 2400);
+
+    return () => {
+      window.clearTimeout(fadeOutTimer);
+      window.clearTimeout(cleanupTimer);
+    };
   }, [cartFeedback]);
 
   useEffect(() => {
@@ -424,8 +437,18 @@ export default function App() {
       )}
 
       {cartFeedback && (
-        <div className="fixed bottom-6 right-6 z-50 w-[calc(100%-2rem)] max-w-sm border border-orange-200 bg-white/95 p-4 shadow-2xl backdrop-blur-sm sm:w-full">
-          <p className="text-sm font-semibold text-orange-700">{cartFeedback}</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none">
+          <div
+            className={`w-full max-w-md rounded-[1.75rem] border border-stone-300/80 bg-gradient-to-b from-stone-50 via-white to-stone-100 px-6 py-5 text-center shadow-[0_18px_55px_rgba(28,25,23,0.16)] backdrop-blur-md transition-all duration-500 ${
+              isCartFeedbackVisible
+                ? 'translate-y-0 opacity-100 scale-100'
+                : '-translate-y-1 opacity-0 scale-[0.985]'
+            }`}
+          >
+            <p className="text-base font-bold tracking-[0.12em] text-stone-800 uppercase">
+              {cartFeedback}
+            </p>
+          </div>
         </div>
       )}
     </div>
