@@ -21,9 +21,18 @@ export function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center gap-8">
-            <span className="font-bold text-2xl tracking-tighter text-black cursor-pointer" onClick={onGoToStart}>
-              Ide.hub
-            </span>
+            <button
+              type="button"
+              onClick={onGoToStart}
+              className="cursor-pointer"
+              aria-label="Ide.hub"
+            >
+              <img
+                src="/image/logo-preta-transp.png"
+                alt="Ide.hub"
+                className="h-9 w-auto object-contain"
+              />
+            </button>
             
             <div className="hidden md:flex items-center gap-6">
               <button

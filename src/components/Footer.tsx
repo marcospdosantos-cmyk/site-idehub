@@ -7,9 +7,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand/Logo */}
           <div>
-            <span className="font-bold text-3xl tracking-tighter text-white block mb-4">
-              Ide.hub
-            </span>
+            <img
+              src="/image/logo-preta-transp.png"
+              alt="Ide.hub"
+              className="h-12 w-auto object-contain invert brightness-0 mb-4"
+            />
             <p className="text-gray-400 max-w-xs leading-relaxed">
               Streetwear cristão premium. Vista sua fé com propósito e estilo.
             </p>
