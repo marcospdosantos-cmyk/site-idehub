@@ -10,9 +10,45 @@ import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 
 const WHATSAPP_NUMBER = '5542999488235';
+const CART_STORAGE_KEY = 'idehub-cart';
+
+const getHydratedCart = (): CartItem[] => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const storedCart = window.localStorage.getItem(CART_STORAGE_KEY);
+    if (!storedCart) return [];
+
+    const parsedCart = JSON.parse(storedCart);
+    if (!Array.isArray(parsedCart)) return [];
+
+    return parsedCart.reduce<CartItem[]>((validItems, rawItem) => {
+      if (!rawItem || typeof rawItem !== 'object') return validItems;
+
+      const matchedProduct = products.find((product) => product.id === rawItem.product?.id);
+      if (!matchedProduct) return validItems;
+
+      const quantity = Number(rawItem.quantity);
+      if (!Number.isFinite(quantity) || quantity <= 0) return validItems;
+
+      validItems.push({
+        id: typeof rawItem.id === 'string' ? rawItem.id : `${matchedProduct.id}`,
+        product: matchedProduct,
+        quantity,
+        selectedSize: typeof rawItem.selectedSize === 'string' ? rawItem.selectedSize : undefined,
+        selectedColor: typeof rawItem.selectedColor === 'string' ? rawItem.selectedColor : undefined,
+        kitNotes: typeof rawItem.kitNotes === 'string' ? rawItem.kitNotes : undefined,
+      });
+
+      return validItems;
+    }, []);
+  } catch {
+    return [];
+  }
+};
 
 export default function App() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => getHydratedCart());
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -131,6 +167,10 @@ export default function App() {
 
     return () => window.clearTimeout(timer);
   }, [showOrderSuccess]);
+
+  useEffect(() => {
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  }, [cart]);
 
   useEffect(() => {
     if (!pendingWhatsappConfirmation || !whatsappOpenedAt) return;
