@@ -4,6 +4,7 @@ import { CartItem } from '../types';
 type CartDrawerProps = {
   isOpen: boolean;
   onClose: () => void;
+  onContinueShopping: () => void;
   items: CartItem[];
   onUpdateQuantity: (id: string, delta: number) => void;
   onRemove: (id: string) => void;
@@ -13,6 +14,7 @@ type CartDrawerProps = {
 export function CartDrawer({
   isOpen,
   onClose,
+  onContinueShopping,
   items,
   onUpdateQuantity,
   onRemove,
@@ -21,6 +23,20 @@ export function CartDrawer({
   if (!isOpen) return null;
 
   const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const getCartItemImage = (item: CartItem) => {
+    const colorImages = item.selectedColor
+      ? item.product.imagesByColor?.[item.selectedColor]
+      : undefined;
+    const fallbackImage = item.product.imagesByColor
+      ? Object.values(item.product.imagesByColor)[0]?.[0]
+      : undefined;
+
+    return (
+      colorImages?.[0] ??
+      fallbackImage ??
+      `https://picsum.photos/seed/${item.product.imageSeed}/200/240?grayscale`
+    );
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -49,7 +65,7 @@ export function CartDrawer({
               <ShoppingBag className="w-12 h-12 opacity-20" />
               <p>Seu carrinho está vazio.</p>
               <button 
-                onClick={onClose}
+                onClick={onContinueShopping}
                 className="text-black font-medium underline underline-offset-4"
               >
                 Continuar comprando
@@ -61,7 +77,7 @@ export function CartDrawer({
                 <div key={item.id} className="flex gap-4">
                   <div className="w-20 h-24 bg-gray-100 rounded-none overflow-hidden flex-shrink-0">
                     <img
-                      src={`https://picsum.photos/seed/${item.product.imageSeed}/200/240?grayscale`}
+                      src={getCartItemImage(item)}
                       alt={item.product.name}
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -124,12 +140,20 @@ export function CartDrawer({
                 R$ {total.toFixed(2).replace('.', ',')}
               </span>
             </div>
-            <button
-              onClick={onCheckout}
-              className="w-full py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95"
-            >
-              Finalizar Pedido
-            </button>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={onCheckout}
+                className="w-full py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95"
+              >
+                Finalizar Pedido
+              </button>
+              <button
+                onClick={onContinueShopping}
+                className="w-full py-3 border border-gray-300 text-gray-900 rounded-full font-semibold hover:bg-white transition-colors"
+              >
+                Continuar comprando
+              </button>
+            </div>
           </div>
         )}
       </div>

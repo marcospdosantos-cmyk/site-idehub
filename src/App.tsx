@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { products, categories, Product } from './data/products';
 import { CartItem, CheckoutData } from './types';
 import { Navbar } from './components/Navbar';
@@ -16,6 +16,11 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [pendingWhatsappConfirmation, setPendingWhatsappConfirmation] = useState(false);
+  const [showWhatsappConfirmation, setShowWhatsappConfirmation] = useState(false);
+  const [showOrderSuccess, setShowOrderSuccess] = useState(false);
+  const [whatsappOpenedAt, setWhatsappOpenedAt] = useState<number | null>(null);
+  const productsSectionRef = useRef<HTMLDivElement | null>(null);
 
   // Filters
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
@@ -93,14 +98,67 @@ export default function App() {
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-
-    // Optional: Clear cart after sending
-    // setCart([]);
-    // setIsCheckoutOpen(false);
+    setIsCheckoutOpen(false);
+    setPendingWhatsappConfirmation(true);
+    setShowWhatsappConfirmation(false);
+    setWhatsappOpenedAt(Date.now());
   };
 
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+
+  const scrollToProducts = () => {
+    productsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleGoToStart = () => {
+    setSelectedCategory('Todos');
+    setSelectedProduct(null);
+    scrollToProducts();
+  };
+
+  const handleContinueShopping = () => {
+    setIsCartOpen(false);
+    handleGoToStart();
+  };
+
+  useEffect(() => {
+    if (!showOrderSuccess) return;
+
+    const timer = window.setTimeout(() => {
+      setShowOrderSuccess(false);
+    }, 3500);
+
+    return () => window.clearTimeout(timer);
+  }, [showOrderSuccess]);
+
+  useEffect(() => {
+    if (!pendingWhatsappConfirmation || !whatsappOpenedAt) return;
+
+    const maybeAskForConfirmation = () => {
+      if (Date.now() - whatsappOpenedAt < 1200) return;
+      setShowWhatsappConfirmation(true);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        maybeAskForConfirmation();
+      }
+    };
+
+    window.addEventListener('focus', maybeAskForConfirmation);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    const fallbackTimer = window.setTimeout(() => {
+      setShowWhatsappConfirmation(true);
+    }, 5000);
+
+    return () => {
+      window.removeEventListener('focus', maybeAskForConfirmation);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.clearTimeout(fallbackTimer);
+    };
+  }, [pendingWhatsappConfirmation, whatsappOpenedAt]);
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] font-sans text-gray-900">
@@ -108,6 +166,7 @@ export default function App() {
         cartItemCount={cartItemCount}
         onOpenCart={() => setIsCartOpen(true)}
         onSelectCategory={setSelectedCategory}
+        onGoToStart={handleGoToStart}
         selectedCategory={selectedCategory}
       />
 
@@ -176,7 +235,7 @@ export default function App() {
 
         {/* Product Grid */}
         {Object.keys(groupedProducts).length > 0 ? (
-          <div className="space-y-16">
+          <div ref={productsSectionRef} className="space-y-16">
             {Object.entries(groupedProducts).map(([category, categoryProducts]) => (
               <div key={category}>
                 <div className="flex items-center gap-4 mb-8">
@@ -223,6 +282,7 @@ export default function App() {
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
+        onContinueShopping={handleContinueShopping}
         items={cart}
         onUpdateQuantity={handleUpdateQuantity}
         onRemove={handleRemoveItem}
@@ -238,6 +298,50 @@ export default function App() {
         onSubmit={handleCheckout}
         total={cartTotal}
       />
+
+      {showWhatsappConfirmation && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-white shadow-2xl p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              Pedido enviado no WhatsApp?
+            </h2>
+            <p className="text-sm text-gray-600 mb-6">
+              O WhatsApp não informa para o site se a mensagem foi enviada de fato. Assim que você confirmar, a gente limpa o carrinho com segurança.
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={() => {
+                  setCart([]);
+                  setPendingWhatsappConfirmation(false);
+                  setShowWhatsappConfirmation(false);
+                  setShowOrderSuccess(true);
+                  setWhatsappOpenedAt(null);
+                  handleGoToStart();
+                }}
+                className="w-full py-4 bg-[#25D366] text-white rounded-full font-bold hover:bg-[#128C7E] transition-colors"
+              >
+                Sim, já enviei
+              </button>
+              <button
+                onClick={() => {
+                  setShowWhatsappConfirmation(false);
+                }}
+                className="w-full py-3 border border-gray-300 text-gray-900 rounded-full font-semibold hover:bg-gray-50 transition-colors"
+              >
+                Ainda não
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showOrderSuccess && (
+        <div className="fixed bottom-6 left-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 border border-emerald-200 bg-white/95 p-4 shadow-2xl backdrop-blur-sm">
+          <p className="text-sm font-semibold text-emerald-700">
+            Pedido confirmado no WhatsApp. Carrinho limpo com sucesso.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

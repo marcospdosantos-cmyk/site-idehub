@@ -5,22 +5,29 @@ type NavbarProps = {
   cartItemCount: number;
   onOpenCart: () => void;
   onSelectCategory: (category: string) => void;
+  onGoToStart: () => void;
   selectedCategory: string;
 };
 
-export function Navbar({ cartItemCount, onOpenCart, onSelectCategory, selectedCategory }: NavbarProps) {
+export function Navbar({
+  cartItemCount,
+  onOpenCart,
+  onSelectCategory,
+  onGoToStart,
+  selectedCategory,
+}: NavbarProps) {
   return (
     <nav className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center gap-8">
-            <span className="font-bold text-2xl tracking-tighter text-black cursor-pointer" onClick={() => onSelectCategory('Todos')}>
+            <span className="font-bold text-2xl tracking-tighter text-black cursor-pointer" onClick={onGoToStart}>
               Ide.hub
             </span>
             
             <div className="hidden md:flex items-center gap-6">
               <button
-                onClick={() => onSelectCategory('Todos')}
+                onClick={onGoToStart}
                 className={`text-sm font-medium transition-colors ${
                   selectedCategory === 'Todos' ? 'text-black' : 'text-gray-500 hover:text-black'
                 }`}
