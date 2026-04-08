@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../data/products';
 import { CartItem } from '../types';
+import { blankInventory } from '../data/inventory';
 
 type ProductModalProps = {
   product: Product;
@@ -14,6 +15,18 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
   const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
   const [kitNotes, setKitNotes] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const getStock = (color: string, size: string) => {
+    if (product.isKit) return 999;
+    return blankInventory[product.category]?.[color]?.[size] ?? 0;
+  };
+
+  // Verifica o estoque atual combinando a cor e tamanho selecionados
+  const currentStock = product.sizes 
+    ? getStock(selectedColor, selectedSize)
+    : (product.isKit ? 999 : (blankInventory[product.category]?.[selectedColor]?.['Único'] ?? 0));
+    
+  const isSelectedOutOfStock = !product.isKit && currentStock === 0;
 
   const handleAddToCart = () => {
     onAddToCart({
@@ -106,19 +119,33 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                     Tamanho
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {product.sizes.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => setSelectedSize(size)}
-                        className={`px-4 py-2 rounded-none text-sm font-medium transition-colors border ${
-                          selectedSize === size
-                            ? 'bg-black text-white border-black'
-                            : 'bg-white text-gray-900 border-gray-200 hover:border-gray-400'
-                        }`}
-                      >
-                        {size}
-                      </button>
-                    ))}
+                    {product.sizes.map((size) => {
+                      const stock = getStock(selectedColor, size);
+                      const isOutOfStock = stock === 0;
+                      
+                      return (
+                        <button
+                          key={size}
+                          onClick={() => setSelectedSize(size)}
+                          className={`min-w-[4rem] px-4 py-2 rounded-none transition-colors border ${
+                            selectedSize === size
+                              ? 'bg-black text-white border-black'
+                              : isOutOfStock
+                                ? 'bg-gray-50 text-gray-300 border-gray-100 cursor-not-allowed'
+                                : 'bg-white text-gray-900 border-gray-200 hover:border-gray-400'
+                          }`}
+                        >
+                          <div className="flex flex-col items-center">
+                            <span className="text-sm font-medium">{size}</span>
+                            {!product.isKit && (
+                              <span className={`text-[10px] mt-0.5 ${isOutOfStock ? 'text-red-400 font-medium' : 'opacity-70'}`}>
+                                {isOutOfStock ? 'Esgotado' : `${stock} disp.`}
+                              </span>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -150,10 +177,10 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
 
           <button
             onClick={handleAddToCart}
-            disabled={product.isKit ? !kitNotes.trim() : false}
+            disabled={(product.isKit ? !kitNotes.trim() : false) || isSelectedOutOfStock}
             className="w-full py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none disabled:hover:shadow-none"
           >
-            Adicionar ao Carrinho
+            {isSelectedOutOfStock ? 'Produto Esgotado' : 'Adicionar ao Carrinho'}
           </button>
         </div>
       </div>

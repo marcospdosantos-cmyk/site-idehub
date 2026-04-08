@@ -16,7 +16,7 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  
+
   // Filters
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [maxPrice, setMaxPrice] = useState<number>(200);
@@ -40,7 +40,7 @@ export default function App() {
 
   const handleAddToCart = (item: Omit<CartItem, 'id'>) => {
     const id = `${item.product.id}-${item.selectedSize || ''}-${item.selectedColor || ''}-${item.kitNotes || ''}`;
-    
+
     setCart((prev) => {
       const existing = prev.find((i) => i.id === id);
       if (existing) {
@@ -71,29 +71,29 @@ export default function App() {
 
   const handleCheckout = (data: CheckoutData) => {
     const total = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-    
+
     let message = `*Novo Pedido - Ide.hub*\n\n`;
     message += `*Cliente:* ${data.name}\n`;
     message += `*Endereço:* ${data.address}\n`;
     message += `*Pagamento:* ${data.paymentMethod}\n\n`;
     message += `*Itens do Pedido:*\n`;
-    
+
     cart.forEach((item) => {
       let details = [];
       if (item.selectedSize) details.push(item.selectedSize);
       if (item.selectedColor) details.push(item.selectedColor);
-      
+
       const detailsStr = details.length > 0 ? ` (${details.join(', ')})` : '';
       const notesStr = item.kitNotes ? `\n  ↳ Notas: ${item.kitNotes}` : '';
-      
+
       message += `${item.quantity}x ${item.product.name}${detailsStr} - R$ ${(item.product.price * item.quantity).toFixed(2).replace('.', ',')}${notesStr}\n`;
     });
-    
+
     message += `\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
-    
+
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-    
+
     // Optional: Clear cart after sending
     // setCart([]);
     // setIsCheckoutOpen(false);
@@ -104,9 +104,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] font-sans text-gray-900">
-      <Navbar 
-        cartItemCount={cartItemCount} 
-        onOpenCart={() => setIsCartOpen(true)} 
+      <Navbar
+        cartItemCount={cartItemCount}
+        onOpenCart={() => setIsCartOpen(true)}
         onSelectCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
       />
@@ -121,9 +121,9 @@ export default function App() {
 
         {/* Banner */}
         <div className="mb-12 w-full rounded-none overflow-hidden shadow-sm border border-gray-100 bg-white">
-          <img 
-            src="/image/imgi_18.webp" 
-            alt="Oversized T-shirts - Tudo aqui aponta para Jesus" 
+          <img
+            src="/image/imgi_18.webp"
+            alt="Oversized T-shirts - Tudo aqui aponta para Jesus"
             className="w-full h-auto object-cover"
             onError={(e) => {
               // Fallback temporário caso a imagem não tenha sido enviada ainda
@@ -137,11 +137,10 @@ export default function App() {
           <div className="flex items-center gap-4 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar">
             <button
               onClick={() => setSelectedCategory('Todos')}
-              className={`whitespace-nowrap px-4 py-2 rounded-none text-sm font-medium transition-colors ${
-                selectedCategory === 'Todos'
+              className={`whitespace-nowrap px-4 py-2 rounded-none text-sm font-medium transition-colors ${selectedCategory === 'Todos'
                   ? 'bg-black text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+                }`}
             >
               Todos
             </button>
@@ -149,17 +148,16 @@ export default function App() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`whitespace-nowrap px-4 py-2 rounded-none text-sm font-medium transition-colors ${
-                  selectedCategory === cat
+                className={`whitespace-nowrap px-4 py-2 rounded-none text-sm font-medium transition-colors ${selectedCategory === cat
                     ? 'bg-black text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {cat}
               </button>
             ))}
           </div>
-          
+
           <div className="flex items-center gap-4 w-full md:w-auto">
             <span className="text-sm font-medium text-gray-500 whitespace-nowrap">
               Até R$ {maxPrice}
@@ -200,7 +198,7 @@ export default function App() {
         ) : (
           <div className="text-center py-20">
             <p className="text-xl text-gray-500">Nenhum produto encontrado com estes filtros.</p>
-            <button 
+            <button
               onClick={() => { setSelectedCategory('Todos'); setMaxPrice(200); }}
               className="mt-4 text-black font-medium underline underline-offset-4"
             >
