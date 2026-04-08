@@ -8,68 +8,68 @@ export type InventoryData = Record<string, Record<string, Record<string, number>
 export const blankInventory: InventoryData = {
   'Camiseta Streetwear': {
     'Off white': {
-      'P': 10,
-      'M': 8,
+      'P': 0,
+      'M': 4,
       'G': 5,
-      'GG': 0, // Esgotado para teste
+      'GG': 2,
     },
     'Preto': {
-      'P': 20,
-      'M': 15,
-      'G': 15,
-      'GG': 5,
+      'P': 3,
+      'M': 7,
+      'G': 8,
+      'GG': 2,
     },
     'Marrom escuro': {
-      'P': 5,
-      'M': 7,
-      'G': 2,
-      'GG': 1,
+      'P': 1,
+      'M': 3,
+      'G': 5,
+      'GG': 2,
     },
     'Verde militar': {
-      'P': 4,
-      'M': 6,
-      'G': 3,
+      'P': 0,
+      'M': 0,
+      'G': 0,
       'GG': 0,
     }
   },
   'Camiseta Oversize': {
     'Off white': {
-      'P': 12,
+      'P': 5,
       'M': 10,
-      'G': 5,
-      'GG': 3,
+      'G': 7,
+      'GG': 0,
     },
     'Preto': {
-      'P': 8,
-      'M': 12,
-      'G': 10,
-      'GG': 2,
+      'P': 5,
+      'M': 6,
+      'G': 3,
+      'GG': 1,
     },
     'Marrom escuro': {
-      'P': 3,
-      'M': 5,
-      'G': 4,
+      'P': 4,
+      'M': 4,
+      'G': 5,
       'GG': 0,
     },
     'Verde militar': {
-      'P': 2,
-      'M': 4,
-      'G': 1,
+      'P': 4,
+      'M': 6,
+      'G': 2,
       'GG': 0,
     },
     'Cinza': {
-      'P': 0, // Esgotado
-      'M': 8,
-      'G': 5,
-      'GG': 2,
+      'P': 6,
+      'M': 5,
+      'G': 0,
+      'GG': 0,
     }
   },
   'Meias': {
     'Preto': {
-      'Único': 50,
+      'Único': 13,
     },
     'Branco': {
-      'Único': 40,
+      'Único': 12,
     }
   }
 };
