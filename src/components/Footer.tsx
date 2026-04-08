@@ -1,0 +1,81 @@
+import { Instagram, MessageCircle, Mail } from 'lucide-react';
+
+export function Footer() {
+  return (
+    <footer className="bg-black text-white pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          {/* Brand/Logo */}
+          <div>
+            <span className="font-bold text-3xl tracking-tighter text-white block mb-4">
+              Ide.hub
+            </span>
+            <p className="text-gray-400 max-w-xs leading-relaxed">
+              Streetwear cristão premium. Vista sua fé com propósito e estilo.
+            </p>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Contato</h3>
+            <ul className="space-y-4">
+              <li>
+                <a 
+                  href="https://wa.me/5542999488235" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  (42) 99948-8235
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#" 
+                  className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                  @ide.hub
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="mailto:contato@idehub.com.br" 
+                  className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+                >
+                  <Mail className="w-5 h-5" />
+                  contato@idehub.com.br
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Informações</h3>
+            <ul className="space-y-3 text-gray-400">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
+                Pagamento via Pix, Cartão de Crédito e Débito
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
+                Enviamos para todo o Brasil
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full"></span>
+                Compra 100% segura
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+          <p>© {new Date().getFullYear()} Ide.hub. Todos os direitos reservados.</p>
+          <p>Feito com propósito.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
