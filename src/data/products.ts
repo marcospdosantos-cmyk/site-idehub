@@ -1,13 +1,19 @@
 export type Product = {
   id: string;
   name: string;
+  slug?: string;
   category: string;
   description: string;
+  fullDescription?: string | null;
   price: number;
+  promotionalPrice?: number | null;
+  featured?: boolean;
+  stock?: number | null;
   sizes?: string[];
   colors?: string[];
   isKit?: boolean;
   imageSeed: string;
+  image?: string | null;
   imagesByColor?: Record<string, string[]>;
 };
 

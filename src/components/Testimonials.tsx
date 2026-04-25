@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Star, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 
 const testimonials = [
   {
@@ -23,7 +23,7 @@ const testimonials = [
   {
     id: 4,
     name: 'Ana Julia',
-    text: 'As camisetas são incríveis! O caimento da oversize é exatamente o que eu procurava. A cor Off White é linda demais.',
+    text: 'As camisetas são incríveis! O caimento da oversize é exatamente o que eu procurava. A cor off-white é linda demais.',
     rating: 5,
   },
   {
@@ -35,7 +35,7 @@ const testimonials = [
   {
     id: 6,
     name: 'Sarah Lima',
-    text: 'Amei minha compra! O atendimento pelo WhatsApp foi super rápido e atencioso. As peças chegaram cheirosas e bem embaladas.',
+    text: 'Amei minha compra! O atendimento pelo WhatsApp foi super-rápido e atencioso. As peças chegaram cheirosas e bem embaladas.',
     rating: 5,
   },
 ];
@@ -66,14 +66,14 @@ export function Testimonials() {
             </p>
           </div>
           <div className="flex gap-2">
-            <button 
+            <button
               onClick={prev}
               className="p-3 rounded-none border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="Anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <button 
+            <button
               onClick={next}
               className="p-3 rounded-none border border-gray-200 hover:bg-gray-50 transition-colors"
               aria-label="Próximo"
@@ -88,9 +88,9 @@ export function Testimonials() {
             <div key={t.id} className="bg-gray-50 rounded-none p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all animate-in fade-in slide-in-from-right-4 duration-500">
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className={`w-5 h-5 ${i < t.rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`} 
+                  <Star
+                    key={i}
+                    className={`w-5 h-5 ${i < t.rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`}
                   />
                 ))}
               </div>
@@ -99,7 +99,7 @@ export function Testimonials() {
                 <div className="font-semibold text-gray-900">{t.name}</div>
                 <div className="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider">
                   <CheckCircle2 className="w-3 h-3" />
-                  Compra Verificada
+                  Compra verificada
                 </div>
               </div>
             </div>

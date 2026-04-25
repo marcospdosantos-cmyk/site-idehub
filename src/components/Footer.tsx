@@ -1,6 +1,15 @@
 import { Instagram, MessageCircle, Mail } from 'lucide-react';
+import { StoreSettings } from '../types';
+import { resolveLocalUrl } from '../lib/urls';
 
-export function Footer() {
+type FooterProps = {
+  settings: StoreSettings;
+};
+
+export function Footer({ settings }: FooterProps) {
+  const whatsappHref = `https://wa.me/${settings.whatsappNumber}`;
+  const logo = resolveLocalUrl(settings.logo) || 'image/logo-preta-transp.png';
+
   return (
     <footer className="bg-black text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -8,12 +17,12 @@ export function Footer() {
           {/* Brand/Logo */}
           <div>
             <img
-              src="/image/logo-preta-transp.png"
-              alt="Ide.hub"
+              src={logo}
+              alt={settings.storeName}
               className="h-12 w-auto object-contain invert brightness-0 mb-4"
             />
             <p className="text-gray-400 max-w-xs leading-relaxed">
-              Streetwear cristão premium. Vista sua fé com propósito e estilo.
+              {settings.footerText || 'Streetwear cristão premium. Vista sua fé com propósito e estilo.'}
             </p>
           </div>
 
@@ -23,13 +32,13 @@ export function Footer() {
             <ul className="space-y-4">
               <li>
                 <a 
-                  href="https://wa.me/5542999488235" 
+                  href={whatsappHref}
                   target="_blank" 
                   rel="noreferrer" 
                   className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  (42) 99948-8235
+                  {settings.whatsappNumber}
                 </a>
               </li>
               <li>
@@ -38,18 +47,18 @@ export function Footer() {
                   className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
-                  @ide.hub
+                  {settings.instagram || '@ide.hub'}
                 </a>
               </li>
-              <li>
+              {settings.email && <li>
                 <a 
-                  href="mailto:contato@idehub.com.br" 
+                  href={`mailto:${settings.email}`} 
                   className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
                 >
                   <Mail className="w-5 h-5" />
-                  contato@idehub.com.br
+                  {settings.email}
                 </a>
-              </li>
+              </li>}
             </ul>
           </div>
 
@@ -74,7 +83,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Ide.hub. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} {settings.storeName}. Todos os direitos reservados.</p>
           <p>Feito com propósito.</p>
         </div>
       </div>

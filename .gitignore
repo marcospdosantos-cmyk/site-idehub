@@ -6,3 +6,13 @@ coverage/
 *.log
 .env*
 !.env.example
+assets/uploads/*
+!assets/uploads/.gitkeep
+!assets/uploads/banners/
+!assets/uploads/banners/.gitkeep
+!assets/uploads/products/
+!assets/uploads/products/.gitkeep
+!assets/uploads/logo/
+!assets/uploads/logo/.gitkeep
+!assets/uploads/favicon/
+!assets/uploads/favicon/.gitkeep

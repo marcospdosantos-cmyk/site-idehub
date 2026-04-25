@@ -42,11 +42,11 @@ export function CartDrawer({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      <div 
+      <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
-      
+
       <div className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -55,7 +55,8 @@ export function CartDrawer({
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-900 transition-colors rounded-full hover:bg-gray-100"
+            className="min-h-11 min-w-11 cursor-pointer p-2 text-gray-400 hover:text-gray-900 transition-colors rounded-full hover:bg-gray-100"
+            aria-label="Fechar carrinho"
           >
             <X className="w-5 h-5" />
           </button>
@@ -66,7 +67,7 @@ export function CartDrawer({
             <div className="h-full flex flex-col items-center justify-center text-gray-500 space-y-4">
               <ShoppingBag className="w-12 h-12 opacity-20" />
               <p>Seu carrinho está vazio.</p>
-              <button 
+              <button
                 onClick={onContinueShopping}
                 className="text-black font-medium underline underline-offset-4"
               >
@@ -82,10 +83,12 @@ export function CartDrawer({
                       src={getCartItemImage(item)}
                       alt={item.product.name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  
+
                   <div className="flex-1 flex flex-col">
                     <div className="flex justify-between items-start">
                       <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 pr-4">
@@ -93,23 +96,25 @@ export function CartDrawer({
                       </h3>
                       <button
                         onClick={() => onRemove(item.id)}
-                        className="text-gray-400 hover:text-red-500 transition-colors"
+                        className="min-h-9 min-w-9 cursor-pointer text-gray-400 hover:text-red-500 transition-colors"
+                        aria-label={`Remover ${item.product.name}`}
                       >
                         <X className="w-4 h-4" />
                       </button>
                     </div>
-                    
+
                     <div className="text-xs text-gray-500 mt-1 space-y-0.5">
                       {item.selectedSize && <p>Tamanho: {item.selectedSize}</p>}
                       {item.selectedColor && <p>Cor: {item.selectedColor}</p>}
                       {item.kitNotes && <p className="line-clamp-1">Notas: {item.kitNotes}</p>}
                     </div>
-                    
+
                     <div className="mt-auto flex items-center justify-between">
                       <div className="flex items-center border border-gray-200 rounded-none">
                         <button
                           onClick={() => onUpdateQuantity(item.id, -1)}
-                          className="p-1.5 text-gray-500 hover:text-black transition-colors"
+                          className="min-h-11 min-w-11 cursor-pointer p-1.5 text-gray-500 hover:text-black transition-colors"
+                          aria-label={`Diminuir quantidade de ${item.product.name}`}
                         >
                           <Minus className="w-3 h-3" />
                         </button>
@@ -119,7 +124,8 @@ export function CartDrawer({
                         <button
                           onClick={() => onUpdateQuantity(item.id, 1)}
                           disabled={item.quantity >= getItemStock(item)}
-                          className="p-1.5 text-gray-500 hover:text-black transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+                          className="min-h-11 min-w-11 cursor-pointer p-1.5 text-gray-500 hover:text-black transition-colors disabled:cursor-not-allowed disabled:opacity-30"
+                          aria-label={`Aumentar quantidade de ${item.product.name}`}
                         >
                           <Plus className="w-3 h-3" />
                         </button>
@@ -130,7 +136,7 @@ export function CartDrawer({
                     </div>
                     {!item.product.isKit && (
                       <p className="mt-2 text-[11px] text-gray-500">
-                        Estoque disponivel: {getItemStock(item)}
+                        Estoque disponível: {getItemStock(item)}
                       </p>
                     )}
                   </div>
@@ -151,13 +157,13 @@ export function CartDrawer({
             <div className="flex flex-col gap-3">
               <button
                 onClick={onCheckout}
-                className="w-full py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95"
+                className="w-full min-h-12 cursor-pointer py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95"
               >
                 Finalizar Pedido
               </button>
               <button
                 onClick={onContinueShopping}
-                className="w-full py-3 border border-gray-300 text-gray-900 rounded-full font-semibold hover:bg-white transition-colors"
+                className="w-full min-h-11 cursor-pointer py-3 border border-gray-300 text-gray-900 rounded-full font-semibold hover:bg-white transition-colors"
               >
                 Continuar comprando
               </button>
