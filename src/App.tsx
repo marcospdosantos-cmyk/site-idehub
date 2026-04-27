@@ -32,8 +32,46 @@ const fallbackBanners: StoreBanner[] = [
   {
     id: 1,
     image: '/image/imgi_18.webp',
-    title: 'Oversized T-shirts - Tudo aqui aponta para Jesus',
-    subtitle: null,
+    eyebrow: 'Streetwear com propósito',
+    title: 'Vista a mensagem. Carregue a presença.',
+    subtitle:
+      'Camisetas premium para quem vive a fé no corre, na rua e no secreto. Design urbano, acabamento de qualidade e identidade cristã sem exagero.',
+    trustText: 'Peças limitadas por drop. Chame antes de esgotar.',
+    primaryCta: 'Comprar pelo WhatsApp',
+    secondaryCta: 'Ver coleção',
+    sideKicker: 'Drop ativo',
+    sideTitle: '3 caminhos para escolher sua próxima peça.',
+    sideText: 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.',
+    linkUrl: null,
+  },
+  {
+    id: 2,
+    image: '/image/Jesus Way Preto 1.webp',
+    eyebrow: 'Novo drop Ide.hub',
+    title: 'Fé no peito, estilo na rua.',
+    subtitle:
+      'Uma coleção criada para jovens que não se escondem: visual premium, frases com intenção e camisetas prontas para acompanhar sua rotina.',
+    trustText: 'Atendimento direto no WhatsApp e estoque limitado nesta coleção.',
+    primaryCta: 'Garantir minha camiseta',
+    secondaryCta: 'Falar com atendimento',
+    sideKicker: 'Drop ativo',
+    sideTitle: 'Escolha sua camiseta com calma e finalize direto no WhatsApp.',
+    sideText: 'A gente confirma modelo, tamanho e cor antes do pagamento.',
+    linkUrl: null,
+  },
+  {
+    id: 3,
+    image: '/image/Boas Novas 1.webp',
+    eyebrow: 'Criado para quem representa',
+    title: 'Sua roupa também pode anunciar.',
+    subtitle:
+      'Camisetas streetwear cristãs com presença, conforto e estética limpa. Para vestir bem sem diluir aquilo em que você acredita.',
+    trustText: 'Compra rápida pelo WhatsApp. Modelos selecionados com poucas unidades.',
+    primaryCta: 'Comprar agora no WhatsApp',
+    secondaryCta: 'Conhecer o drop',
+    sideKicker: 'Drop ativo',
+    sideTitle: '3 caminhos para escolher sua próxima peça.',
+    sideText: 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.',
     linkUrl: null,
   },
 ];
@@ -197,8 +235,6 @@ export default function App() {
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const isHome = selectedCategory === 'Todos';
-  const heroBanner = banners[0];
-  const heroImage = heroBanner ? resolveLocalUrl(heroBanner.image) || heroBanner.image : null;
 
   const scrollAfterRender = (targetRef: RefObject<HTMLDivElement | null>) => {
     window.setTimeout(() => {
@@ -220,54 +256,38 @@ export default function App() {
 
   const heroSlides = useMemo(() => {
     const firstCategory = categories[0] || 'Todos';
-    const fallbackHeroImage = heroImage || '/image/imgi_18.webp';
+    const sourceBanners = (banners.length ? banners : fallbackBanners).slice(0, 3);
 
-    return [
-      {
-        eyebrow: 'Streetwear com propósito',
-        headline: 'Vista a mensagem. Carregue a presença.',
-        subtitle:
-          'Camisetas premium para quem vive a fé no corre, na rua e no secreto. Design urbano, acabamento de qualidade e identidade cristã sem exagero.',
-        primaryCta: 'Comprar pelo WhatsApp',
-        secondaryCta: 'Ver coleção',
-        trust: 'Peças limitadas por drop. Chame antes de esgotar.',
-        image: fallbackHeroImage,
-        action: 'category',
-        secondaryAction: 'products',
+    return sourceBanners.map((banner, index) => {
+      const fallback = fallbackBanners[index] || fallbackBanners[0];
+
+      return {
+        eyebrow: banner.eyebrow || fallback.eyebrow || 'Streetwear com propósito',
+        headline: banner.title || fallback.title || 'Vista a mensagem. Carregue a presença.',
+        subtitle: banner.subtitle || fallback.subtitle || '',
+        primaryCta: banner.primaryCta || fallback.primaryCta || 'Comprar pelo WhatsApp',
+        secondaryCta: banner.secondaryCta || fallback.secondaryCta || 'Ver coleção',
+        trust: banner.trustText || fallback.trustText || 'Peças limitadas por drop. Chame antes de esgotar.',
+        sideKicker: banner.sideKicker || fallback.sideKicker || 'Drop ativo',
+        sideTitle: banner.sideTitle || fallback.sideTitle || '3 caminhos para escolher sua próxima peça.',
+        sideText: banner.sideText || fallback.sideText || 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.',
+        image: resolveLocalUrl(banner.image) || resolveLocalUrl(fallback.image) || '/image/imgi_18.webp',
+        linkUrl: banner.linkUrl,
+        action: banner.linkUrl ? 'link' : 'category',
+        secondaryAction: index === 1 ? 'whatsapp' : 'products',
         category: firstCategory,
-      },
-      {
-        eyebrow: 'Novo drop Ide.hub',
-        headline: 'Fé no peito, estilo na rua.',
-        subtitle:
-          'Uma coleção criada para jovens que não se escondem: visual premium, frases com intenção e camisetas prontas para acompanhar sua rotina.',
-        primaryCta: 'Garantir minha camiseta',
-        secondaryCta: 'Falar com atendimento',
-        trust: 'Atendimento direto no WhatsApp e estoque limitado nesta coleção.',
-        image: resolveLocalUrl('/image/Jesus Way Preto 1.webp') || fallbackHeroImage,
-        action: 'category',
-        secondaryAction: 'whatsapp',
-        category: firstCategory,
-      },
-      {
-        eyebrow: 'Criado para quem representa',
-        headline: 'Sua roupa também pode anunciar.',
-        subtitle:
-          'Camisetas streetwear cristãs com presença, conforto e estética limpa. Para vestir bem sem diluir aquilo em que você acredita.',
-        primaryCta: 'Comprar agora no WhatsApp',
-        secondaryCta: 'Conhecer o drop',
-        trust: 'Compra rápida pelo WhatsApp. Modelos selecionados com poucas unidades.',
-        image: resolveLocalUrl('/image/Boas Novas 1.webp') || fallbackHeroImage,
-        action: 'category',
-        secondaryAction: 'products',
-        category: firstCategory,
-      },
-    ];
-  }, [categories, heroImage]);
+      };
+    });
+  }, [banners, categories]);
 
   const currentHeroSlide = heroSlides[activeHeroSlide] || heroSlides[0];
 
-  const handleHeroAction = (action: string, category?: string) => {
+  const handleHeroAction = (action: string, category?: string, linkUrl?: string | null) => {
+    if (action === 'link' && linkUrl) {
+      window.open(linkUrl, '_blank');
+      return;
+    }
+
     if (action === 'whatsapp') {
       window.open(`https://wa.me/${settings.whatsappNumber}`, '_blank');
       return;
@@ -305,6 +325,12 @@ export default function App() {
 
     return () => window.clearInterval(timer);
   }, [heroSlides.length, isHome]);
+
+  useEffect(() => {
+    if (activeHeroSlide >= heroSlides.length) {
+      setActiveHeroSlide(0);
+    }
+  }, [activeHeroSlide, heroSlides.length]);
 
   useEffect(() => {
     if (!cartFeedback) return;
@@ -419,7 +445,7 @@ export default function App() {
               </span>
             </div>
 
-            <section className="relative mb-8 overflow-hidden border border-black bg-black text-white shadow-2xl shadow-black/20">
+            <section className="relative mb-8 h-[680px] overflow-hidden border border-black bg-black text-white shadow-2xl shadow-black/20 sm:h-[640px] lg:h-[560px]">
               <div className="absolute inset-0 opacity-70">
                 <img
                   src={currentHeroSlide.image}
@@ -430,29 +456,29 @@ export default function App() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.32),transparent_32%),radial-gradient(circle_at_82%_70%,rgba(255,255,255,0.12),transparent_28%)]" />
               </div>
 
-              <div className="relative grid min-h-[560px] lg:grid-cols-[1fr_0.72fr]">
-                <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-14">
-                  <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-orange-300/30 bg-orange-500/15 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-orange-100">
+              <div className="relative grid h-full lg:grid-cols-[1fr_0.72fr]">
+                <div className="flex min-h-0 flex-col justify-center px-6 py-8 sm:px-10 lg:px-14">
+                  <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-orange-300/30 bg-orange-500/15 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-orange-100">
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
                     {currentHeroSlide.eyebrow}
                   </div>
 
-                  <h1 className="max-w-3xl text-4xl font-black leading-[0.92] tracking-tight sm:text-6xl lg:text-7xl">
+                  <h1 className="max-w-3xl text-4xl font-black leading-[0.94] tracking-tight sm:text-5xl lg:text-6xl">
                     {currentHeroSlide.headline}
                   </h1>
-                  <p className="mt-6 max-w-2xl text-base leading-7 text-gray-200 sm:text-lg">
+                  <p className="mt-5 max-w-2xl text-base leading-7 text-gray-200 lg:text-lg">
                     {currentHeroSlide.subtitle}
                   </p>
 
-                  <div className="mt-6 flex max-w-xl items-start gap-3 border-l-4 border-orange-500 bg-white/8 px-4 py-3 text-sm font-semibold text-orange-50 backdrop-blur">
+                  <div className="mt-5 flex max-w-xl items-start gap-3 border-l-4 border-orange-500 bg-white/8 px-4 py-3 text-sm font-semibold text-orange-50 backdrop-blur">
                     <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-400" aria-hidden="true" />
                     <span>{currentHeroSlide.trust}</span>
                   </div>
 
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                     <button
                       type="button"
-                      onClick={() => handleHeroAction(currentHeroSlide.action, currentHeroSlide.category)}
+                      onClick={() => handleHeroAction(currentHeroSlide.action, currentHeroSlide.category, currentHeroSlide.linkUrl)}
                       className="group inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-orange-500 px-7 text-sm font-black uppercase tracking-wide text-white shadow-lg shadow-orange-500/30 transition-all hover:-translate-y-0.5 hover:bg-orange-600"
                     >
                       {currentHeroSlide.primaryCta}
@@ -467,7 +493,7 @@ export default function App() {
                     </button>
                   </div>
 
-                  <div className="mt-8 flex items-center gap-3">
+                  <div className="mt-7 flex items-center gap-3">
                     <button
                       type="button"
                       onClick={() => setActiveHeroSlide((slide) => (slide - 1 + heroSlides.length) % heroSlides.length)}
@@ -500,11 +526,11 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="hidden items-end justify-end p-8 lg:flex">
+                <div className="hidden items-center justify-end p-8 lg:flex">
                   <div className="max-w-xs border border-white/15 bg-black/45 p-5 backdrop-blur-md">
-                    <p className="text-xs font-black uppercase tracking-[0.22em] text-orange-200">Drop ativo</p>
-                    <p className="mt-3 text-2xl font-black leading-tight">3 caminhos para escolher sua próxima peça.</p>
-                    <p className="mt-3 text-sm leading-6 text-gray-300">Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.</p>
+                    <p className="text-xs font-black uppercase tracking-[0.22em] text-orange-200">{currentHeroSlide.sideKicker}</p>
+                    <p className="mt-3 text-xl font-black leading-tight xl:text-2xl">{currentHeroSlide.sideTitle}</p>
+                    <p className="mt-3 text-sm leading-6 text-gray-300">{currentHeroSlide.sideText}</p>
                   </div>
                 </div>
               </div>

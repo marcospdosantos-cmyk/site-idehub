@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/app.php';
 
-const DB_HOST = 'localhost';
+const DB_HOST = '127.0.0.1';
 const DB_NAME = 'idehub_ecommerce';
 const DB_USER = 'root';
 const DB_PASS = '';
@@ -28,4 +28,3 @@ function db(): PDO
 
     return $pdo;
 }
-

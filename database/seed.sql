@@ -34,8 +34,11 @@ INSERT INTO settings (
   '@ide.hub'
 ) ON DUPLICATE KEY UPDATE id = id;
 
-INSERT INTO banners (image_path, title, subtitle, link_url, display_order, active)
-VALUES ('/image/imgi_18.webp', 'Tudo aqui aponta para Jesus', 'Oversized T-shirts', NULL, 1, 1);
+INSERT INTO banners (image_path, eyebrow, title, subtitle, trust_text, primary_cta, secondary_cta, side_kicker, side_title, side_text, link_url, display_order, active)
+VALUES
+('/image/imgi_18.webp', 'Streetwear com propósito', 'Vista a mensagem. Carregue a presença.', 'Camisetas premium para quem vive a fé no corre, na rua e no secreto. Design urbano, acabamento de qualidade e identidade cristã sem exagero.', 'Peças limitadas por drop. Chame antes de esgotar.', 'Comprar pelo WhatsApp', 'Ver coleção', 'Drop ativo', '3 caminhos para escolher sua próxima peça.', 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.', NULL, 1, 1),
+('/image/Jesus Way Preto 1.webp', 'Novo drop Ide.hub', 'Fé no peito, estilo na rua.', 'Uma coleção criada para jovens que não se escondem: visual premium, frases com intenção e camisetas prontas para acompanhar sua rotina.', 'Atendimento direto no WhatsApp e estoque limitado nesta coleção.', 'Garantir minha camiseta', 'Falar com atendimento', 'Drop ativo', 'Escolha sua camiseta com calma e finalize direto no WhatsApp.', 'A gente confirma modelo, tamanho e cor antes do pagamento.', NULL, 2, 1),
+('/image/Boas Novas 1.webp', 'Criado para quem representa', 'Sua roupa também pode anunciar.', 'Camisetas streetwear cristãs com presença, conforto e estética limpa. Para vestir bem sem diluir aquilo em que você acredita.', 'Compra rápida pelo WhatsApp. Modelos selecionados com poucas unidades.', 'Comprar agora no WhatsApp', 'Conhecer o drop', 'Drop ativo', '3 caminhos para escolher sua próxima peça.', 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.', NULL, 3, 1);
 
 INSERT INTO categories (name, slug, display_order, active) VALUES
 ('Camiseta Streetwear', 'camiseta-streetwear', 1, 1),

@@ -33,7 +33,14 @@ export type StoreSettings = {
 export type StoreBanner = {
   id: number;
   image: string;
+  eyebrow: string | null;
   title: string | null;
   subtitle: string | null;
+  trustText: string | null;
+  primaryCta: string | null;
+  secondaryCta: string | null;
+  sideKicker: string | null;
+  sideTitle: string | null;
+  sideText: string | null;
   linkUrl: string | null;
 };

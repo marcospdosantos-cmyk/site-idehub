@@ -16,13 +16,21 @@ try {
         'slug' => $category['slug'],
     ], Category::all(true));
 
+    Banner::syncDefaultHeroBanners();
     $banners = array_map(static fn(array $banner): array => [
         'id' => (int) $banner['id'],
         'image' => upload_url($banner['image_path']),
+        'eyebrow' => $banner['eyebrow'],
         'title' => $banner['title'],
         'subtitle' => $banner['subtitle'],
+        'trustText' => $banner['trust_text'],
+        'primaryCta' => $banner['primary_cta'],
+        'secondaryCta' => $banner['secondary_cta'],
+        'sideKicker' => $banner['side_kicker'],
+        'sideTitle' => $banner['side_title'],
+        'sideText' => $banner['side_text'],
         'linkUrl' => $banner['link_url'],
-    ], Banner::all(true));
+    ], Banner::all(true, 3));
 
     $products = array_map(static function (array $product): array {
         $image = upload_url($product['image_path']);

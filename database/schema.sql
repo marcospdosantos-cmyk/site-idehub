@@ -31,8 +31,15 @@ CREATE TABLE IF NOT EXISTS settings (
 CREATE TABLE IF NOT EXISTS banners (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   image_path VARCHAR(255) NOT NULL,
+  eyebrow VARCHAR(120) NULL,
   title VARCHAR(160) NULL,
   subtitle VARCHAR(255) NULL,
+  trust_text VARCHAR(255) NULL,
+  primary_cta VARCHAR(80) NULL,
+  secondary_cta VARCHAR(80) NULL,
+  side_kicker VARCHAR(80) NULL,
+  side_title VARCHAR(160) NULL,
+  side_text VARCHAR(255) NULL,
   link_url VARCHAR(255) NULL,
   display_order INT NOT NULL DEFAULT 0,
   active TINYINT(1) NOT NULL DEFAULT 1,
@@ -105,4 +112,3 @@ CREATE TABLE IF NOT EXISTS order_items (
   CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   CONSTRAINT fk_order_items_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
