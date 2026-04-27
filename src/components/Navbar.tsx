@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, ShoppingBag, X } from 'lucide-react';
 import { resolveLocalUrl } from '../lib/urls';
 
@@ -24,7 +24,13 @@ export function Navbar({
   storeName,
 }: NavbarProps) {
   const resolvedLogo = resolveLocalUrl(logo);
+  const shouldInvertLogo = Boolean(resolvedLogo?.includes('logo-preta-transp'));
+  const [hasLogoError, setHasLogoError] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setHasLogoError(false);
+  }, [resolvedLogo]);
 
   const handleSelectCategory = (category: string) => {
     onSelectCategory(category);
@@ -47,11 +53,12 @@ export function Navbar({
               className="cursor-pointer"
               aria-label="Ide.hub"
             >
-              {resolvedLogo ? (
+              {resolvedLogo && !hasLogoError ? (
                 <img
                   src={resolvedLogo}
                   alt={storeName}
-                  className="h-14 w-auto object-contain"
+                  onError={() => setHasLogoError(true)}
+                  className={`h-14 w-auto max-w-32 object-contain ${shouldInvertLogo ? 'brightness-0 invert' : ''}`}
                 />
               ) : (
                 <span className="text-xl font-black tracking-tight text-white">{storeName}</span>
