@@ -53,6 +53,12 @@ require __DIR__ . '/../includes/layout/header.php';
 
 <form class="card" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
+    <div class="card-header">
+        <div>
+            <h2 class="section-title">Identidade da loja</h2>
+            <p class="muted">Essas informações aparecem no site, no rodapé e nos contatos da marca.</p>
+        </div>
+    </div>
     <div class="grid grid-2">
         <div class="form-row">
             <label>Nome da loja</label>
@@ -61,6 +67,7 @@ require __DIR__ . '/../includes/layout/header.php';
         <div class="form-row">
             <label>WhatsApp com DDI e DDD</label>
             <input name="whatsapp_number" required value="<?= e($settings['whatsapp_number']) ?>">
+            <p class="field-hint">Exemplo: 5542999999999</p>
         </div>
     </div>
     <div class="grid grid-2">

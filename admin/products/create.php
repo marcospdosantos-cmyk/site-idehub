@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Novo produto';
+$pageSubtitle = 'Cadastre um item com imagem, preço, descrição e variações.';
 require __DIR__ . '/../../includes/layout/header.php';
 require __DIR__ . '/form.php';
 require __DIR__ . '/../../includes/layout/footer.php';

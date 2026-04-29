@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight, Flame, MessageCircle, ShieldCheck, Sparkles, Truck } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Flame, MessageCircle, PackageCheck, ShieldCheck, Sparkles, Truck } from 'lucide-react';
 import { products as fallbackProducts, categories as fallbackCategories, Product } from './data/products';
 import { CartItem, CheckoutData, StoreBanner, StoreSettings } from './types';
 import { Navbar } from './components/Navbar';
@@ -32,49 +32,114 @@ const fallbackBanners: StoreBanner[] = [
   {
     id: 1,
     image: '/image/imgi_18.webp',
-    eyebrow: 'Streetwear com propósito',
+    eyebrow: 'Vista sua fé.',
     title: 'Vista a mensagem. Carregue a presença.',
     subtitle:
-      'Camisetas premium para quem vive a fé no corre, na rua e no secreto. Design urbano, acabamento de qualidade e identidade cristã sem exagero.',
-    trustText: 'Peças limitadas por drop. Chame antes de esgotar.',
+      'Camisetas cristãs para quem quer representar Jesus com estilo, verdade e atitude no dia a dia.',
+    trustText: 'Peças limitadas. Chame antes que esgote!',
     primaryCta: 'Comprar pelo WhatsApp',
     secondaryCta: 'Ver coleção',
-    sideKicker: 'Drop ativo',
-    sideTitle: '3 caminhos para escolher sua próxima peça.',
-    sideText: 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.',
+    sideKicker: 'Coleção ativa',
+    sideTitle: 'Fé, identidade e estilo na mesma peça.',
+    sideText: 'Escolha sua camiseta, confirme os detalhes e finalize com atendimento direto.',
     linkUrl: null,
   },
   {
     id: 2,
     image: '/image/Jesus Way Preto 1.webp',
-    eyebrow: 'Novo drop Ide.hub',
-    title: 'Fé no peito, estilo na rua.',
+    eyebrow: 'Coleção Ide.hub',
+    title: 'Jesus no centro.',
     subtitle:
-      'Uma coleção criada para jovens que não se escondem: visual premium, frases com intenção e camisetas prontas para acompanhar sua rotina.',
-    trustText: 'Atendimento direto no WhatsApp e estoque limitado nesta coleção.',
-    primaryCta: 'Garantir minha camiseta',
-    secondaryCta: 'Falar com atendimento',
-    sideKicker: 'Drop ativo',
-    sideTitle: 'Escolha sua camiseta com calma e finalize direto no WhatsApp.',
-    sideText: 'A gente confirma modelo, tamanho e cor antes do pagamento.',
+      'Peças para jovens cristãos que querem se vestir bem sem esconder aquilo em que acreditam.',
+    trustText: 'Compra simples, conversa direta e confirmação antes do pagamento.',
+    primaryCta: 'Escolher minha camiseta',
+    secondaryCta: 'Tirar dúvidas',
+    sideKicker: 'Coleção ativa',
+    sideTitle: 'Escolha com calma. A gente te ajuda no WhatsApp.',
+    sideText: 'Antes de finalizar, confirmamos modelo, tamanho, cor e disponibilidade.',
     linkUrl: null,
   },
   {
     id: 3,
     image: '/image/Boas Novas 1.webp',
-    eyebrow: 'Criado para quem representa',
-    title: 'Sua roupa também pode anunciar.',
+    eyebrow: 'Para quem quer representar Jesus com estilo.',
+    title: 'Mostre o que te move.',
     subtitle:
-      'Camisetas streetwear cristãs com presença, conforto e estética limpa. Para vestir bem sem diluir aquilo em que você acredita.',
-    trustText: 'Compra rápida pelo WhatsApp. Modelos selecionados com poucas unidades.',
-    primaryCta: 'Comprar agora no WhatsApp',
-    secondaryCta: 'Conhecer o drop',
-    sideKicker: 'Drop ativo',
-    sideTitle: '3 caminhos para escolher sua próxima peça.',
-    sideText: 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.',
+      'Roupas cristãs com visual urbano, mensagens fortes e acabamento pensado para a rotina.',
+    trustText: 'Atendimento humanizado para você comprar com segurança e sem complicação.',
+    primaryCta: 'Chamar no WhatsApp',
+    secondaryCta: 'Conhecer a coleção',
+    sideKicker: 'Coleção ativa',
+    sideTitle: 'Estilo que aponta para Cristo.',
+    sideText: 'Navegue pelas peças e escolha a que combina com seu estilo e caminhada.',
     linkUrl: null,
   },
 ];
+
+const legacyCopyReplacements: Record<string, string> = {
+  'Streetwear com propósito': 'Vista sua fé.',
+  'Peças limitadas por drop. Chame antes de esgotar.': 'Peças limitadas. Chame antes que esgote!',
+  'Novo drop Ide.hub': 'Coleção Ide.hub',
+  'Fé no peito, estilo na rua.': 'Jesus no centro.',
+  'Uma coleção criada para jovens que não se escondem: visual premium, frases com intenção e camisetas prontas para acompanhar sua rotina.':
+    'Peças para jovens cristãos que querem se vestir bem sem esconder aquilo em que acreditam.',
+  'Atendimento direto no WhatsApp e estoque limitado nesta coleção.': 'Compra simples, conversa direta e confirmação antes do pagamento.',
+  'Garantir minha camiseta': 'Escolher minha camiseta',
+  'Falar com atendimento': 'Tirar dúvidas',
+  'Drop ativo': 'Coleção ativa',
+  'Escolha sua camiseta com calma e finalize direto no WhatsApp.': 'Escolha com calma. A gente te ajuda no WhatsApp.',
+  'Criado para quem representa': 'Para quem quer representar Jesus com estilo.',
+  'Sua roupa também pode anunciar.': 'Mostre o que te move.',
+  'Camisetas streetwear cristãs com presença, conforto e estética limpa. Para vestir bem sem diluir aquilo em que você acredita.':
+    'Roupas cristãs com visual urbano, mensagens fortes e acabamento pensado para a rotina.',
+  'Compra rápida pelo WhatsApp. Modelos selecionados com poucas unidades.':
+    'Atendimento humanizado para você comprar com segurança e sem complicação.',
+  'Comprar agora no WhatsApp': 'Chamar no WhatsApp',
+  'Conhecer o drop': 'Conhecer a coleção',
+  '3 caminhos para escolher sua próxima peça.': 'Fé, identidade e estilo na mesma peça.',
+  'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.':
+    'Escolha sua camiseta, confirme os detalhes e finalize com atendimento direto.',
+};
+
+const displayCopy = (value: string) => legacyCopyReplacements[value] || value;
+
+const getAvailableColors = (product: Product) => {
+  if (product.isKit) return product.colors || [];
+
+  const categoryInventory = blankInventory[product.category];
+  const colors = product.colors || (categoryInventory ? Object.keys(categoryInventory) : []);
+
+  if (!categoryInventory) return colors;
+
+  return colors.filter((color) => {
+    const sizeStock = categoryInventory[color];
+    return sizeStock && Object.values(sizeStock).some((stock) => stock > 0);
+  });
+};
+
+const getAvailableSizes = (product: Product, selectedColor?: string) => {
+  if (product.isKit) return product.sizes || [];
+
+  const categoryInventory = blankInventory[product.category];
+  const baseSizes = product.sizes || [];
+
+  if (!categoryInventory) return baseSizes;
+
+  const colors = selectedColor ? [selectedColor] : getAvailableColors(product);
+  const inventorySizes = Array.from(
+    new Set(
+      colors.flatMap((color) =>
+        Object.entries(categoryInventory[color] || {})
+          .filter(([, stock]) => stock > 0)
+          .map(([size]) => size)
+      )
+    )
+  );
+
+  if (!baseSizes.length) return inventorySizes;
+
+  return baseSizes.filter((size) => inventorySizes.includes(size));
+};
 
 const getHydratedCart = (availableProducts: Product[]): CartItem[] => {
   if (typeof window === 'undefined') return [];
@@ -133,15 +198,46 @@ export default function App() {
 
   // Filters
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [selectedColor, setSelectedColor] = useState<string>('Todas');
+  const [selectedSize, setSelectedSize] = useState<string>('Todos');
   const [maxPrice, setMaxPrice] = useState<number>(200);
+
+  const availableFilterColors = useMemo(() => {
+    const colors = new Set<string>();
+    products.forEach((product) => {
+      getAvailableColors(product).forEach((color) => colors.add(color));
+    });
+
+    return Array.from(colors).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  }, [products]);
+
+  const availableFilterSizes = useMemo(() => {
+    const sizeOrder = ['P', 'M', 'G', 'GG', 'Único'];
+    const sizes = new Set<string>();
+    products.forEach((product) => {
+      getAvailableSizes(product).forEach((size) => sizes.add(size));
+    });
+
+    return Array.from(sizes).sort((a, b) => {
+      const aIndex = sizeOrder.indexOf(a);
+      const bIndex = sizeOrder.indexOf(b);
+
+      if (aIndex === -1 && bIndex === -1) return a.localeCompare(b, 'pt-BR');
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
+  }, [products]);
 
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
       const matchCategory = selectedCategory === 'Todos' || p.category === selectedCategory;
+      const matchColor = selectedColor === 'Todas' || getAvailableColors(p).includes(selectedColor);
+      const matchSize = selectedSize === 'Todos' || getAvailableSizes(p, selectedColor === 'Todas' ? undefined : selectedColor).includes(selectedSize);
       const matchPrice = p.price <= maxPrice;
-      return matchCategory && matchPrice;
+      return matchCategory && matchColor && matchSize && matchPrice;
     });
-  }, [selectedCategory, maxPrice]);
+  }, [products, selectedCategory, selectedColor, selectedSize, maxPrice]);
 
   const groupedProducts = useMemo(() => {
     const groups: Record<string, Product[]> = {};
@@ -244,6 +340,9 @@ export default function App() {
 
   const handleGoToStart = () => {
     setSelectedCategory('Todos');
+    setSelectedColor('Todas');
+    setSelectedSize('Todos');
+    setMaxPrice(200);
     setSelectedProduct(null);
     scrollAfterRender(bannerSectionRef);
   };
@@ -262,15 +361,15 @@ export default function App() {
       const fallback = fallbackBanners[index] || fallbackBanners[0];
 
       return {
-        eyebrow: banner.eyebrow || fallback.eyebrow || 'Streetwear com propósito',
-        headline: banner.title || fallback.title || 'Vista a mensagem. Carregue a presença.',
-        subtitle: banner.subtitle || fallback.subtitle || '',
-        primaryCta: banner.primaryCta || fallback.primaryCta || 'Comprar pelo WhatsApp',
-        secondaryCta: banner.secondaryCta || fallback.secondaryCta || 'Ver coleção',
-        trust: banner.trustText || fallback.trustText || 'Peças limitadas por drop. Chame antes de esgotar.',
-        sideKicker: banner.sideKicker || fallback.sideKicker || 'Drop ativo',
-        sideTitle: banner.sideTitle || fallback.sideTitle || '3 caminhos para escolher sua próxima peça.',
-        sideText: banner.sideText || fallback.sideText || 'Clique, filtre a coleção e finalize pelo WhatsApp com atendimento direto.',
+        eyebrow: displayCopy(banner.eyebrow || fallback.eyebrow || 'Vista sua fé.'),
+        headline: displayCopy(banner.title || fallback.title || 'Vista a mensagem. Carregue a presença.'),
+        subtitle: displayCopy(banner.subtitle || fallback.subtitle || ''),
+        primaryCta: displayCopy(banner.primaryCta || fallback.primaryCta || 'Comprar pelo WhatsApp'),
+        secondaryCta: displayCopy(banner.secondaryCta || fallback.secondaryCta || 'Ver coleção'),
+        trust: displayCopy(banner.trustText || fallback.trustText || 'Peças limitadas. Chame antes que esgote!'),
+        sideKicker: displayCopy(banner.sideKicker || fallback.sideKicker || 'Coleção ativa'),
+        sideTitle: displayCopy(banner.sideTitle || fallback.sideTitle || 'Fé, identidade e estilo na mesma peça.'),
+        sideText: displayCopy(banner.sideText || fallback.sideText || 'Escolha sua camiseta, confirme os detalhes e finalize com atendimento direto.'),
         image: resolveLocalUrl(banner.image) || resolveLocalUrl(fallback.image) || '/image/imgi_18.webp',
         linkUrl: banner.linkUrl,
         action: banner.linkUrl ? 'link' : 'category',
@@ -281,6 +380,25 @@ export default function App() {
   }, [banners, categories]);
 
   const currentHeroSlide = heroSlides[activeHeroSlide] || heroSlides[0];
+  const heroHeadlineParts = useMemo(() => {
+    const headline = currentHeroSlide?.headline || '';
+    const highlightedHeadlines: Record<string, { primary: string; accent: string }> = {
+      'Jesus no centro.': { primary: 'Jesus no', accent: 'centro.' },
+      'Mostre o que te move.': { primary: 'Mostre o que te', accent: 'move.' },
+    };
+
+    if (highlightedHeadlines[headline]) {
+      return highlightedHeadlines[headline];
+    }
+
+    const match = headline.match(/^(.+?\.)\s+(.+)$/);
+
+    if (!match) {
+      return { primary: headline, accent: '' };
+    }
+
+    return { primary: match[1], accent: match[2] };
+  }, [currentHeroSlide?.headline]);
 
   const handleHeroAction = (action: string, category?: string, linkUrl?: string | null) => {
     if (action === 'link' && linkUrl) {
@@ -419,7 +537,7 @@ export default function App() {
   }, [pendingWhatsappConfirmation, whatsappOpenedAt]);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] font-sans text-gray-900">
+    <div className="min-h-screen bg-[#f6f1e8] font-sans text-stone-950">
       <Navbar
         cartItemCount={cartItemCount}
         onOpenCart={() => setIsCartOpen(true)}
@@ -431,55 +549,44 @@ export default function App() {
         storeName={settings.storeName}
       />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main>
         {isHome && (
           <div ref={bannerSectionRef} className="scroll-mt-24">
-            <div className="mb-6 flex flex-wrap items-center justify-center gap-3 bg-orange-600 px-4 py-3 text-white">
-              <Flame className="h-5 w-5" aria-hidden="true" />
-              <span className="text-sm font-black uppercase tracking-[0.18em] sm:text-base">
-                Queima de estoque
-              </span>
-              <span className="hidden h-5 w-px bg-white/30 sm:block" aria-hidden="true" />
-              <span className="text-center text-xs font-semibold uppercase tracking-wider sm:text-sm">
-                Últimas unidades com descontos agressivos
-              </span>
-            </div>
-
-            <section className="relative mb-8 h-[680px] overflow-hidden border border-black bg-black text-white shadow-2xl shadow-black/20 sm:h-[640px] lg:h-[560px]">
-              <div className="absolute inset-0 opacity-70">
+            <section className="relative min-h-[100dvh] overflow-hidden bg-[#100f0d] text-white">
+              <div className="absolute inset-0 opacity-78">
                 <img
                   src={currentHeroSlide.image}
                   alt={currentHeroSlide.headline}
                   className="h-full w-full object-cover transition-opacity duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/78 to-black/20" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.32),transparent_32%),radial-gradient(circle_at_82%_70%,rgba(255,255,255,0.12),transparent_28%)]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/72 to-black/20" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_74%,rgba(217,108,39,0.32),transparent_30rem)]" />
               </div>
 
-              <div className="relative grid h-full lg:grid-cols-[1fr_0.72fr]">
-                <div className="flex min-h-0 flex-col justify-center px-6 py-8 sm:px-10 lg:px-14">
-                  <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-orange-300/30 bg-orange-500/15 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-orange-100">
+              <div className="relative mx-auto flex min-h-[100dvh] max-w-7xl flex-col justify-end px-4 pb-10 pt-28 sm:px-6 sm:pb-14 lg:px-8">
+                <div className="max-w-5xl">
+                  <div className="mb-5 inline-flex max-w-full w-fit items-center gap-2 rounded-full border border-white/18 bg-white/10 px-3 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-orange-100 backdrop-blur-md sm:px-4 sm:text-xs sm:tracking-[0.22em]">
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
-                    {currentHeroSlide.eyebrow}
+                    <span className="truncate">{currentHeroSlide.eyebrow}</span>
                   </div>
 
-                  <h1 className="max-w-3xl text-4xl font-black leading-[0.94] tracking-tight sm:text-5xl lg:text-6xl">
-                    {currentHeroSlide.headline}
+                  <h1 className="max-w-5xl text-[clamp(2.55rem,13vw,8.3rem)] font-black leading-[0.9] tracking-normal break-normal hyphens-none sm:text-[clamp(2.9rem,8vw,8.3rem)]">
+                    <span className="block">{heroHeadlineParts.primary}</span>
+                    {heroHeadlineParts.accent && (
+                      <span className="font-display mt-1 block text-[clamp(3.1rem,15vw,9.6rem)] italic text-[#f3c27d] sm:text-[clamp(3.6rem,10vw,9.6rem)]">
+                        {heroHeadlineParts.accent}
+                      </span>
+                    )}
                   </h1>
-                  <p className="mt-5 max-w-2xl text-base leading-7 text-gray-200 lg:text-lg">
+                  <p className="mt-6 max-w-2xl text-base leading-7 text-stone-200 sm:text-lg">
                     {currentHeroSlide.subtitle}
                   </p>
 
-                  <div className="mt-5 flex max-w-xl items-start gap-3 border-l-4 border-orange-500 bg-white/8 px-4 py-3 text-sm font-semibold text-orange-50 backdrop-blur">
-                    <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-orange-400" aria-hidden="true" />
-                    <span>{currentHeroSlide.trust}</span>
-                  </div>
-
-                  <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                     <button
                       type="button"
                       onClick={() => handleHeroAction(currentHeroSlide.action, currentHeroSlide.category, currentHeroSlide.linkUrl)}
-                      className="group inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full bg-orange-500 px-7 text-sm font-black uppercase tracking-wide text-white shadow-lg shadow-orange-500/30 transition-all hover:-translate-y-0.5 hover:bg-orange-600"
+                      className="magnetic-button group inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#d96c27] px-5 text-center text-xs font-black uppercase tracking-wide text-white shadow-2xl shadow-orange-950/30 hover:bg-[#f07a2c] sm:px-7 sm:text-sm"
                     >
                       {currentHeroSlide.primaryCta}
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -487,17 +594,30 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handleHeroAction(currentHeroSlide.secondaryAction)}
-                      className="min-h-12 cursor-pointer rounded-full border border-white/25 px-7 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-white hover:text-black"
+                      className="magnetic-button min-h-13 cursor-pointer rounded-full border border-white/25 bg-white/8 px-5 text-center text-xs font-bold uppercase tracking-wide text-white backdrop-blur-md hover:bg-white hover:text-black sm:px-7 sm:text-sm"
                     >
                       {currentHeroSlide.secondaryCta}
                     </button>
                   </div>
 
-                  <div className="mt-7 flex items-center gap-3">
+                  <div className="mt-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                    <div className="flex max-w-xl items-start gap-3 border-l-4 border-[#d96c27] bg-white/8 px-4 py-3 text-sm font-semibold text-orange-50 backdrop-blur">
+                      <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#f3c27d]" aria-hidden="true" />
+                      <span>{currentHeroSlide.trust}</span>
+                    </div>
+
+                    <div className="hidden max-w-sm rounded-[2rem] border border-white/15 bg-black/32 p-5 shadow-2xl shadow-black/20 backdrop-blur-md lg:block">
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-orange-200">{currentHeroSlide.sideKicker}</p>
+                      <p className="mt-3 text-2xl font-black leading-tight">{currentHeroSlide.sideTitle}</p>
+                      <p className="mt-3 text-sm leading-6 text-stone-300">{currentHeroSlide.sideText}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 flex items-center gap-3">
                     <button
                       type="button"
                       onClick={() => setActiveHeroSlide((slide) => (slide - 1 + heroSlides.length) % heroSlides.length)}
-                      className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white hover:text-black"
+                      className="magnetic-button inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 text-white hover:bg-white hover:text-black"
                       aria-label="Slide anterior"
                     >
                       <ChevronLeft className="h-5 w-5" />
@@ -509,7 +629,7 @@ export default function App() {
                           type="button"
                           onClick={() => setActiveHeroSlide(index)}
                           className={`h-2.5 rounded-full transition-all ${
-                            activeHeroSlide === index ? 'w-9 bg-orange-500' : 'w-2.5 bg-white/35 hover:bg-white/70'
+                            activeHeroSlide === index ? 'w-9 bg-[#d96c27]' : 'w-2.5 bg-white/35 hover:bg-white/70'
                           }`}
                           aria-label={`Ir para slide ${index + 1}`}
                         />
@@ -518,124 +638,244 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setActiveHeroSlide((slide) => (slide + 1) % heroSlides.length)}
-                      className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white hover:text-black"
+                      className="magnetic-button inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 text-white hover:bg-white hover:text-black"
                       aria-label="Próximo slide"
                     >
                       <ChevronRight className="h-5 w-5" />
                     </button>
                   </div>
                 </div>
+              </div>
+            </section>
 
-                <div className="hidden items-center justify-end p-8 lg:flex">
-                  <div className="max-w-xs border border-white/15 bg-black/45 p-5 backdrop-blur-md">
-                    <p className="text-xs font-black uppercase tracking-[0.22em] text-orange-200">{currentHeroSlide.sideKicker}</p>
-                    <p className="mt-3 text-xl font-black leading-tight xl:text-2xl">{currentHeroSlide.sideTitle}</p>
-                    <p className="mt-3 text-sm leading-6 text-gray-300">{currentHeroSlide.sideText}</p>
+            <section className="bg-[#f6f1e8] px-4 py-6 sm:px-6 lg:px-8">
+              <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-3">
+                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#fffaf2] p-5 shadow-sm">
+                  <Truck className="h-5 w-5 text-[#d96c27]" aria-hidden="true" />
+                  <div>
+                    <p className="text-sm font-black text-stone-950">Enviamos para o Brasil</p>
+                    <p className="text-xs text-stone-500">Você confirma tudo pelo WhatsApp antes do envio.</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#fffaf2] p-5 shadow-sm">
+                  <ShieldCheck className="h-5 w-5 text-[#d96c27]" aria-hidden="true" />
+                  <div>
+                    <p className="text-sm font-black text-stone-950">Compra com orientação</p>
+                    <p className="text-xs text-stone-500">Ajudamos você a escolher tamanho, cor e modelo.</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#fffaf2] p-5 shadow-sm">
+                  <MessageCircle className="h-5 w-5 text-[#d96c27]" aria-hidden="true" />
+                  <div>
+                    <p className="text-sm font-black text-stone-950">Fale com a gente</p>
+                    <p className="text-xs text-stone-500">Dúvidas rápidas, atendimento direto e sem enrolação.</p>
                   </div>
                 </div>
               </div>
             </section>
 
-            <div className="mb-12 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div className="flex items-center gap-3 border border-gray-100 bg-white p-4">
-                <Truck className="h-5 w-5 text-orange-500" aria-hidden="true" />
+            <section className="bg-[#f6f1e8] px-4 py-20 sm:px-6 lg:px-8">
+              <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
                 <div>
-                  <p className="text-sm font-bold text-gray-900">Envio para todo Brasil</p>
-                  <p className="text-xs text-gray-500">Pedido confirmado pelo WhatsApp.</p>
+                  <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d96c27]">Por que a Ide.hub existe</p>
+                  <h2 className="mt-4 max-w-3xl text-4xl font-black leading-[0.95] tracking-normal text-stone-950 sm:text-5xl lg:text-6xl">
+                    Fé também se
+                    <span className="font-display block italic text-[#d96c27]">veste.</span>
+                  </h2>
+                </div>
+                <div className="rounded-[2rem] border border-black/10 bg-[#100f0d] p-6 text-white shadow-2xl shadow-black/15 sm:p-8">
+                  <p className="text-lg leading-8 text-stone-200">
+                    A Ide.hub nasceu para impulsionar jovens cristãos que querem viver sua fé por inteiro: na igreja, na rua, na faculdade, no trabalho e nas escolhas do dia a dia.
+                  </p>
+                  <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                    {['Jesus no centro', 'Estilo com propósito', 'Atendimento próximo'].map((label, index) => (
+                      <div key={label} className="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                        <p className="font-mono text-xs font-bold text-[#f3c27d]">0{index + 1}</p>
+                        <p className="mt-2 text-sm font-black">{label}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-3 border border-gray-100 bg-white p-4">
-                <ShieldCheck className="h-5 w-5 text-orange-500" aria-hidden="true" />
-                <div>
-                  <p className="text-sm font-bold text-gray-900">Compra segura</p>
-                  <p className="text-xs text-gray-500">Atendimento humano antes do pagamento.</p>
+            </section>
+
+            <section className="bg-[#100f0d] px-4 py-20 text-white sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-7xl">
+                <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f3c27d]">Como comprar</p>
+                    <h2 className="mt-4 max-w-2xl text-4xl font-black leading-none sm:text-5xl">
+                      Escolha sua peça. A gente te ajuda no resto.
+                    </h2>
+                  </div>
+                  <p className="max-w-md text-sm leading-6 text-stone-300">
+                    Você escolhe o produto, chama no WhatsApp e confirma modelo, tamanho, cor e forma de pagamento direto com a gente.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-3">
+                  {[
+                    { icon: Sparkles, title: 'Escolha sua peça', text: 'Veja as camisetas, kits e meias criadas para representar sua fé com estilo.' },
+                    { icon: MessageCircle, title: 'Chame no WhatsApp', text: 'A gente confirma disponibilidade, tamanho, cor e tira suas dúvidas.' },
+                    { icon: PackageCheck, title: 'Vista e represente', text: 'Receba sua peça e use no dia a dia como parte daquilo que você acredita.' },
+                  ].map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20">
+                        <div className="mb-8 flex items-center justify-between">
+                          <span className="font-mono text-xs font-black text-[#f3c27d]">0{index + 1}</span>
+                          <Icon className="h-6 w-6 text-[#f3c27d]" aria-hidden="true" />
+                        </div>
+                        <h3 className="text-2xl font-black">{item.title}</h3>
+                        <p className="mt-3 text-sm leading-6 text-stone-300">{item.text}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-              <div className="flex items-center gap-3 border border-gray-100 bg-white p-4">
-                <MessageCircle className="h-5 w-5 text-orange-500" aria-hidden="true" />
-                <div>
-                  <p className="text-sm font-bold text-gray-900">Suporte direto</p>
-                  <p className="text-xs text-gray-500">Tire dúvidas de tamanho e cor.</p>
-                </div>
+            </section>
+          </div>
+        )}
+
+        <section className="bg-[#f6f1e8] px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d96c27]">Produtos disponíveis</p>
+                <h2 className="mt-3 text-4xl font-black leading-none text-stone-950 sm:text-5xl">
+                  Escolha uma peça para representar sua fé.
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-6 text-stone-600">
+                Filtre por categoria, encontre seu modelo favorito e finalize pelo WhatsApp.
+              </p>
+            </div>
+
+            <div className="mb-10 rounded-[2rem] border border-black/8 bg-[#fffaf2]/88 p-4 shadow-sm backdrop-blur sm:p-5">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-[1.2fr_0.85fr_0.7fr_1fr_auto] xl:items-end">
+                <label className="block">
+                  <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-stone-500">Modelo</span>
+                  <select
+                    value={selectedCategory}
+                    onChange={(event) => {
+                      setSelectedCategory(event.target.value);
+                      scrollAfterRender(productsSectionRef);
+                    }}
+                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#d96c27]"
+                  >
+                    <option value="Todos">Todos os modelos</option>
+                    {categories.map((category) => (
+                      <option key={category} value={category}>{category}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-stone-500">Cor</span>
+                  <select
+                    value={selectedColor}
+                    onChange={(event) => {
+                      setSelectedColor(event.target.value);
+                      scrollAfterRender(productsSectionRef);
+                    }}
+                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#d96c27]"
+                  >
+                    <option value="Todas">Todas as cores</option>
+                    {availableFilterColors.map((color) => (
+                      <option key={color} value={color}>{color}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-stone-500">Tamanho</span>
+                  <select
+                    value={selectedSize}
+                    onChange={(event) => {
+                      setSelectedSize(event.target.value);
+                      scrollAfterRender(productsSectionRef);
+                    }}
+                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#d96c27]"
+                  >
+                    <option value="Todos">Todos</option>
+                    {availableFilterSizes.map((size) => (
+                      <option key={size} value={size}>{size}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-stone-500">
+                    Valor até R$ {maxPrice}
+                  </span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="250"
+                    step="10"
+                    value={maxPrice}
+                    onChange={(event) => setMaxPrice(Number(event.target.value))}
+                    className="h-12 w-full accent-black"
+                  />
+                </label>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory('Todos');
+                    setSelectedColor('Todas');
+                    setSelectedSize('Todos');
+                    setMaxPrice(200);
+                    scrollAfterRender(productsSectionRef);
+                  }}
+                  className="magnetic-button min-h-12 cursor-pointer rounded-full border border-black/10 bg-black px-5 text-sm font-black text-white hover:bg-[#d96c27]"
+                >
+                  Limpar filtros
+                </button>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2 text-xs font-black uppercase tracking-wide text-stone-500">
+                <span className="rounded-full bg-black/5 px-3 py-1.5">{filteredProducts.length} produto(s)</span>
+                {selectedCategory !== 'Todos' && <span className="rounded-full bg-black/5 px-3 py-1.5">{selectedCategory}</span>}
+                {selectedColor !== 'Todas' && <span className="rounded-full bg-black/5 px-3 py-1.5">{selectedColor}</span>}
+                {selectedSize !== 'Todos' && <span className="rounded-full bg-black/5 px-3 py-1.5">Tam. {selectedSize}</span>}
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Filters */}
-        <div className="mb-10 flex flex-col gap-5 border border-gray-100 bg-white p-4 shadow-sm md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-4 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar">
-            <button
-              onClick={handleGoToStart}
-              className={`min-h-11 cursor-pointer whitespace-nowrap rounded-full px-5 text-sm font-bold transition-colors ${selectedCategory === 'Todos'
-                  ? 'bg-black text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-            >
-              Todos
-            </button>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleSelectCategory(cat)}
-                className={`min-h-11 cursor-pointer whitespace-nowrap rounded-full px-5 text-sm font-bold transition-colors ${selectedCategory === cat
-                    ? 'bg-black text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-4 w-full md:w-auto">
-            <span className="text-sm font-medium text-gray-500 whitespace-nowrap">
-              Até R$ {maxPrice}
-            </span>
-            <input
-              type="range"
-              min="0"
-              max="250"
-              step="10"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="w-full md:w-48 accent-black"
-            />
-          </div>
-        </div>
-
-        {/* Product Grid */}
-        {Object.keys(groupedProducts).length > 0 ? (
-          <div ref={productsSectionRef} className="scroll-mt-24 space-y-16">
-            {Object.entries(groupedProducts).map(([category, categoryProducts]) => (
-              <div key={category}>
-                <div className="flex items-center gap-4 mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900">{category}</h2>
-                  <div className="flex-1 h-px bg-gray-200"></div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                  {(categoryProducts as Product[]).map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      onSelect={setSelectedProduct}
-                    />
-                  ))}
-                </div>
+            {/* Product Grid */}
+            {Object.keys(groupedProducts).length > 0 ? (
+              <div ref={productsSectionRef} className="scroll-mt-28 space-y-16">
+                {Object.entries(groupedProducts).map(([category, categoryProducts]) => (
+                  <div key={category}>
+                    <div className="mb-8 flex items-center gap-4">
+                      <h2 className="text-2xl font-black text-stone-950">{category}</h2>
+                      <div className="h-px flex-1 bg-black/12"></div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {(categoryProducts as Product[]).map((product) => (
+                        <ProductCard
+                          key={product.id}
+                          product={product}
+                          onSelect={setSelectedProduct}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            ) : (
+              <div className="rounded-[2rem] border border-black/8 bg-[#fffaf2] py-20 text-center">
+                <p className="text-xl font-bold text-stone-500">Nenhum produto encontrado com estes filtros.</p>
+                <button
+                  onClick={() => { setMaxPrice(200); handleGoToStart(); }}
+                  className="magnetic-button mt-4 rounded-full bg-black px-6 py-3 font-black text-white"
+                >
+                  Limpar filtros
+                </button>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-center py-20">
-            <p className="text-xl text-gray-500">Nenhum produto encontrado com estes filtros.</p>
-            <button
-              onClick={() => { setMaxPrice(200); handleGoToStart(); }}
-              className="mt-4 text-black font-medium underline underline-offset-4"
-            >
-              Limpar filtros
-            </button>
-          </div>
-        )}
+        </section>
       </main>
 
       <Testimonials />

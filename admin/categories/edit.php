@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $name = trim((string) ($_POST['name'] ?? ''));
         if ($name === '') {
-            throw new RuntimeException('Nome e obrigatorio.');
+            throw new RuntimeException('Nome é obrigatório.');
         }
         Category::update($id, [
             'name' => $name,
@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Editar categoria';
+$pageSubtitle = 'Ajuste nome, ordem e status desta categoria.';
 require __DIR__ . '/../../includes/layout/header.php';
 ?>
 <?php if ($error): ?><div class="alert alert-error"><?= e($error) ?></div><?php endif; ?>
@@ -44,7 +45,7 @@ require __DIR__ . '/../../includes/layout/header.php';
     <div class="form-row"><label>Slug</label><input name="slug" value="<?= e($category['slug']) ?>"></div>
     <div class="grid grid-2">
         <div class="form-row"><label>Ordem</label><input type="number" name="display_order" value="<?= e((string) $category['display_order']) ?>"></div>
-        <div class="form-row"><label><input style="width:auto" type="checkbox" name="active" <?= !empty($category['active']) ? 'checked' : '' ?>> Ativa</label></div>
+        <div class="form-row"><label class="check-row"><input type="checkbox" name="active" <?= !empty($category['active']) ? 'checked' : '' ?>> Ativa</label></div>
     </div>
     <div class="actions"><button class="btn btn-primary" type="submit">Salvar</button><a class="btn" href="<?= e(app_url('/admin/categories/index.php')) ?>">Cancelar</a></div>
 </form>

@@ -54,28 +54,29 @@ export function Testimonials() {
   const visibleTestimonials = testimonials.slice(currentIndex, currentIndex + 3);
 
   return (
-    <section className="py-20 bg-white border-t border-gray-100 overflow-hidden">
+    <section className="overflow-hidden bg-[#fffaf2] py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="text-left">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d96c27]">Prova social</p>
+            <h2 className="mt-3 text-4xl font-black tracking-normal text-stone-950 sm:text-5xl">
               O que nossos clientes dizem
             </h2>
-            <p className="mt-4 text-lg text-gray-500">
+            <p className="mt-4 text-lg text-stone-500">
               A qualidade e o propósito que vestem quem faz a diferença.
             </p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={prev}
-              className="p-3 rounded-none border border-gray-200 hover:bg-gray-50 transition-colors"
+              className="magnetic-button rounded-full border border-black/10 bg-white p-3 hover:bg-black hover:text-white"
               aria-label="Anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={next}
-              className="p-3 rounded-none border border-gray-200 hover:bg-gray-50 transition-colors"
+              className="magnetic-button rounded-full border border-black/10 bg-white p-3 hover:bg-black hover:text-white"
               aria-label="Próximo"
             >
               <ChevronRight className="w-5 h-5" />
@@ -85,19 +86,19 @@ export function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-500">
           {visibleTestimonials.map((t) => (
-            <div key={t.id} className="bg-gray-50 rounded-none p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all animate-in fade-in slide-in-from-right-4 duration-500">
+            <div key={t.id} className="rounded-[2rem] border border-black/8 bg-[#f6f1e8] p-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10">
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`w-5 h-5 ${i < t.rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`}
+                    className={`w-5 h-5 ${i < t.rating ? 'fill-[#d96c27] text-[#d96c27]' : 'fill-stone-200 text-stone-200'}`}
                   />
                 ))}
               </div>
-              <p className="text-gray-600 mb-6 italic leading-relaxed h-24 overflow-hidden">"{t.text}"</p>
+              <p className="mb-6 h-24 overflow-hidden text-stone-600 italic leading-relaxed">"{t.text}"</p>
               <div className="flex items-center gap-2">
-                <div className="font-semibold text-gray-900">{t.name}</div>
-                <div className="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-0.5 rounded-none text-[10px] font-bold uppercase tracking-wider">
+                <div className="font-black text-stone-950">{t.name}</div>
+                <div className="flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-emerald-700">
                   <CheckCircle2 className="w-3 h-3" />
                   Compra verificada
                 </div>

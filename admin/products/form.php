@@ -30,20 +30,20 @@
         </div>
     </div>
     <div class="form-row">
-        <label>Descricao curta</label>
+        <label>Descrição curta</label>
         <input name="short_description" required value="<?= e($product['short_description']) ?>">
     </div>
     <div class="form-row">
-        <label>Descricao completa opcional</label>
+        <label>Descrição completa opcional</label>
         <textarea name="full_description"><?= e($product['full_description']) ?></textarea>
     </div>
     <div class="grid grid-2">
         <div class="form-row">
-            <label>Preco</label>
+            <label>Preço</label>
             <input name="price" required value="<?= e((string) $product['price']) ?>">
         </div>
         <div class="form-row">
-            <label>Preco promocional opcional</label>
+            <label>Preço promocional opcional</label>
             <input name="promotional_price" value="<?= e((string) $product['promotional_price']) ?>">
         </div>
     </div>
@@ -53,18 +53,18 @@
             <input type="number" name="stock" value="<?= e((string) $product['stock']) ?>">
         </div>
         <div class="form-row">
-            <label>Tamanhos separados por virgula</label>
+            <label>Tamanhos separados por vírgula</label>
             <input name="sizes" placeholder="P,M,G,GG" value="<?= e($product['sizes']) ?>">
         </div>
     </div>
     <div class="form-row">
-        <label>Cores separadas por virgula</label>
+        <label>Cores separadas por vírgula</label>
         <input name="colors" placeholder="Off white,Preto" value="<?= e($product['colors']) ?>">
     </div>
     <div class="actions">
-        <label><input style="width:auto" type="checkbox" name="featured" <?= !empty($product['featured']) ? 'checked' : '' ?>> Destaque</label>
-        <label><input style="width:auto" type="checkbox" name="is_kit" <?= !empty($product['is_kit']) ? 'checked' : '' ?>> Kit</label>
-        <label><input style="width:auto" type="checkbox" name="active" <?= !empty($product['active']) ? 'checked' : '' ?>> Ativo</label>
+        <label class="check-row"><input type="checkbox" name="featured" <?= !empty($product['featured']) ? 'checked' : '' ?>> Destaque</label>
+        <label class="check-row"><input type="checkbox" name="is_kit" <?= !empty($product['is_kit']) ? 'checked' : '' ?>> Kit</label>
+        <label class="check-row"><input type="checkbox" name="active" <?= !empty($product['active']) ? 'checked' : '' ?>> Ativo</label>
     </div>
     <div class="actions" style="margin-top:18px">
         <button class="btn btn-primary" type="submit">Salvar</button>

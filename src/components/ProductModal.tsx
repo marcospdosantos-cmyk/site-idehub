@@ -54,7 +54,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-3 backdrop-blur-sm sm:p-6">
-      <div className="grid max-h-[92dvh] w-full max-w-5xl grid-rows-[minmax(260px,42dvh)_minmax(0,1fr)] overflow-hidden bg-white shadow-2xl animate-in fade-in zoom-in-95 duration-200 md:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)] md:grid-rows-none">
+      <div className="grid max-h-[92dvh] w-full max-w-5xl grid-rows-[minmax(210px,34dvh)_minmax(0,1fr)] overflow-hidden rounded-[1.5rem] bg-white shadow-2xl animate-in fade-in zoom-in-95 duration-200 sm:grid-rows-[minmax(260px,42dvh)_minmax(0,1fr)] md:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)] md:grid-rows-none md:rounded-none">
         <div className="relative min-h-0 overflow-hidden bg-gray-100 md:min-h-[620px]">
           <img
             key={`${selectedColor}-${currentImageIndex}`}
@@ -91,13 +91,13 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
           </button>
         </div>
         
-        <div className="min-w-0 overflow-y-auto p-5 sm:p-7">
+        <div className="min-w-0 overflow-y-auto p-4 sm:p-7">
           <div className="mb-6">
             <div className="mb-3 flex flex-wrap gap-2 text-[11px] font-bold uppercase tracking-wide text-gray-500">
               <span className="rounded-full bg-gray-100 px-2.5 py-1">Compra pelo WhatsApp</span>
               <span className="rounded-full bg-gray-100 px-2.5 py-1">Envio Brasil</span>
             </div>
-            <h2 className="text-2xl font-black leading-tight text-gray-900">{product.name}</h2>
+            <h2 className="text-xl font-black leading-tight text-gray-900 sm:text-2xl">{product.name}</h2>
             <div className="flex flex-col">
               <span className="text-xs text-orange-500 italic font-bold uppercase tracking-tight">
                 {product.id === '11' ? (
@@ -114,7 +114,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                   ''
                 )}
               </span>
-              <span className="text-4xl font-black text-black tracking-tighter">
+              <span className="text-3xl font-black tracking-normal text-black sm:text-4xl">
                 R$ {product.price.toFixed(2).replace('.', ',')}
               </span>
               {product.isKit && (
@@ -138,7 +138,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                 value={kitNotes}
                 onChange={(e) => setKitNotes(e.target.value)}
                 placeholder="Ex: 1x JESUS WAY (M, Preto), 1x BOAS NOVAS (G, Off white)..."
-                className="w-full p-3 border border-gray-200 rounded-none focus:ring-2 focus:ring-black focus:border-transparent outline-none resize-none h-24"
+                className="h-24 w-full resize-none rounded-[1rem] border border-gray-200 p-3 outline-none focus:border-transparent focus:ring-2 focus:ring-black"
               />
             </div>
           ) : (
@@ -157,7 +157,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                         <button
                           key={size}
                           onClick={() => setSelectedSize(size)}
-                            className={`min-h-12 min-w-[4rem] cursor-pointer rounded-full border px-4 py-2 transition-colors ${
+                            className={`min-h-12 min-w-[3.6rem] cursor-pointer rounded-full border px-3 py-2 transition-colors sm:min-w-[4rem] sm:px-4 ${
                             selectedSize === size
                               ? 'bg-black text-white border-black'
                               : isOutOfStock
@@ -201,7 +201,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                               setSelectedColor(color);
                               setCurrentImageIndex(0);
                             }}
-                            className={`min-h-11 cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                            className={`min-h-11 cursor-pointer rounded-full border px-3 py-2 text-sm font-medium transition-colors sm:px-4 ${
                               selectedColor === color
                                 ? 'bg-black text-white border-black'
                                 : isOutOfStock

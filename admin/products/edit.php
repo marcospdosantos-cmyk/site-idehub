@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Editar produto';
+$pageSubtitle = 'Atualize imagem, preço, descrição e disponibilidade.';
 require __DIR__ . '/../../includes/layout/header.php';
 require __DIR__ . '/form.php';
 require __DIR__ . '/../../includes/layout/footer.php';

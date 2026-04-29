@@ -8,7 +8,8 @@ function nav_active(string $needle, string $currentPath): string
 }
 ?>
 <aside class="sidebar">
-    <div class="brand">Ide.hub Admin</div>
+    <div class="brand"><span class="brand-mark">I</span><span>Ide.hub Admin</span></div>
+    <p class="brand-subtitle">Gestão da loja</p>
     <nav>
         <a class="nav-link<?= nav_active('/admin/index.php', $currentPath) ?>" href="<?= e(app_url('/admin/index.php')) ?>">Dashboard</a>
         <a class="nav-link<?= nav_active('/admin/settings.php', $currentPath) ?>" href="<?= e(app_url('/admin/settings.php')) ?>">Configurações</a>

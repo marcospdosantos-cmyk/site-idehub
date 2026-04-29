@@ -12,22 +12,27 @@ if (!$order) {
 }
 
 $pageTitle = 'Pedido #' . $order['id'];
+$pageSubtitle = 'Detalhes completos do cliente, pagamento e itens solicitados.';
 require __DIR__ . '/../../includes/layout/header.php';
 ?>
 <div class="grid grid-2">
     <div class="card">
         <h2>Cliente</h2>
-        <p><strong>Nome:</strong> <?= e($order['customer_name']) ?></p>
-        <p><strong>Telefone:</strong> <?= e($order['customer_phone']) ?></p>
-        <?php if ($order['customer_address']): ?><p><strong>Endereço:</strong><br><?= nl2br(e($order['customer_address'])) ?></p><?php endif; ?>
-        <?php if ($order['payment_method']): ?><p><strong>Pagamento:</strong> <?= e($order['payment_method']) ?></p><?php endif; ?>
-        <?php if ($order['notes']): ?><p><strong>Observações:</strong><br><?= nl2br(e($order['notes'])) ?></p><?php endif; ?>
+        <div class="details-list">
+            <p><strong>Nome:</strong> <?= e($order['customer_name']) ?></p>
+            <p><strong>Telefone:</strong> <?= e($order['customer_phone']) ?></p>
+            <?php if ($order['customer_address']): ?><p><strong>Endereço:</strong><br><?= nl2br(e($order['customer_address'])) ?></p><?php endif; ?>
+            <?php if ($order['payment_method']): ?><p><strong>Pagamento:</strong> <?= e($order['payment_method']) ?></p><?php endif; ?>
+            <?php if ($order['notes']): ?><p><strong>Observações:</strong><br><?= nl2br(e($order['notes'])) ?></p><?php endif; ?>
+        </div>
     </div>
     <div class="card">
         <h2>Resumo</h2>
-        <p><strong>Total:</strong> <?= format_money((float) $order['total']) ?></p>
-        <p><strong>Status:</strong> <?= e($order['status']) ?></p>
-        <p><strong>Data:</strong> <?= e(date('d/m/Y H:i', strtotime($order['created_at']))) ?></p>
+        <div class="details-list">
+            <p><strong>Total:</strong> <?= format_money((float) $order['total']) ?></p>
+            <p><strong>Status:</strong> <span class="badge"><?= e($order['status']) ?></span></p>
+            <p><strong>Data:</strong> <?= e(date('d/m/Y H:i', strtotime($order['created_at']))) ?></p>
+        </div>
         <?php if ($order['whatsapp_link']): ?><a class="btn btn-primary" href="<?= e($order['whatsapp_link']) ?>" target="_blank" rel="noreferrer">Abrir WhatsApp</a><?php endif; ?>
     </div>
 </div>
