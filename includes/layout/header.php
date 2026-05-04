@@ -15,8 +15,8 @@ $admin = $admin ?? null;
     <title><?= e($pageTitle) ?> | Ide.hub Admin</title>
     <style>
         :root {
-            --orange: #f97316;
-            --orange-strong: #ea580c;
+            --orange: #f2752f;
+            --orange-strong: #f2752f;
             --ink: #111827;
             --muted: #667085;
             --line: #e5e7eb;
@@ -36,7 +36,7 @@ $admin = $admin ?? null;
         a { color: inherit; text-decoration: none; }
         button, input, textarea, select { font: inherit; }
         button, .btn, input, textarea, select { touch-action: manipulation; }
-        :focus-visible { outline: 3px solid rgba(249, 115, 22, .32); outline-offset: 2px; }
+        :focus-visible { outline: 3px solid rgba(242, 117, 47, .32); outline-offset: 2px; }
         .admin-shell { display: grid; grid-template-columns: 270px minmax(0, 1fr); min-height: 100vh; }
         .sidebar { position: sticky; top: 0; align-self: start; min-height: 100vh; background: #101112; color: #fff; padding: 22px; }
         .brand { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 850; margin-bottom: 8px; letter-spacing: 0; }
@@ -60,12 +60,12 @@ $admin = $admin ?? null;
         .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
         .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .stat-card { position: relative; overflow: hidden; }
-        .stat-card::after { content: ""; position: absolute; right: -28px; bottom: -34px; width: 98px; height: 98px; border-radius: 999px; background: rgba(249, 115, 22, .1); }
+        .stat-card::after { content: ""; position: absolute; right: -28px; bottom: -34px; width: 98px; height: 98px; border-radius: 999px; background: rgba(242, 117, 47, .1); }
         .stat-label { color: var(--muted); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
         .stat { font-size: 36px; font-weight: 900; margin-top: 8px; line-height: 1; }
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff; cursor: pointer; font-weight: 800; transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease; }
         .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(15, 23, 42, .08); }
-        .btn-primary { border-color: var(--orange); background: var(--orange); color: #fff; box-shadow: 0 14px 28px rgba(249, 115, 22, .22); }
+        .btn-primary { border-color: var(--orange); background: var(--orange); color: #fff; box-shadow: 0 14px 28px rgba(242, 117, 47, .22); }
         .btn-primary:hover { background: var(--orange-strong); border-color: var(--orange-strong); }
         .btn-danger { border-color: #fecaca; background: var(--danger-bg); color: #b91c1c; }
         .btn-ghost { background: var(--surface-soft); }
@@ -77,7 +77,7 @@ $admin = $admin ?? null;
         tbody tr:hover { background: #fff7ed; }
         input, textarea, select { width: 100%; min-height: 46px; padding: 12px 13px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); }
         input:hover, textarea:hover, select:hover { border-color: #cbd5e1; }
-        input:focus, textarea:focus, select:focus { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(249, 115, 22, .12); outline: 0; }
+        input:focus, textarea:focus, select:focus { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(242, 117, 47, .12); outline: 0; }
         textarea { min-height: 110px; resize: vertical; }
         label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 800; }
         .form-row { margin-bottom: 16px; }

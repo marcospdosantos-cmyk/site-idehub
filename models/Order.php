@@ -34,12 +34,15 @@ final class OrderModel
         $pdo->beginTransaction();
 
         try {
-            $stmt = $pdo->prepare('INSERT INTO orders (customer_name, customer_phone, customer_address, payment_method, notes, total, status, whatsapp_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $pdo->prepare('INSERT INTO orders (customer_name, customer_phone, customer_address, payment_method, coupon_code, subtotal, discount_total, notes, total, status, whatsapp_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
             $stmt->execute([
                 $order['customer_name'],
                 $order['customer_phone'],
                 $order['customer_address'] ?? null,
                 $order['payment_method'] ?? null,
+                $order['coupon_code'] ?? null,
+                $order['subtotal'] ?? $order['total'],
+                $order['discount_total'] ?? 0,
                 $order['notes'] ?? null,
                 $order['total'],
                 $order['status'] ?? 'enviado_para_whatsapp',
@@ -77,4 +80,3 @@ final class OrderModel
         $stmt->execute([$link, $id]);
     }
 }
-

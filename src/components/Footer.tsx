@@ -68,15 +68,15 @@ export function Footer({ settings }: FooterProps) {
             <h3 className="mb-4 text-lg font-black">Informações</h3>
             <ul className="space-y-3 text-stone-400">
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#d96c27]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#f2752f]"></span>
                 Pagamento via Pix, Cartão de Crédito e Débito
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#d96c27]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#f2752f]"></span>
                 Enviamos para todo o Brasil
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#d96c27]"></span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#f2752f]"></span>
                 Compra 100% segura
               </li>
             </ul>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { MessageCircle, Tag, X } from 'lucide-react';
 import { CheckoutData } from '../types';
+import { validateCoupon } from '../lib/api';
 
 const CHECKOUT_STORAGE_KEY = 'idehub-checkout';
 
@@ -47,10 +48,19 @@ type CheckoutModalProps = {
 export function CheckoutModal({ isOpen, onClose, onSubmit, total, error }: CheckoutModalProps) {
   const [formData, setFormData] = useState<CheckoutData>(() => getStoredCheckoutData());
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discountTotal: number; total: number } | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
 
   React.useEffect(() => {
     window.localStorage.setItem(CHECKOUT_STORAGE_KEY, JSON.stringify(formData));
   }, [formData]);
+
+  React.useEffect(() => {
+    setAppliedCoupon(null);
+    setCouponError(null);
+  }, [total]);
 
   if (!isOpen) return null;
 
@@ -58,13 +68,40 @@ export function CheckoutModal({ isOpen, onClose, onSubmit, total, error }: Check
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await onSubmit(formData);
+      await onSubmit({ ...formData, couponCode: appliedCoupon?.code });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleApplyCoupon = async () => {
+    const normalizedCode = couponCode.trim().toUpperCase();
+    if (!normalizedCode) {
+      setCouponError('Digite um cupom para aplicar.');
+      return;
+    }
+
+    setIsApplyingCoupon(true);
+    setCouponError(null);
+
+    try {
+      const response = await validateCoupon(normalizedCode, total);
+      setAppliedCoupon({
+        code: response.code,
+        discountTotal: response.discountTotal,
+        total: response.total,
+      });
+      setCouponCode(response.code);
+    } catch (error) {
+      setAppliedCoupon(null);
+      setCouponError(error instanceof Error ? error.message : 'Não foi possível aplicar o cupom.');
+    } finally {
+      setIsApplyingCoupon(false);
+    }
+  };
+
   const paymentMethods: CheckoutData['paymentMethod'][] = ['Pix', 'Cartão de Crédito', 'Cartão de Débito'];
+  const totalToPay = appliedCoupon?.total ?? total;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-4">
@@ -159,6 +196,40 @@ export function CheckoutModal({ isOpen, onClose, onSubmit, total, error }: Check
 
             <div>
               <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-800">
+                Cupom de Desconto
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={couponCode}
+                  onChange={(e) => {
+                    setCouponCode(e.target.value.toUpperCase());
+                    setAppliedCoupon(null);
+                    setCouponError(null);
+                  }}
+                  className="h-11 min-w-0 flex-1 border border-gray-200 px-3 text-sm font-bold uppercase outline-none transition-all focus:border-transparent focus:ring-2 focus:ring-black"
+                  placeholder="IDE10"
+                />
+                <button
+                  type="button"
+                  onClick={handleApplyCoupon}
+                  disabled={isApplyingCoupon}
+                  className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 border border-black bg-black px-4 text-sm font-black text-white transition-colors hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  <Tag className="h-4 w-4" />
+                  {isApplyingCoupon ? 'Aplicando' : 'Aplicar'}
+                </button>
+              </div>
+              {couponError && <p className="mt-2 text-xs font-semibold text-red-600">{couponError}</p>}
+              {appliedCoupon && (
+                <p className="mt-2 text-xs font-semibold text-emerald-700">
+                  Cupom {appliedCoupon.code} aplicado: -R$ {appliedCoupon.discountTotal.toFixed(2).replace('.', ',')}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-800">
                 Observações
               </label>
               <textarea
@@ -176,11 +247,25 @@ export function CheckoutModal({ isOpen, onClose, onSubmit, total, error }: Check
                 {error}
               </div>
             )}
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm text-gray-600">Total a pagar</span>
-              <span className="text-2xl font-black text-gray-900">
-                R$ {total.toFixed(2).replace('.', ',')}
-              </span>
+            <div className="mb-3 space-y-1">
+              {appliedCoupon && (
+                <>
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span>Subtotal</span>
+                    <span>R$ {total.toFixed(2).replace('.', ',')}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm font-semibold text-emerald-700">
+                    <span>Desconto</span>
+                    <span>-R$ {appliedCoupon.discountTotal.toFixed(2).replace('.', ',')}</span>
+                  </div>
+                </>
+              )}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Total a pagar</span>
+                <span className="text-2xl font-black text-gray-900">
+                  R$ {totalToPay.toFixed(2).replace('.', ',')}
+                </span>
+              </div>
             </div>
             <button
               type="submit"

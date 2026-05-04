@@ -58,7 +58,7 @@ export function Navbar({
           isMobileMenuOpen ? 'rounded-[2rem]' : 'rounded-full'
         } ${
           isScrolled || isMobileMenuOpen
-            ? 'border-black/10 bg-[#fffaf2]/88 shadow-black/10'
+            ? 'border-black/10 bg-[#ffffff]/88 shadow-black/10'
             : 'border-white/15 bg-black/18 shadow-black/20'
         }`}
       >
@@ -128,13 +128,13 @@ export function Navbar({
             <button
               onClick={onOpenCart}
               className={`magnetic-button relative min-h-11 min-w-11 cursor-pointer rounded-full p-2 transition-colors ${
-                isScrolled || isMobileMenuOpen ? 'bg-black text-white hover:bg-[#d96c27]' : 'bg-white text-black hover:bg-[#d96c27] hover:text-white'
+                isScrolled || isMobileMenuOpen ? 'bg-black text-white hover:bg-[#f2752f]' : 'bg-white text-black hover:bg-[#f2752f] hover:text-white'
               }`}
               aria-label="Carrinho"
             >
               <ShoppingBag className="w-6 h-6" />
               {cartItemCount > 0 && (
-                <span className="absolute right-0 top-0 inline-flex min-h-5 min-w-5 translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-[#d96c27] px-1.5 text-xs font-black leading-none text-white ring-2 ring-white">
+                <span className="absolute right-0 top-0 inline-flex min-h-5 min-w-5 translate-x-1/4 -translate-y-1/4 items-center justify-center rounded-full bg-[#f2752f] px-1.5 text-xs font-black leading-none text-white ring-2 ring-white">
                   {cartItemCount}
                 </span>
               )}

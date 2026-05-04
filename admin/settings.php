@@ -85,7 +85,7 @@ require __DIR__ . '/../includes/layout/header.php';
     <div class="grid grid-2">
         <div class="form-row">
             <label>Cor principal opcional</label>
-            <input name="primary_color" placeholder="#f97316" value="<?= e($settings['primary_color']) ?>">
+            <input name="primary_color" placeholder="#f2752f" value="<?= e($settings['primary_color']) ?>">
         </div>
         <div class="form-row">
             <label>Cor secundária opcional</label>

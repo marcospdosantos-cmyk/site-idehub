@@ -41,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #f5f6f8; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #111827; }
         .box { width: min(440px, 100%); background: #fff; border: 1px solid #eef2f7; border-radius: 8px; padding: 30px; box-shadow: 0 24px 70px rgba(15,23,42,.1); }
         .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; font-weight: 900; }
-        .mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; background: #f97316; color: #fff; }
+        .mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; background: #f2752f; color: #fff; }
         h1 { margin: 0 0 8px; font-size: 28px; line-height: 1.15; }
         p { margin: 0 0 22px; color: #667085; line-height: 1.55; }
         label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 800; }
         input { width: 100%; min-height: 48px; padding: 13px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 16px; font: inherit; }
-        input:focus { border-color: #f97316; box-shadow: 0 0 0 4px rgba(249, 115, 22, .12); outline: 0; }
-        button { width: 100%; min-height: 48px; border: 0; border-radius: 999px; background: #f97316; color: #fff; font-weight: 850; cursor: pointer; box-shadow: 0 16px 30px rgba(249, 115, 22, .22); }
-        button:hover { background: #ea580c; }
+        input:focus { border-color: #f2752f; box-shadow: 0 0 0 4px rgba(242, 117, 47, .12); outline: 0; }
+        button { width: 100%; min-height: 48px; border: 0; border-radius: 999px; background: #f2752f; color: #fff; font-weight: 850; cursor: pointer; box-shadow: 0 16px 30px rgba(242, 117, 47, .22); }
+        button:hover { background: #f2752f; }
         .error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; padding: 10px 12px; border-radius: 8px; margin-bottom: 16px; font-weight: 700; }
         .hint { margin-top: 16px; font-size: 13px; color: #6b7280; }
         @media (max-width: 480px) { .box { padding: 24px; } h1 { font-size: 24px; } }

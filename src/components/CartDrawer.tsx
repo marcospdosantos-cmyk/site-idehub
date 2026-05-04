@@ -157,7 +157,7 @@ export function CartDrawer({
             <div className="flex flex-col gap-3">
               <button
                 onClick={onCheckout}
-                className="w-full min-h-12 cursor-pointer py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95"
+                className="w-full min-h-12 cursor-pointer py-4 bg-[#f2752f] text-white rounded-full font-bold text-lg hover:bg-[#f2752f] transition-all shadow-lg shadow-[rgba(242,117,47,0.30)] hover:shadow-[rgba(242,117,47,0.50)] hover:-translate-y-0.5 active:scale-95"
               >
                 Finalizar Pedido
               </button>

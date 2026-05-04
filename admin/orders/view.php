@@ -29,6 +29,10 @@ require __DIR__ . '/../../includes/layout/header.php';
     <div class="card">
         <h2>Resumo</h2>
         <div class="details-list">
+            <p><strong>Subtotal:</strong> <?= format_money((float) ($order['subtotal'] ?: $order['total'])) ?></p>
+            <?php if ((float) ($order['discount_total'] ?? 0) > 0): ?>
+                <p><strong>Cupom:</strong> <?= e($order['coupon_code']) ?> (-<?= format_money((float) $order['discount_total']) ?>)</p>
+            <?php endif; ?>
             <p><strong>Total:</strong> <?= format_money((float) $order['total']) ?></p>
             <p><strong>Status:</strong> <span class="badge"><?= e($order['status']) ?></span></p>
             <p><strong>Data:</strong> <?= e(date('d/m/Y H:i', strtotime($order['created_at']))) ?></p>

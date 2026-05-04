@@ -14,6 +14,7 @@ export type CheckoutData = {
   phone: string;
   address: string;
   paymentMethod: 'Pix' | 'Cartão de Crédito' | 'Cartão de Débito';
+  couponCode?: string;
   notes: string;
 };
 

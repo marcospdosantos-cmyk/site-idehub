@@ -88,6 +88,9 @@ CREATE TABLE IF NOT EXISTS orders (
   customer_phone VARCHAR(30) NOT NULL,
   customer_address TEXT NULL,
   payment_method VARCHAR(60) NULL,
+  coupon_code VARCHAR(60) NULL,
+  subtotal DECIMAL(10,2) NOT NULL DEFAULT 0,
+  discount_total DECIMAL(10,2) NOT NULL DEFAULT 0,
   notes TEXT NULL,
   total DECIMAL(10,2) NOT NULL DEFAULT 0,
   status VARCHAR(60) NOT NULL DEFAULT 'enviado_para_whatsapp',
@@ -96,6 +99,23 @@ CREATE TABLE IF NOT EXISTS orders (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_orders_created_at (created_at),
   INDEX idx_orders_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS coupons (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  code VARCHAR(60) NOT NULL UNIQUE,
+  description VARCHAR(255) NULL,
+  discount_type ENUM('percent', 'fixed') NOT NULL DEFAULT 'percent',
+  discount_value DECIMAL(10,2) NOT NULL,
+  min_order_total DECIMAL(10,2) NOT NULL DEFAULT 0,
+  usage_limit INT UNSIGNED NULL,
+  used_count INT UNSIGNED NOT NULL DEFAULT 0,
+  starts_at DATETIME NULL,
+  ends_at DATETIME NULL,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_coupons_code_active (code, active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS order_items (

@@ -16,6 +16,7 @@ function nav_active(string $needle, string $currentPath): string
         <a class="nav-link<?= nav_active('/admin/banners/', $currentPath) ?>" href="<?= e(app_url('/admin/banners/index.php')) ?>">Banners</a>
         <a class="nav-link<?= nav_active('/admin/categories/', $currentPath) ?>" href="<?= e(app_url('/admin/categories/index.php')) ?>">Categorias</a>
         <a class="nav-link<?= nav_active('/admin/products/', $currentPath) ?>" href="<?= e(app_url('/admin/products/index.php')) ?>">Produtos</a>
+        <a class="nav-link<?= nav_active('/admin/coupons/', $currentPath) ?>" href="<?= e(app_url('/admin/coupons/index.php')) ?>">Cupons</a>
         <a class="nav-link<?= nav_active('/admin/orders/', $currentPath) ?>" href="<?= e(app_url('/admin/orders/index.php')) ?>">Pedidos</a>
     </nav>
 </aside>

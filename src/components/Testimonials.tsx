@@ -54,11 +54,11 @@ export function Testimonials() {
   const visibleTestimonials = testimonials.slice(currentIndex, currentIndex + 3);
 
   return (
-    <section className="overflow-hidden bg-[#fffaf2] py-20">
+    <section className="overflow-hidden bg-[#ffffff] py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="text-left">
-            <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d96c27]">Prova social</p>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f2752f]">Prova social</p>
             <h2 className="mt-3 text-4xl font-black tracking-normal text-stone-950 sm:text-5xl">
               O que nossos clientes dizem
             </h2>
@@ -86,12 +86,12 @@ export function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-500">
           {visibleTestimonials.map((t) => (
-            <div key={t.id} className="rounded-[2rem] border border-black/8 bg-[#f6f1e8] p-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10">
+            <div key={t.id} className="rounded-[2rem] border border-black/8 bg-[#ffffff] p-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10">
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`w-5 h-5 ${i < t.rating ? 'fill-[#d96c27] text-[#d96c27]' : 'fill-stone-200 text-stone-200'}`}
+                    className={`w-5 h-5 ${i < t.rating ? 'fill-[#f2752f] text-[#f2752f]' : 'fill-stone-200 text-stone-200'}`}
                   />
                 ))}
               </div>

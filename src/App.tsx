@@ -21,7 +21,7 @@ const fallbackSettings: StoreSettings = {
   favicon: null,
   whatsappNumber: '5542999488235',
   footerText: 'Streetwear cristão premium. Vista sua fé com propósito e estilo.',
-  primaryColor: '#f97316',
+  primaryColor: '#f2752f',
   secondaryColor: '#111827',
   address: null,
   email: 'contato@idehub.com.br',
@@ -537,7 +537,7 @@ export default function App() {
   }, [pendingWhatsappConfirmation, whatsappOpenedAt]);
 
   return (
-    <div className="min-h-screen bg-[#f6f1e8] font-sans text-stone-950">
+    <div className="min-h-screen bg-[#ffffff] font-sans text-stone-950">
       <Navbar
         cartItemCount={cartItemCount}
         onOpenCart={() => setIsCartOpen(true)}
@@ -560,12 +560,12 @@ export default function App() {
                   className="h-full w-full object-cover transition-opacity duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/72 to-black/20" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_74%,rgba(217,108,39,0.32),transparent_30rem)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_74%,rgba(242,117,47,0.32),transparent_30rem)]" />
               </div>
 
               <div className="relative mx-auto flex min-h-[100dvh] max-w-7xl flex-col justify-end px-4 pb-10 pt-28 sm:px-6 sm:pb-14 lg:px-8">
                 <div className="max-w-5xl">
-                  <div className="mb-5 inline-flex max-w-full w-fit items-center gap-2 rounded-full border border-white/18 bg-white/10 px-3 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-orange-100 backdrop-blur-md sm:px-4 sm:text-xs sm:tracking-[0.22em]">
+                  <div className="mb-5 inline-flex max-w-full w-fit items-center gap-2 rounded-full border border-white/18 bg-white/10 px-3 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md sm:px-4 sm:text-xs sm:tracking-[0.22em]">
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
                     <span className="truncate">{currentHeroSlide.eyebrow}</span>
                   </div>
@@ -586,7 +586,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => handleHeroAction(currentHeroSlide.action, currentHeroSlide.category, currentHeroSlide.linkUrl)}
-                      className="magnetic-button group inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#d96c27] px-5 text-center text-xs font-black uppercase tracking-wide text-white shadow-2xl shadow-orange-950/30 hover:bg-[#f07a2c] sm:px-7 sm:text-sm"
+                      className="magnetic-button group inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#f2752f] px-5 text-center text-xs font-black uppercase tracking-wide text-white shadow-2xl shadow-black/30 hover:bg-[#f2752f] sm:px-7 sm:text-sm"
                     >
                       {currentHeroSlide.primaryCta}
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -601,13 +601,13 @@ export default function App() {
                   </div>
 
                   <div className="mt-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-                    <div className="flex max-w-xl items-start gap-3 border-l-4 border-[#d96c27] bg-white/8 px-4 py-3 text-sm font-semibold text-orange-50 backdrop-blur">
+                    <div className="flex max-w-xl items-start gap-3 border-l-4 border-[#f2752f] bg-white/8 px-4 py-3 text-sm font-semibold text-white backdrop-blur">
                       <Flame className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#f3c27d]" aria-hidden="true" />
                       <span>{currentHeroSlide.trust}</span>
                     </div>
 
                     <div className="hidden max-w-sm rounded-[2rem] border border-white/15 bg-black/32 p-5 shadow-2xl shadow-black/20 backdrop-blur-md lg:block">
-                      <p className="text-xs font-black uppercase tracking-[0.22em] text-orange-200">{currentHeroSlide.sideKicker}</p>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-[#f2752f]">{currentHeroSlide.sideKicker}</p>
                       <p className="mt-3 text-2xl font-black leading-tight">{currentHeroSlide.sideTitle}</p>
                       <p className="mt-3 text-sm leading-6 text-stone-300">{currentHeroSlide.sideText}</p>
                     </div>
@@ -629,7 +629,7 @@ export default function App() {
                           type="button"
                           onClick={() => setActiveHeroSlide(index)}
                           className={`h-2.5 rounded-full transition-all ${
-                            activeHeroSlide === index ? 'w-9 bg-[#d96c27]' : 'w-2.5 bg-white/35 hover:bg-white/70'
+                            activeHeroSlide === index ? 'w-9 bg-[#f2752f]' : 'w-2.5 bg-white/35 hover:bg-white/70'
                           }`}
                           aria-label={`Ir para slide ${index + 1}`}
                         />
@@ -648,24 +648,24 @@ export default function App() {
               </div>
             </section>
 
-            <section className="bg-[#f6f1e8] px-4 py-6 sm:px-6 lg:px-8">
+            <section className="bg-[#ffffff] px-4 py-6 sm:px-6 lg:px-8">
               <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#fffaf2] p-5 shadow-sm">
-                  <Truck className="h-5 w-5 text-[#d96c27]" aria-hidden="true" />
+                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#ffffff] p-5 shadow-sm">
+                  <Truck className="h-5 w-5 text-[#f2752f]" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-black text-stone-950">Enviamos para o Brasil</p>
                     <p className="text-xs text-stone-500">Você confirma tudo pelo WhatsApp antes do envio.</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#fffaf2] p-5 shadow-sm">
-                  <ShieldCheck className="h-5 w-5 text-[#d96c27]" aria-hidden="true" />
+                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#ffffff] p-5 shadow-sm">
+                  <ShieldCheck className="h-5 w-5 text-[#f2752f]" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-black text-stone-950">Compra com orientação</p>
                     <p className="text-xs text-stone-500">Ajudamos você a escolher tamanho, cor e modelo.</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#fffaf2] p-5 shadow-sm">
-                  <MessageCircle className="h-5 w-5 text-[#d96c27]" aria-hidden="true" />
+                <div className="flex items-center gap-4 rounded-[2rem] border border-black/8 bg-[#ffffff] p-5 shadow-sm">
+                  <MessageCircle className="h-5 w-5 text-[#f2752f]" aria-hidden="true" />
                   <div>
                     <p className="text-sm font-black text-stone-950">Fale com a gente</p>
                     <p className="text-xs text-stone-500">Dúvidas rápidas, atendimento direto e sem enrolação.</p>
@@ -674,13 +674,13 @@ export default function App() {
               </div>
             </section>
 
-            <section className="bg-[#f6f1e8] px-4 py-20 sm:px-6 lg:px-8">
+            <section className="bg-[#ffffff] px-4 py-20 sm:px-6 lg:px-8">
               <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d96c27]">Por que a Ide.hub existe</p>
+                  <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f2752f]">Por que a Ide.hub existe</p>
                   <h2 className="mt-4 max-w-3xl text-4xl font-black leading-[0.95] tracking-normal text-stone-950 sm:text-5xl lg:text-6xl">
                     Fé também se
-                    <span className="font-display block italic text-[#d96c27]">veste.</span>
+                    <span className="font-display block italic text-[#f2752f]">veste.</span>
                   </h2>
                 </div>
                 <div className="rounded-[2rem] border border-black/10 bg-[#100f0d] p-6 text-white shadow-2xl shadow-black/15 sm:p-8">
@@ -737,11 +737,11 @@ export default function App() {
           </div>
         )}
 
-        <section className="bg-[#f6f1e8] px-4 py-16 sm:px-6 lg:px-8">
+        <section className="bg-[#ffffff] px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-[#d96c27]">Produtos disponíveis</p>
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-[#f2752f]">Produtos disponíveis</p>
                 <h2 className="mt-3 text-4xl font-black leading-none text-stone-950 sm:text-5xl">
                   Escolha uma peça para representar sua fé.
                 </h2>
@@ -751,7 +751,7 @@ export default function App() {
               </p>
             </div>
 
-            <div className="mb-10 rounded-[2rem] border border-black/8 bg-[#fffaf2]/88 p-4 shadow-sm backdrop-blur sm:p-5">
+            <div className="mb-10 rounded-[2rem] border border-black/8 bg-[#ffffff]/88 p-4 shadow-sm backdrop-blur sm:p-5">
               <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-[1.2fr_0.85fr_0.7fr_1fr_auto] xl:items-end">
                 <label className="block">
                   <span className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-stone-500">Modelo</span>
@@ -761,7 +761,7 @@ export default function App() {
                       setSelectedCategory(event.target.value);
                       scrollAfterRender(productsSectionRef);
                     }}
-                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#d96c27]"
+                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#f2752f]"
                   >
                     <option value="Todos">Todos os modelos</option>
                     {categories.map((category) => (
@@ -778,7 +778,7 @@ export default function App() {
                       setSelectedColor(event.target.value);
                       scrollAfterRender(productsSectionRef);
                     }}
-                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#d96c27]"
+                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#f2752f]"
                   >
                     <option value="Todas">Todas as cores</option>
                     {availableFilterColors.map((color) => (
@@ -795,7 +795,7 @@ export default function App() {
                       setSelectedSize(event.target.value);
                       scrollAfterRender(productsSectionRef);
                     }}
-                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#d96c27]"
+                    className="min-h-12 w-full cursor-pointer rounded-full border border-black/10 bg-white px-4 text-sm font-black text-stone-950 outline-none transition focus:border-[#f2752f]"
                   >
                     <option value="Todos">Todos</option>
                     {availableFilterSizes.map((size) => (
@@ -828,7 +828,7 @@ export default function App() {
                     setMaxPrice(200);
                     scrollAfterRender(productsSectionRef);
                   }}
-                  className="magnetic-button min-h-12 cursor-pointer rounded-full border border-black/10 bg-black px-5 text-sm font-black text-white hover:bg-[#d96c27]"
+                  className="magnetic-button min-h-12 cursor-pointer rounded-full border border-black/10 bg-black px-5 text-sm font-black text-white hover:bg-[#f2752f]"
                 >
                   Limpar filtros
                 </button>
@@ -864,7 +864,7 @@ export default function App() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-[2rem] border border-black/8 bg-[#fffaf2] py-20 text-center">
+              <div className="rounded-[2rem] border border-black/8 bg-[#ffffff] py-20 text-center">
                 <p className="text-xl font-bold text-stone-500">Nenhum produto encontrado com estes filtros.</p>
                 <button
                   onClick={() => { setMaxPrice(200); handleGoToStart(); }}

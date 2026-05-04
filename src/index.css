@@ -3,9 +3,9 @@
 @layer base {
   :root {
     --ide-ink: #111111;
-    --ide-paper: #f6f1e8;
-    --ide-surface: #fffaf2;
-    --ide-accent: #d96c27;
+    --ide-paper: #ffffff;
+    --ide-surface: #ffffff;
+    --ide-accent: #f2752f;
   }
 
   html {
@@ -16,7 +16,7 @@
   body {
     min-width: 320px;
     background:
-      radial-gradient(circle at 8% 8%, rgba(217, 108, 39, 0.12), transparent 28rem),
+      radial-gradient(circle at 8% 8%, rgba(242, 117, 47, 0.12), transparent 28rem),
       linear-gradient(180deg, #100f0d 0, #100f0d 34rem, var(--ide-paper) 34rem);
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
@@ -71,6 +71,7 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;

@@ -99,7 +99,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
             </div>
             <h2 className="text-xl font-black leading-tight text-gray-900 sm:text-2xl">{product.name}</h2>
             <div className="flex flex-col">
-              <span className="text-xs text-orange-500 italic font-bold uppercase tracking-tight">
+              <span className="text-xs text-[#f2752f] italic font-bold uppercase tracking-tight">
                 {product.id === '11' ? (
                 'Cada camiseta sai por R$ 74,95'
               ) : product.id === '10' ? (
@@ -230,7 +230,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
           <button
             onClick={handleAddToCart}
             disabled={(product.isKit ? !kitNotes.trim() : false) || isSelectedOutOfStock}
-            className="w-full min-h-12 cursor-pointer py-4 bg-orange-500 text-white rounded-full font-bold text-lg hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none disabled:hover:shadow-none"
+            className="w-full min-h-12 cursor-pointer py-4 bg-[#f2752f] text-white rounded-full font-bold text-lg hover:bg-[#f2752f] transition-all shadow-lg shadow-[rgba(242,117,47,0.30)] hover:shadow-[rgba(242,117,47,0.50)] hover:-translate-y-0.5 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none disabled:hover:shadow-none"
           >
             {isSelectedOutOfStock ? 'Produto Esgotado' : 'Adicionar ao Carrinho'}
           </button>

@@ -67,7 +67,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
   const hiddenColorsCount = Math.max(0, availableColors.length - visibleColors.length);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-[2rem] border border-black/8 bg-[#fffaf2] shadow-[0_18px_60px_rgba(17,17,17,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-black/16 hover:shadow-[0_26px_80px_rgba(17,17,17,0.12)]">
+    <article className="group flex flex-col overflow-hidden rounded-[2rem] border border-black/8 bg-[#ffffff] shadow-[0_18px_60px_rgba(17,17,17,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-black/16 hover:shadow-[0_26px_80px_rgba(17,17,17,0.12)]">
       <div 
         className="relative aspect-[4/5] cursor-pointer overflow-hidden bg-stone-200"
         onClick={() => onSelect(product)}
@@ -83,7 +83,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/0 to-black/0 opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
         <div className="absolute left-4 top-4 flex flex-col gap-2">
           {discountPercent && discountPercent > 0 && (
-            <span className="w-fit rounded-full bg-[#d96c27] px-3 py-1 text-xs font-black text-white shadow-lg shadow-orange-950/20">
+            <span className="w-fit rounded-full bg-[#f2752f] px-3 py-1 text-xs font-black text-white shadow-lg shadow-black/20">
               -{discountPercent}%
             </span>
           )}
@@ -104,7 +104,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
         </div>
       </div>
       <div className="flex flex-grow flex-col p-5">
-        <div className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#d96c27]">
+        <div className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#f2752f]">
           {product.category}
         </div>
         <h3 className="mb-2 text-base font-black leading-tight text-stone-950">
@@ -162,7 +162,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
         </div>
         <div className="mt-auto flex flex-col gap-4 border-t border-black/8 pt-4 min-[380px]:flex-row min-[380px]:items-end min-[380px]:justify-between">
           <div className="flex flex-col">
-            <span className="min-h-4 text-[10px] font-black uppercase tracking-wide text-[#d96c27]">
+            <span className="min-h-4 text-[10px] font-black uppercase tracking-wide text-[#f2752f]">
               {product.id === '11' ? (
                 'Cada camiseta sai por R$ 74,95'
               ) : product.id === '10' ? (
@@ -183,7 +183,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
           </div>
           <button
             onClick={() => onSelect(product)}
-            className="magnetic-button min-h-11 w-full cursor-pointer rounded-full bg-black px-5 py-2.5 text-sm font-black text-white shadow-lg shadow-black/15 hover:bg-[#d96c27] active:scale-95 min-[380px]:w-auto"
+            className="magnetic-button min-h-11 w-full cursor-pointer rounded-full bg-black px-5 py-2.5 text-sm font-black text-white shadow-lg shadow-black/15 hover:bg-[#f2752f] active:scale-95 min-[380px]:w-auto"
           >
             Comprar
           </button>
