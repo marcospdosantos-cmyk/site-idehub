@@ -96,6 +96,13 @@ $admin = $admin ?? null;
         .details-list { display: grid; gap: 10px; margin: 0; }
         .details-list p { margin: 0; }
         .details-list + .btn { margin-top: 18px; }
+        .preview-list { display: grid; gap: 14px; }
+        .hero-preview { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 16px; align-items: stretch; padding: 14px; border: 1px solid var(--soft-line); border-radius: var(--radius); background: var(--surface-soft); }
+        .hero-preview img { width: 100%; height: 118px; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--line); background: #f3f4f6; }
+        .hero-preview h3 { margin: 4px 0 6px; font-size: 18px; line-height: 1.2; }
+        .hero-preview p { margin: 0; }
+        .hero-preview .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .mini-label { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
         .table-wrap { width: 100%; overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--soft-line); }
         .table-wrap table { min-width: 740px; }
         @media (max-width: 1100px) { .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -109,6 +116,7 @@ $admin = $admin ?? null;
             .topbar .actions { width: 100%; }
             .topbar .btn { flex: 1; }
             .grid-4, .grid-2 { grid-template-columns: 1fr; }
+            .hero-preview { grid-template-columns: 1fr; }
             .card-header, .actions-between { align-items: stretch; flex-direction: column; }
         }
         @media (max-width: 520px) {

@@ -79,4 +79,10 @@ final class OrderModel
         $stmt = db()->prepare('UPDATE orders SET whatsapp_link = ? WHERE id = ?');
         $stmt->execute([$link, $id]);
     }
+
+    public static function delete(int $id): void
+    {
+        $stmt = db()->prepare('DELETE FROM orders WHERE id = ?');
+        $stmt->execute([$id]);
+    }
 }

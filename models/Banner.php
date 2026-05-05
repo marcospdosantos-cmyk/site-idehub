@@ -205,6 +205,14 @@ final class Banner
         ]);
     }
 
+    public static function setActive(int $id, bool $active): void
+    {
+        self::ensureHeroColumns();
+
+        $stmt = db()->prepare('UPDATE banners SET active = ? WHERE id = ?');
+        $stmt->execute([$active ? 1 : 0, $id]);
+    }
+
     public static function delete(int $id): void
     {
         self::ensureHeroColumns();

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/csrf.php';
 require_once __DIR__ . '/../../models/Order.php';
 
 $admin = require_admin();
@@ -37,7 +38,14 @@ require __DIR__ . '/../../includes/layout/header.php';
                         <td><?= format_money((float) $order['total']) ?></td>
                         <td><span class="badge"><?= e($order['status']) ?></span></td>
                         <td><?= e(date('d/m/Y H:i', strtotime($order['created_at']))) ?></td>
-                        <td><a class="btn" href="<?= e(app_url('/admin/orders/view.php?id=' . (int) $order['id'])) ?>">Ver</a></td>
+                        <td class="actions">
+                            <a class="btn" href="<?= e(app_url('/admin/orders/view.php?id=' . (int) $order['id'])) ?>">Ver</a>
+                            <form method="post" action="<?= e(app_url('/admin/orders/delete.php')) ?>" onsubmit="return confirm('Apagar este pedido? Esta ação não pode ser desfeita.')">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="id" value="<?= (int) $order['id'] ?>">
+                                <button class="btn btn-danger" type="submit">Excluir</button>
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

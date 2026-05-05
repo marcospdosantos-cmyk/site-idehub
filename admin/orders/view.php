@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/csrf.php';
 require_once __DIR__ . '/../../models/Order.php';
 
 $admin = require_admin();
@@ -15,6 +16,17 @@ $pageTitle = 'Pedido #' . $order['id'];
 $pageSubtitle = 'Detalhes completos do cliente, pagamento e itens solicitados.';
 require __DIR__ . '/../../includes/layout/header.php';
 ?>
+<div class="card" style="margin-bottom:16px">
+    <div class="actions actions-between">
+        <a class="btn" href="<?= e(app_url('/admin/orders/index.php')) ?>">Voltar para pedidos</a>
+        <form method="post" action="<?= e(app_url('/admin/orders/delete.php')) ?>" onsubmit="return confirm('Apagar este pedido? Esta ação não pode ser desfeita.')">
+            <?= csrf_field() ?>
+            <input type="hidden" name="id" value="<?= (int) $order['id'] ?>">
+            <button class="btn btn-danger" type="submit">Excluir pedido</button>
+        </form>
+    </div>
+</div>
+
 <div class="grid grid-2">
     <div class="card">
         <h2>Cliente</h2>

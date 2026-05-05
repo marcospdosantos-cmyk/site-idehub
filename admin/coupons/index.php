@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../models/Coupon.php';
 
 $admin = require_admin();
 $pageTitle = 'Cupons';
-$pageSubtitle = 'Crie descontos por código para aplicar no checkout.';
+$pageSubtitle = 'Crie, edite, ative ou desative os descontos usados no checkout.';
 $coupons = Coupon::all();
 require __DIR__ . '/../../includes/layout/header.php';
 ?>
@@ -16,7 +16,7 @@ require __DIR__ . '/../../includes/layout/header.php';
     <div class="card-header">
         <div>
             <h2 class="section-title">Lista de cupons</h2>
-            <p class="muted">Controle porcentagem, valor fixo, pedido mínimo e limite de uso.</p>
+            <p class="muted">Controle porcentagem, valor fixo, pedido mínimo, limite de uso e se o cupom está disponível no site.</p>
         </div>
         <a class="btn btn-primary" href="<?= e(app_url('/admin/coupons/create.php')) ?>">Novo cupom</a>
     </div>
@@ -58,6 +58,14 @@ require __DIR__ . '/../../includes/layout/header.php';
                                     class="badge <?= $coupon['active'] ? 'badge-on' : 'badge-off' ?>"><?= $coupon['active'] ? 'Ativo' : 'Inativo' ?></span>
                             </td>
                             <td class="actions">
+                                <form method="post" action="<?= e(app_url('/admin/coupons/toggle.php')) ?>">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="id" value="<?= (int) $coupon['id'] ?>">
+                                    <input type="hidden" name="active" value="<?= $coupon['active'] ? 0 : 1 ?>">
+                                    <button class="btn <?= $coupon['active'] ? '' : 'btn-primary' ?>" type="submit">
+                                        <?= $coupon['active'] ? 'Desativar' : 'Ativar' ?>
+                                    </button>
+                                </form>
                                 <a class="btn"
                                     href="<?= e(app_url('/admin/coupons/edit.php?id=' . (int) $coupon['id'])) ?>">Editar</a>
                                 <form method="post" action="<?= e(app_url('/admin/coupons/delete.php')) ?>"

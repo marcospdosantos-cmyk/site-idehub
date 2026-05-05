@@ -8,12 +8,14 @@ require_once __DIR__ . '/../../models/Banner.php';
 
 $admin = require_admin();
 $pageTitle = 'Banners';
-$pageSubtitle = 'Controle os 3 banners rotativos da home e todos os textos do destaque.';
+$pageSubtitle = 'Controle imagens, frases, CTAs e status dos 3 banners rotativos da home.';
 Banner::syncDefaultHeroBanners();
 $banners = Banner::all();
 $activeBannerCount = Banner::activeCount();
+$error = ($_GET['error'] ?? '') === 'limit' ? 'O site usa no máximo 3 banners ativos. Desative um banner antes de ativar outro.' : null;
 require __DIR__ . '/../../includes/layout/header.php';
 ?>
+<?php if ($error): ?><div class="alert alert-error"><?= e($error) ?></div><?php endif; ?>
 <div class="card">
     <div class="card-header">
         <div>
@@ -31,7 +33,7 @@ require __DIR__ . '/../../includes/layout/header.php';
     <?php else: ?>
         <div class="table-wrap">
             <table>
-                <thead><tr><th>Imagem</th><th>Texto do banner</th><th>Ordem</th><th>Status</th><th></th></tr></thead>
+                <thead><tr><th>Imagem</th><th>Frases e CTAs</th><th>Ordem</th><th>Status</th><th></th></tr></thead>
                 <tbody>
                 <?php foreach ($banners as $banner): ?>
                     <tr>
@@ -40,10 +42,22 @@ require __DIR__ . '/../../includes/layout/header.php';
                             <?php if (!empty($banner['eyebrow'])): ?><span class="muted"><?= e($banner['eyebrow']) ?></span><br><?php endif; ?>
                             <strong><?= e($banner['title'] ?: 'Sem título') ?></strong>
                             <?php if (!empty($banner['subtitle'])): ?><br><span class="muted"><?= e($banner['subtitle']) ?></span><?php endif; ?>
+                            <div class="actions" style="margin-top:8px">
+                                <?php if (!empty($banner['primary_cta'])): ?><span class="badge"><?= e($banner['primary_cta']) ?></span><?php endif; ?>
+                                <?php if (!empty($banner['secondary_cta'])): ?><span class="badge"><?= e($banner['secondary_cta']) ?></span><?php endif; ?>
+                            </div>
                         </td>
                         <td><?= (int) $banner['display_order'] ?></td>
                         <td><span class="badge <?= $banner['active'] ? 'badge-on' : 'badge-off' ?>"><?= $banner['active'] ? 'Ativo' : 'Inativo' ?></span></td>
                         <td class="actions">
+                            <form method="post" action="<?= e(app_url('/admin/banners/toggle.php')) ?>">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="id" value="<?= (int) $banner['id'] ?>">
+                                <input type="hidden" name="active" value="<?= $banner['active'] ? 0 : 1 ?>">
+                                <button class="btn <?= $banner['active'] ? '' : 'btn-primary' ?>" type="submit">
+                                    <?= $banner['active'] ? 'Desativar' : 'Ativar' ?>
+                                </button>
+                            </form>
                             <a class="btn" href="<?= e(app_url('/admin/banners/edit.php?id=' . (int) $banner['id'])) ?>">Editar</a>
                             <form method="post" action="<?= e(app_url('/admin/banners/delete.php')) ?>" onsubmit="return confirm('Excluir este banner?')">
                                 <?= csrf_field() ?><input type="hidden" name="id" value="<?= (int) $banner['id'] ?>">
