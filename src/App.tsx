@@ -14,6 +14,7 @@ import { fetchStorefront, sendCheckout } from './lib/api';
 import { resolveLocalUrl } from './lib/urls';
 
 const CART_STORAGE_KEY = 'idehub-cart';
+const WHATSAPP_HELP_MESSAGE = 'Oi, tudo bem? pode me ajudar a escolher a minha camiseta?';
 
 const fallbackSettings: StoreSettings = {
   storeName: 'Ide.hub',
@@ -418,6 +419,11 @@ export default function App() {
 
     handleSelectCategory(category || categories[0] || 'Todos');
   };
+
+  const whatsappHelpLink = useMemo(() => {
+    const whatsappNumber = settings.whatsappNumber.replace(/\D/g, '');
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(WHATSAPP_HELP_MESSAGE)}`;
+  }, [settings.whatsappNumber]);
 
   const handleContinueShopping = () => {
     setIsCartOpen(false);
@@ -880,6 +886,16 @@ export default function App() {
 
       <Testimonials />
       <Footer settings={settings} />
+
+      <a
+        href={whatsappHelpLink}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chamar atendimento no WhatsApp"
+        className="fixed bottom-5 right-5 z-40 inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-black/25 transition-transform hover:scale-105 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#25D366]/35 sm:bottom-7 sm:right-7 sm:h-20 sm:w-20"
+      >
+        <MessageCircle className="h-8 w-8 sm:h-10 sm:w-10" strokeWidth={2.8} />
+      </a>
 
       {/* Modals & Drawers */}
       {selectedProduct && (
