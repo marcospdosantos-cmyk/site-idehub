@@ -276,19 +276,14 @@ function Footer() {
             <img src="assets/logo-branca-transp.png" alt="Ide.hub" />
             <p>Streetwear cristão premium. Vista sua fé com propósito e estilo.</p>
             <div className="ide-foot-social">
-              <a href="#" aria-label="Instagram">
+              <a href="https://www.instagram.com/ide.hub" target="_blank" rel="noopener" aria-label="Instagram">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                 </svg>
               </a>
-              <a href="#" aria-label="WhatsApp">
+              <a href="https://wa.me/5542984137740" target="_blank" rel="noopener" aria-label="WhatsApp">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
-                </svg>
-              </a>
-              <a href="#" aria-label="TikTok">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
                 </svg>
               </a>
             </div>
@@ -296,17 +291,17 @@ function Footer() {
           <div>
             <h3>Loja</h3>
             <ul>
-              <li><a href="#">Camisetas</a></li>
-              <li><a href="#">Moletons</a></li>
-              <li><a href="#">Acessórios</a></li>
-              <li><a href="#">Kits</a></li>
-              <li><a href="#">Lançamentos</a></li>
+              <li><a href="categoria.html?cat=tshirt">Camisetas</a></li>
+              <li><a href="categoria.html?cat=oversized">Oversized</a></li>
+              <li><a href="categoria.html?cat=streetwear">Streetwear</a></li>
+              <li><a href="categoria.html?cat=meias">Meias</a></li>
+              <li><a href="montar-kit.html">Montar Kit</a></li>
             </ul>
           </div>
           <div>
             <h3>Atendimento</h3>
             <ul>
-              <li><a href="#">WhatsApp</a></li>
+              <li><a href="https://wa.me/5542984137740" target="_blank" rel="noopener">WhatsApp</a></li>
               <li><a href="trocas.html">Trocas e devoluções</a></li>
               <li><a href="#">Frete e entrega</a></li>
               <li><a href="tamanhos.html">Guia de tamanhos</a></li>
@@ -316,11 +311,7 @@ function Footer() {
           <div>
             <h3>Personalizados</h3>
             <ul>
-              <li><a href="#">Igrejas</a></li>
-              <li><a href="#">Escolas</a></li>
-              <li><a href="#">Empresas</a></li>
-              <li><a href="#">Eventos</a></li>
-              <li><a href="#">Ministérios</a></li>
+              <li><a href="https://wa.me/5542984137740?text=Ol%C3%A1!%20Tenho%20interesse%20em%20pe%C3%A7as%20personalizadas." target="_blank" rel="noopener">Entre em contato</a></li>
             </ul>
           </div>
         </div>
