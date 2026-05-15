@@ -325,6 +325,61 @@ function Footer() {
 
 }
 
+function TrustBar() {
+  const items = [
+    {
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18h5a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62L18 9h-4"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        </svg>
+      ),
+      title: "Frete Grátis",
+      sub: "Acima de R$ 399 (Sul e Sudeste)",
+    },
+    {
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+        </svg>
+      ),
+      title: "Primeira Troca",
+      sub: "Gratuita",
+    },
+    {
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+        </svg>
+      ),
+      title: "Pagamento em",
+      sub: "até 6x sem juros",
+    },
+    {
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+      ),
+      title: "Enviamos pra",
+      sub: "todo o Brasil",
+    },
+  ];
+
+  return (
+    <div className="ide-trust-bar">
+      {items.map((item, i) => (
+        <div key={i} className="ide-trust-item">
+          <span className="ide-trust-icon">{item.icon}</span>
+          <div className="ide-trust-text">
+            <strong>{item.title}</strong>
+            <span>{item.sub}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 window.Manifesto = Manifesto;
 window.HowToBuy = HowToBuy;
 window.Testimonials = Testimonials;
@@ -332,3 +387,4 @@ window.UGC = UGC;
 window.Newsletter = Newsletter;
 window.PreFooter = PreFooter;
 window.Footer = Footer;
+window.TrustBar = TrustBar;
