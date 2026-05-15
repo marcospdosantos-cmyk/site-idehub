@@ -26,7 +26,7 @@ function Categories() {
         <a
           href={c.href}
           key={c.key}
-          className={`ide-cat-card ${i === 0 ? "is-wide" : ""} ${c.isDrop ? "is-drop" : ""}`}>
+          className={`ide-cat-card ${c.isDrop ? "is-drop" : ""}`}>
           
             <div className="ide-cat-img">
               <img src={c.img} alt={c.label} loading="lazy" />
