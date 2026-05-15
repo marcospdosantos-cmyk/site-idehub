@@ -326,7 +326,7 @@ function Footer() {
         </div>
         <div className="ide-foot-bottom">
           <span>© 2026 Ide.hub. Todos os direitos reservados.</span>
-          <span className="ide-foot-mid">CNPJ 00.000.000/0001-00</span>
+          <span className="ide-foot-mid">CNPJ 66.433.712/0001-02</span>
           <span className="ide-foot-italic">Feito com propósito.</span>
         </div>
       </div>
