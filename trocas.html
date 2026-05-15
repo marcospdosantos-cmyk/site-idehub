@@ -63,9 +63,9 @@
         hero: { background: "var(--ide-ink)", padding: "80px 20px 64px", textAlign: "center" },
         crumb: { fontSize: 12, color: "rgba(255,255,255,.4)", marginBottom: 20 },
         crumbA: { color: "rgba(255,255,255,.4)", textDecoration: "none" },
-        h1: { color: "var(--ide-cream)", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontFamily: "var(--font-serif)", margin: "0 auto", lineHeight: 1.15 },
+        h1: { color: "var(--ide-cream)", fontSize: "clamp(2rem, 5vw, 3.5rem)", margin: "0 auto", lineHeight: 1.15 },
         section: { maxWidth: 800, margin: "0 auto", padding: "60px 20px" },
-        h2: { fontFamily: "var(--font-serif)", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", color: "var(--ide-ink)", marginBottom: 32 },
+        h2: { fontSize: "clamp(1.4rem, 3vw, 1.9rem)", color: "var(--ide-ink)", marginBottom: 32 },
         step: { display: "flex", gap: 20, marginBottom: 36, alignItems: "flex-start" },
         num: { flexShrink: 0, width: 44, height: 44, borderRadius: "50%", background: "var(--ide-accent)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700, fontSize: ".85rem", fontFamily: "var(--font-sans)" },
         stepBody: { paddingTop: 4 },
@@ -76,7 +76,7 @@
         dot: { flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "var(--ide-accent)", marginTop: 7 },
         divider: { borderTop: "1px solid var(--ide-stone)", margin: "0 20px" },
         cta: { background: "var(--ide-ink)", textAlign: "center", padding: "64px 20px" },
-        ctaH: { color: "var(--ide-cream)", margin: "0 0 24px", fontFamily: "var(--font-serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)" },
+        ctaH: { color: "var(--ide-cream)", margin: "0 0 24px", fontSize: "clamp(1.4rem, 3vw, 2rem)" },
       };
 
       return (
@@ -88,7 +88,7 @@
               <span style={{ color: "rgba(255,255,255,.75)" }}>Trocas e Devoluções</span>
             </nav>
             <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Sem burocracia</span>
-            <h1 style={S.h1}>Trocas em <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>30 dias.</em></h1>
+            <h1 style={S.h1}>Trocas em <em style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontStyle: "italic", color: "var(--ide-accent-soft)" }}>30 dias.</em></h1>
             <p style={{ color: "rgba(255,255,255,.65)", marginTop: 16, fontSize: ".95rem", lineHeight: 1.6 }}>
               Frete grátis na primeira troca. Processo simples pelo WhatsApp.
             </p>
@@ -126,7 +126,7 @@
 
           <section style={S.cta}>
             <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Precisa trocar?</span>
-            <h3 style={S.ctaH}>Fala com a gente <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>agora.</em></h3>
+            <h3 style={S.ctaH}>Fala com a gente <em style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontStyle: "italic", color: "var(--ide-accent-soft)" }}>agora.</em></h3>
             <a href="https://wa.me/5542984137740?text=Ol%C3%A1!%20Preciso%20solicitar%20uma%20troca." target="_blank" rel="noopener" className="ide-btn ide-btn-orange">
               Solicitar troca pelo WhatsApp
               <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">

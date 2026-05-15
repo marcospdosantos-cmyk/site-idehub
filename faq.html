@@ -35,7 +35,7 @@
       hero: { background: "var(--ide-ink)", padding: "80px 20px 64px", textAlign: "center" },
       crumb: { fontSize: 12, color: "rgba(255,255,255,.4)", marginBottom: 20 },
       crumbA: { color: "rgba(255,255,255,.4)", textDecoration: "none" },
-      h1: { color: "var(--ide-cream)", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontFamily: "var(--font-serif)", margin: "0 auto", lineHeight: 1.15 },
+      h1: { color: "var(--ide-cream)", fontSize: "clamp(2rem, 5vw, 3.5rem)", margin: "0 auto", lineHeight: 1.15 },
       body: { maxWidth: 720, margin: "0 auto", padding: "60px 20px 80px" },
       itemWrap: { borderBottom: "1px solid var(--ide-stone)" },
       btn: { width: "100%", textAlign: "left", padding: "22px 0", background: "none", border: "none", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 },
@@ -43,7 +43,7 @@
       icon: { flexShrink: 0, color: "var(--ide-accent)", display: "flex", transition: "transform .2s" },
       a: { color: "var(--ide-ink-muted)", lineHeight: 1.75, paddingBottom: 22, margin: 0, fontSize: ".95rem" },
       cta: { background: "var(--ide-ink)", textAlign: "center", padding: "64px 20px" },
-      ctaH: { color: "var(--ide-cream)", margin: "0 0 24px", fontFamily: "var(--font-serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)" },
+      ctaH: { color: "var(--ide-cream)", margin: "0 0 24px", fontSize: "clamp(1.4rem, 3vw, 2rem)" },
     };
 
     function FAQPage() {
@@ -70,7 +70,7 @@
               <span style={{ color: "rgba(255,255,255,.75)" }}>FAQ</span>
             </nav>
             <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Atendimento</span>
-            <h1 style={S.h1}>Perguntas <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>frequentes.</em></h1>
+            <h1 style={S.h1}>Perguntas <em style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontStyle: "italic", color: "var(--ide-accent-soft)" }}>frequentes.</em></h1>
           </section>
 
           <section style={S.body}>
@@ -91,7 +91,7 @@
 
           <section style={S.cta}>
             <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Ainda com dúvida?</span>
-            <h3 style={S.ctaH}>A gente responde <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>no WhatsApp.</em></h3>
+            <h3 style={S.ctaH}>A gente responde <em style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontStyle: "italic", color: "var(--ide-accent-soft)" }}>no WhatsApp.</em></h3>
             <a href="https://wa.me/5542984137740" target="_blank" rel="noopener" className="ide-btn ide-btn-orange">
               Falar com a gente
               <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
