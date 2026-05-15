@@ -32,13 +32,16 @@ function Navbar({ onSearchOpen, onCartOpen, cartCount }) {
       {/* Top utility strip */}
       <div className="ide-utility-strip">
         <div className="ide-utility-inner">
-          <span className="ide-utility-marquee">
-            <span>Frete grátis em compras acima de R$ 299</span>
-            <span className="dot" />
-            <span>Pix com 15% OFF</span>
-            <span className="dot" />
-            <span>Parcele em até 6x sem juros</span>
-          </span>
+          {[0, 1].map(n => (
+            <span key={n} className="ide-utility-marquee" aria-hidden={n === 1 ? "true" : undefined}>
+              <span>Frete grátis em compras acima de R$ 299</span>
+              <span className="dot" />
+              <span>Pix com 15% OFF</span>
+              <span className="dot" />
+              <span>Parcele em até 6x sem juros</span>
+              <span className="dot" />
+            </span>
+          ))}
         </div>
       </div>
 

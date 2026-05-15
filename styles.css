@@ -180,7 +180,6 @@ body::before {
   height: 36px;
   display: flex;
   align-items: center;
-  justify-content: center;
   white-space: nowrap;
   overflow: hidden;
   position: relative;
@@ -189,6 +188,8 @@ body::before {
   display: inline-flex;
   gap: 28px;
   align-items: center;
+  flex-shrink: 0;
+  animation: utility-scroll 20s linear infinite;
 }
 .ide-utility-marquee .dot {
   width: 4px; height: 4px;
@@ -2649,6 +2650,12 @@ body::before {
   .ide-drop-clock { gap: 4px; }
   .ide-drop-block { min-width: 52px; padding: 10px 8px; }
   .ide-nav-list { display: none; }
+  .ide-nav-inner {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    gap: 0;
+    padding: 0 20px;
+  }
 }
 
 @media (max-width: 400px) {
