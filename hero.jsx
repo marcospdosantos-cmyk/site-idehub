@@ -44,9 +44,9 @@ function Hero({ onSearchOpen }) {
               cada escolha.
             </p>
             <div className="ide-hero-ctas">
-              <a href="#produtos" className="ide-btn ide-btn-orange" onClick={(e) => {
+              <a href="#categorias" className="ide-btn ide-btn-orange" onClick={(e) => {
                 e.preventDefault();
-                document.querySelector("#produtos")?.scrollIntoView({ behavior: "smooth" });
+                document.querySelector("#categorias")?.scrollIntoView({ behavior: "smooth" });
               }}>
                 Ver coleção
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -62,27 +62,6 @@ function Hero({ onSearchOpen }) {
             </div>
           </div>
 
-          {/* Featured drop card on the right */}
-          <a href="#produtos" className="ide-hero-card" onClick={(e) => {
-            e.preventDefault();
-            document.querySelector("#produtos")?.scrollIntoView({ behavior: "smooth" });
-          }}>
-            <div className="ide-hero-card-img">
-              <img src="assets/assim-na-terra-preto.webp" alt="Assim na Terra" />
-            </div>
-            <div className="ide-hero-card-meta">
-              <span className="t-eyebrow t-eyebrow-light">Drop atual</span>
-              <h3>Assim na Terra</h3>
-              <div className="ide-hero-card-foot">
-                <span>R$ 99,90</span>
-                <span className="ide-hero-card-arrow">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>
-                  </svg>
-                </span>
-              </div>
-            </div>
-          </a>
         </div>
 
         <div className="ide-hero-foot">
