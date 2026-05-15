@@ -361,18 +361,24 @@ function TrustBar() {
     },
   ];
 
+  const renderItem = (item, i) => (
+    <div key={i} className="ide-trust-item" aria-hidden={i >= items.length ? "true" : undefined}>
+      <span className="ide-trust-icon">{item.icon}</span>
+      <div className="ide-trust-text">
+        <strong>{item.title}</strong>
+        <span>{item.sub}</span>
+      </div>
+    </div>
+  );
+
   return (
     <div className="ide-trust-wrap">
       <div className="ide-trust-bar">
-        {items.map((item, i) => (
-          <div key={i} className="ide-trust-item">
-            <span className="ide-trust-icon">{item.icon}</span>
-            <div className="ide-trust-text">
-              <strong>{item.title}</strong>
-              <span>{item.sub}</span>
-            </div>
-          </div>
-        ))}
+        {items.map((item, i) => renderItem(item, i))}
+      </div>
+      {/* Duplicate track for seamless mobile loop */}
+      <div className="ide-trust-bar ide-trust-bar--loop" aria-hidden="true">
+        {items.map((item, i) => renderItem(item, items.length + i))}
       </div>
     </div>
   );
