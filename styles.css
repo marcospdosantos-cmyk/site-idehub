@@ -670,16 +670,6 @@ body::before {
   .ide-trust-item:nth-child(4) { border-top: 1px solid var(--border); }
 }
 
-@media (max-width: 480px) {
-  .ide-trust-bar { grid-template-columns: 1fr; }
-  .ide-trust-wrap .ide-trust-bar { grid-template-columns: 1fr; }
-  .ide-trust-item {
-    border-right: none !important;
-    border-top: 1px solid var(--border) !important;
-  }
-  .ide-trust-item:first-child { border-top: none !important; }
-  .ide-trust-item { padding: 16px 20px; }
-}
 
 /* ─────────────────── MARQUEE ─────────────────── */
 
@@ -2516,6 +2506,14 @@ body::before {
 /* ─────────────────── RESPONSIVE ─────────────────── */
 
 @media (max-width: 1100px) {
+  /* Sections */
+  .ide-manifesto { padding: 64px 20px; }
+  .ide-how { padding: 56px 20px; }
+  .ide-testi { padding: 64px 20px; }
+  .ide-ugc { padding: 56px 20px; }
+  .ide-news { padding: 56px 20px; }
+  .ide-prefoot { padding: 64px 20px; }
+  /* Grids */
   .ide-cat-card { flex: 0 0 260px; height: 440px; }
   .ide-product-grid { grid-template-columns: repeat(2, 1fr); }
   .ide-ugc-grid { grid-template-columns: repeat(3, 1fr); }
@@ -2526,31 +2524,111 @@ body::before {
   .ide-news-inner { grid-template-columns: 1fr; gap: 40px; }
   .ide-manifesto-inner { grid-template-columns: 1fr; gap: 40px; }
   .ide-manifesto-l { position: static; }
+  .ide-manifesto-lede { font-size: 20px; }
   .ide-manifesto-pillars li { grid-template-columns: 40px 160px 1fr; gap: 16px; }
   .ide-modal { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
   .ide-modal-img-main { min-height: 300px; }
-  .ide-prefoot-inner { grid-template-columns: 1fr; gap: 32px; }
-  .ide-prefoot-mascot { width: 140px; }
+  .ide-prefoot-inner { grid-template-columns: 1fr; gap: 24px; }
+  .ide-prefoot-mascot { width: 120px; }
+  .ide-prefoot-text h2 { font-size: clamp(2.4rem, 6vw, 4rem); }
   .ide-foot-cols { grid-template-columns: 1fr 1fr; gap: 32px; }
   .ide-drop-inner { grid-template-columns: 1fr; gap: 24px; text-align: left; }
   .ide-testi-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 720px) {
-  .ide-testi-grid { grid-template-columns: 1fr; }
-  .ide-hero-bottom { grid-template-columns: 1fr; }
+  /* ── Hero ── */
+  .ide-hero { min-height: 100svh; }
+  .ide-hero-inner { padding: 76px 20px 24px; gap: 20px; min-height: 100svh; }
+  .ide-hero-title { font-size: clamp(2.4rem, 10vw, 3.4rem); line-height: 0.92; }
+  .ide-hero-meta { display: none; }
+  .ide-hero-bottom { grid-template-columns: 1fr; gap: 0; }
+  .ide-hero-lede p { font-size: 15px; }
+  .ide-hero-ctas { flex-direction: column; gap: 10px; margin-top: 20px; }
+  .ide-hero-ctas .ide-btn { width: 100%; justify-content: center; }
+  .ide-hero-foot { font-size: 10px; padding-top: 16px; }
+  .ide-hero-foot-mid { display: none; }
   .ide-hero-card { width: 100%; }
-  .ide-section-head { grid-template-columns: 1fr; }
+
+  /* ── Trust bar ── */
+  .ide-trust-bar { grid-template-columns: repeat(2, 1fr); }
+  .ide-trust-item { padding: 16px 16px; }
+  .ide-trust-item:nth-child(2) { border-right: none; }
+  .ide-trust-item:nth-child(3) { border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .ide-trust-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+
+  /* ── Categories ── */
+  .ide-cats { padding: 48px 0; }
+  .ide-cats > .ide-section-head { padding: 0 20px; margin-bottom: 28px; }
+  .ide-cat-card { flex: 0 0 200px; height: 340px; }
+  .ide-cat-grid { padding: 0 20px 20px; gap: 12px; }
+  .ide-cat-meta h3 { font-size: 20px; }
+  .ide-cat-nav-btn { width: 38px; height: 38px; }
+
+  /* ── Section heads ── */
+  .ide-section-head { grid-template-columns: 1fr; gap: 16px; }
   .ide-section-head-r { align-items: flex-start; }
-  .ide-cat-card { flex: 0 0 220px; height: 380px; }
-  .ide-product-grid { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
+  .ide-section-title { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+
+  /* ── Manifesto ── */
+  .ide-manifesto { padding: 52px 20px; }
+  .ide-manifesto-inner { gap: 28px; }
+  .ide-manifesto-l h2 { font-size: clamp(2rem, 9vw, 3rem); }
+  .ide-manifesto-lede { font-size: 17px; }
+  .ide-manifesto-body { font-size: 14px; margin-top: 16px; }
+  .ide-manifesto-pillars { margin-top: 32px; }
+  .ide-manifesto-pillars li { grid-template-columns: 36px 1fr; gap: 8px 12px; padding: 16px 0; }
+  .ide-manifesto-pillars h4 { font-size: 15px; }
+  .ide-manifesto-pillars p { font-size: 13px; }
+
+  /* ── How to buy ── */
+  .ide-how { padding: 52px 20px; }
+  .ide-how-card { padding: 24px; }
+  .ide-how-card h3 { font-size: 18px; }
+
+  /* ── Testimonials ── */
+  .ide-testi { padding: 52px 20px; }
+  .ide-testi-grid { grid-template-columns: 1fr; gap: 12px; }
+  .ide-testi-card { padding: 22px 24px; }
+
+  /* ── UGC ── */
+  .ide-ugc { padding: 48px 20px; }
   .ide-ugc-grid { grid-template-columns: repeat(2, 1fr); }
-  .ide-foot-cols { grid-template-columns: 1fr 1fr; }
-  .ide-foot-brand { grid-column: span 2; }
-  .ide-manifesto-pillars li { grid-template-columns: 1fr; gap: 8px; }
+
+  /* ── Newsletter ── */
+  .ide-news { padding: 52px 20px; }
+  .ide-news-l h2 { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+  .ide-news-input-wrap { grid-template-columns: 1fr; border-radius: 16px; padding: 12px; gap: 10px; }
+  .ide-news-btn { width: 100%; justify-content: center; border-radius: 10px; }
+
+  /* ── Pre-footer ── */
+  .ide-prefoot { padding: 48px 20px; }
+  .ide-prefoot-inner { gap: 16px; }
+  .ide-prefoot-mascot { width: 90px; }
+  .ide-prefoot-text h2 { font-size: clamp(2rem, 9vw, 3rem); }
+
+  /* ── Footer ── */
+  .ide-foot { padding: 48px 20px 28px; }
+  .ide-foot-cols { grid-template-columns: 1fr; gap: 32px; }
+  .ide-foot-brand { grid-column: auto; }
+  .ide-foot-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .ide-foot-mid, .ide-foot-italic { display: none; }
+
+  /* ── Products ── */
+  .ide-product-grid { grid-template-columns: 1fr 1fr; gap: 16px 10px; }
+  .ide-products { padding: 48px 20px; }
+
+  /* ── Misc ── */
   .ide-drop-clock { gap: 4px; }
   .ide-drop-block { min-width: 52px; padding: 10px 8px; }
   .ide-nav-list { display: none; }
+}
+
+@media (max-width: 400px) {
+  .ide-hero-title { font-size: 2.1rem; }
+  .ide-cat-card { flex: 0 0 170px; height: 300px; }
+  .ide-trust-item { gap: 10px; padding: 14px 12px; }
+  .ide-trust-icon svg { width: 22px; height: 22px; }
 }
 
 /* ============================================================
