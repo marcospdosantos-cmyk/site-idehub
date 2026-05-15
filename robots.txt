@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /404.html
+
+# Atualize com a URL final do seu site antes de publicar
+Sitemap: DOMAIN/sitemap.xml

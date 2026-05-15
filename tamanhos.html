@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia de Tamanhos — Ide.hub</title>
+  <meta name="description" content="Guia de tamanhos das camisetas Ide.hub. Tabela de medidas para modelos básicos e oversized. Escolha o tamanho certo.">
+  <meta property="og:title" content="Guia de Tamanhos — Ide.hub">
+  <meta property="og:description" content="Tabela de medidas para camisetas Ide.hub. Modelos básicos e oversized.">
+  <meta property="og:image" content="assets/hero-1.webp">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="theme-color" content="#100f0d">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f2752f'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='bold'>i</text></svg>">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .sz-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: .9rem; }
+    .sz-table th { background: var(--ide-ink); color: var(--ide-cream); padding: 12px 16px; text-align: left; font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+    .sz-table td { padding: 12px 16px; border-bottom: 1px solid var(--ide-stone); color: var(--ide-ink); }
+    .sz-table tr:last-child td { border-bottom: none; }
+    .sz-table tr:nth-child(even) td { background: rgba(0,0,0,.025); }
+    .sz-table td:first-child { font-weight: 700; color: var(--ide-accent); }
+    .sz-tip { background: var(--ide-stone-light, #f5f4f0); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; color: var(--ide-ink-muted); font-size: .9rem; line-height: 1.65; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="cart.jsx"></script>
+  <script type="text/babel" src="navbar.jsx"></script>
+  <script type="text/babel" src="sections.jsx"></script>
+  <script type="text/babel" src="overlays.jsx"></script>
+  <script type="text/babel" src="content-page.jsx"></script>
+
+  <script type="text/babel">
+    function TamanhoPage() {
+      const basicos = [
+        { tam: "P",  ombro: "42 cm", torax: "90 cm", comp: "66 cm" },
+        { tam: "M",  ombro: "44 cm", torax: "96 cm", comp: "68 cm" },
+        { tam: "G",  ombro: "46 cm", torax: "102 cm", comp: "70 cm" },
+        { tam: "GG", ombro: "48 cm", torax: "108 cm", comp: "72 cm" },
+        { tam: "XG", ombro: "50 cm", torax: "114 cm", comp: "74 cm" },
+      ];
+      const oversized = [
+        { tam: "P",  ombro: "48 cm", torax: "106 cm", comp: "73 cm" },
+        { tam: "M",  ombro: "50 cm", torax: "112 cm", comp: "75 cm" },
+        { tam: "G",  ombro: "52 cm", torax: "118 cm", comp: "77 cm" },
+        { tam: "GG", ombro: "54 cm", torax: "124 cm", comp: "79 cm" },
+        { tam: "XG", ombro: "56 cm", torax: "130 cm", comp: "81 cm" },
+      ];
+
+      const SzTable = ({ rows }) => (
+        <table className="sz-table">
+          <thead>
+            <tr>
+              <th>Tamanho</th>
+              <th>Ombro</th>
+              <th>Tórax</th>
+              <th>Comprimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map(r => (
+              <tr key={r.tam}>
+                <td>{r.tam}</td>
+                <td>{r.ombro}</td>
+                <td>{r.torax}</td>
+                <td>{r.comp}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+
+      const S = {
+        hero: { background: "var(--ide-ink)", padding: "80px 20px 64px", textAlign: "center" },
+        crumb: { fontSize: 12, color: "rgba(255,255,255,.4)", marginBottom: 20 },
+        crumbA: { color: "rgba(255,255,255,.4)", textDecoration: "none" },
+        h1: { color: "var(--ide-cream)", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontFamily: "var(--font-serif)", margin: "0 auto", lineHeight: 1.15 },
+        body: { maxWidth: 800, margin: "0 auto", padding: "60px 20px 80px" },
+        h2: { fontFamily: "var(--font-serif)", fontSize: "clamp(1.3rem, 3vw, 1.7rem)", color: "var(--ide-ink)", marginBottom: 20, marginTop: 48 },
+        step: { display: "flex", gap: 20, marginBottom: 20, alignItems: "flex-start" },
+        num: { flexShrink: 0, width: 36, height: 36, borderRadius: "50%", background: "var(--ide-accent)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700, fontSize: ".8rem" },
+        stepText: { color: "var(--ide-ink-muted)", lineHeight: 1.7, fontSize: ".95rem", margin: 0, paddingTop: 6 },
+        cta: { background: "var(--ide-ink)", textAlign: "center", padding: "64px 20px" },
+        ctaH: { color: "var(--ide-cream)", margin: "0 0 24px", fontFamily: "var(--font-serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)" },
+      };
+
+      return (
+        <ContentPage title="Guia de Tamanhos">
+          <section style={S.hero}>
+            <nav style={S.crumb}>
+              <a href="Homepage @ide.hub.html" style={S.crumbA}>Início</a>
+              <span style={{ margin: "0 8px" }}>/</span>
+              <span style={{ color: "rgba(255,255,255,.75)" }}>Guia de Tamanhos</span>
+            </nav>
+            <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Escolha certo</span>
+            <h1 style={S.h1}>Guia de <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>tamanhos.</em></h1>
+            <p style={{ color: "rgba(255,255,255,.65)", marginTop: 16, fontSize: ".95rem" }}>
+              Medidas da peça, não do corpo. Meça a roupa que você já tem para comparar.
+            </p>
+          </section>
+
+          <section style={S.body}>
+            <div className="sz-tip">
+              <strong style={{ color: "var(--ide-ink)" }}>Como medir corretamente:</strong> coloque a peça plana sobre uma superfície e meça com uma fita métrica. As medidas abaixo são da peça, não do corpo.
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 40 }}>
+              {[
+                { label: "Ombro", desc: "De uma ponta da costura do ombro até a outra, passando pelas costas." },
+                { label: "Tórax", desc: "Largura total da peça medida na altura das axilas, multiplicada por 2." },
+                { label: "Comprimento", desc: "Do ponto mais alto do ombro até a bainha, medido pelas costas." },
+              ].map((m, i) => (
+                <div key={i} style={S.step}>
+                  <div style={S.num}>{i + 1}</div>
+                  <p style={S.stepText}><strong style={{ color: "var(--ide-ink)" }}>{m.label}: </strong>{m.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <h2 style={{ ...S.h2, marginTop: 0 }}>Camisetas Básicas</h2>
+            <p style={{ color: "var(--ide-ink-muted)", fontSize: ".9rem", marginBottom: 16 }}>Modelagem regular, caimento ajustado. 100% algodão fio 30 penteado.</p>
+            <SzTable rows={basicos} />
+
+            <h2 style={S.h2}>Camisetas Oversized</h2>
+            <p style={{ color: "var(--ide-ink-muted)", fontSize: ".9rem", marginBottom: 16 }}>Modelagem ampla, caimento solto. Malha cotton pesada 340g.</p>
+            <SzTable rows={oversized} />
+
+            <div className="sz-tip" style={{ marginTop: 32, marginBottom: 0 }}>
+              <strong style={{ color: "var(--ide-ink)" }}>Dica:</strong> se você está entre dois tamanhos, prefira o maior para os modelos básicos. Para os oversized, o modelo já tem folga generosa — considere o tamanho menor se preferir um fit menos extremo.
+            </div>
+          </section>
+
+          <section style={S.cta}>
+            <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Ainda com dúvida?</span>
+            <h3 style={S.ctaH}>A gente te ajuda <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>a escolher.</em></h3>
+            <a href="https://wa.me/5542984137740?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20para%20escolher%20o%20tamanho." target="_blank" rel="noopener" className="ide-btn ide-btn-orange">
+              Falar no WhatsApp
+              <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
+                <path d="M16 3C9.4 3 4 8.4 4 15c0 2.3.6 4.5 1.9 6.5L4 29l7.7-1.8c1.9 1 4.1 1.6 4.3 1.6C22.6 28 28 22.6 28 16c0-7-5.4-13-12-13zm0 22.2c-1.7 0-3.4-.4-4.9-1.3l-.3-.1-3.2.7.7-3.2-.2-.3a9.9 9.9 0 1 1 17.4-6c0 5.5-4.5 10.2-9.5 10.2z"/>
+              </svg>
+            </a>
+          </section>
+        </ContentPage>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<TamanhoPage />);
+  </script>
+</body>
+</html>

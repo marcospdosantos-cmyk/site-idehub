@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ide.hub — Streetwear cristão premium</title>
+  <meta name="description" content="Camisetas e peças cristãs premium para quem quer representar Jesus com estilo. Drop Outono 2026 — edição limitada. Vista a mensagem, carregue a presença.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ide.hub — Streetwear cristão premium">
+  <meta property="og:description" content="Camisetas e peças cristãs premium para quem quer representar Jesus com estilo. Drop Outono 2026 — edição limitada.">
+  <meta property="og:image" content="assets/hero-1.webp">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ide.hub — Streetwear cristão premium">
+  <meta name="twitter:description" content="Camisetas e peças cristãs premium para quem quer representar Jesus com estilo.">
+  <meta name="twitter:image" content="assets/hero-1.webp">
+  <meta name="theme-color" content="#100f0d">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f2752f'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='bold'>i</text></svg>">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preload" as="image" href="assets/hero-1.webp">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="cart.jsx"></script>
+  <script type="text/babel" src="navbar.jsx"></script>
+  <script type="text/babel" src="hero.jsx"></script>
+  <script type="text/babel" src="marquee.jsx"></script>
+  <script type="text/babel" src="categories.jsx"></script>
+  <script type="text/babel" src="products.jsx"></script>
+  <script type="text/babel" src="sections.jsx"></script>
+  <script type="text/babel" src="overlays.jsx"></script>
+
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accent": "#f2752f",
+      "cardHover": "minimal"
+    }/*EDITMODE-END*/;
+
+    const ACCENT_OPTIONS = {
+      "#f2752f": { soft: "#f3c27d", label: "Laranja Ide.hub" },
+      "#c19a4b": { soft: "#e5cc94", label: "Dourado envelhecido" },
+    };
+
+    function useScrollReveal() {
+      React.useEffect(() => {
+        const els = document.querySelectorAll(".ide-reveal");
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-in");
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+        els.forEach((el) => io.observe(el));
+        return () => io.disconnect();
+      }, []);
+    }
+
+    function App() {
+      const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      // Apply accent globally
+      React.useEffect(() => {
+        const meta = ACCENT_OPTIONS[t.accent] || ACCENT_OPTIONS["#f2752f"];
+        document.documentElement.style.setProperty("--ide-accent", t.accent);
+        document.documentElement.style.setProperty("--ide-accent-soft", meta.soft);
+      }, [t.accent]);
+
+      // Cart, Quick view, Search state
+      const [cart, setCart] = useCart();
+      const [cartOpen, setCartOpen] = React.useState(false);
+      const [quickView, setQuickView] = React.useState(null);
+      const [searchOpen, setSearchOpen] = React.useState(false);
+      const [toast, setToast] = React.useState({ visible: false, item: null });
+      const toastTimer = React.useRef(null);
+
+      const cartCount = cart.reduce((sum, it) => sum + it.qty, 0);
+
+      const addToCart = (product, opts = {}) => {
+        const size = opts.size || product.sizes?.[1] || product.sizes?.[0];
+        const color = opts.color || product.colors?.[0];
+        const lineId = `${product.id}-${size}-${color}`;
+        setCart((prev) => {
+          const existing = prev.find((l) => l.lineId === lineId);
+          if (existing) {
+            return prev.map((l) => l.lineId === lineId ? { ...l, qty: l.qty + 1 } : l);
+          }
+          return [...prev, {
+            lineId,
+            id: product.id,
+            name: product.name,
+            subtitle: product.subtitle,
+            price: product.price,
+            img: product.img,
+            size, color, qty: 1,
+          }];
+        });
+        // close quick view if open
+        if (quickView?.id === product.id) setQuickView(null);
+        // Toast
+        clearTimeout(toastTimer.current);
+        setToast({ visible: true, item: product });
+        toastTimer.current = setTimeout(() => setToast({ visible: false, item: null }), 2600);
+      };
+
+      const removeFromCart = (lineId) => {
+        setCart((prev) => prev.filter((l) => l.lineId !== lineId));
+      };
+      const changeQty = (lineId, qty) => {
+        setCart((prev) => prev.map((l) => l.lineId === lineId ? { ...l, qty } : l));
+      };
+
+      useScrollReveal();
+
+      // Esc closes overlays
+      React.useEffect(() => {
+        const handler = (e) => {
+          if (e.key === "Escape") {
+            setQuickView(null);
+            setCartOpen(false);
+            setSearchOpen(false);
+          }
+        };
+        window.addEventListener("keydown", handler);
+        return () => window.removeEventListener("keydown", handler);
+      }, []);
+
+      return (
+        <React.Fragment>
+          <Navbar
+            cartCount={cartCount}
+            onSearchOpen={() => setSearchOpen(true)}
+            onCartOpen={() => setCartOpen(true)}
+          />
+
+          <Hero />
+
+          <div className="ide-reveal"><Marquee onDark={true} /></div>
+
+          <div className="ide-reveal"><Categories /></div>
+
+          <div className="ide-reveal"><Manifesto /></div>
+
+          <div className="ide-reveal"><HowToBuy /></div>
+
+          <div className="ide-reveal"><Testimonials /></div>
+
+          <div className="ide-reveal"><UGC /></div>
+
+          <div className="ide-reveal"><Newsletter /></div>
+
+          <div className="ide-reveal"><PreFooter /></div>
+
+          <Footer />
+
+          <FloatingWhatsApp />
+
+          {/* Overlays */}
+          <CartDrawer
+            open={cartOpen}
+            onClose={() => setCartOpen(false)}
+            items={cart}
+            onChangeQty={changeQty}
+            onRemove={removeFromCart}
+            onClearCart={() => setCart([])}
+          />
+          {quickView && (
+            <QuickView
+              product={quickView}
+              onClose={() => setQuickView(null)}
+              onAddToCart={addToCart}
+            />
+          )}
+          <SearchOverlay
+            open={searchOpen}
+            onClose={() => setSearchOpen(false)}
+            onSelect={setQuickView}
+          />
+          <CartToast visible={toast.visible} item={toast.item} />
+
+          <TweaksPanel>
+            <TweakSection label="Cor de acento" />
+            <TweakColor
+              label="Acento"
+              value={t.accent}
+              options={["#f2752f", "#c19a4b"]}
+              onChange={(v) => setTweak("accent", v)}
+            />
+            <TweakSection label="Cards de produto" />
+            <TweakRadio
+              label="Estilo de hover"
+              value={t.cardHover}
+              options={["minimal", "info", "button"]}
+              onChange={(v) => setTweak("cardHover", v)}
+            />
+            <p style={{
+              fontSize: 10.5,
+              lineHeight: 1.5,
+              color: "rgba(41,38,27,.55)",
+              margin: "6px 0 0",
+              padding: "8px 10px",
+              background: "rgba(0,0,0,0.03)",
+              borderRadius: 8,
+            }}>
+              Passe o mouse sobre os cards em <strong>Em destaque</strong> para ver o efeito.
+            </p>
+          </TweaksPanel>
+        </React.Fragment>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

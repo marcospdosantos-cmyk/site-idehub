@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trocas e Devoluções — Ide.hub</title>
+  <meta name="description" content="Política de trocas e devoluções da Ide.hub. 30 dias para trocar, frete grátis na primeira troca. Streetwear cristão premium.">
+  <meta property="og:title" content="Trocas e Devoluções — Ide.hub">
+  <meta property="og:description" content="30 dias para trocar. Frete grátis na primeira troca. Sem burocracia.">
+  <meta property="og:image" content="assets/hero-1.webp">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="theme-color" content="#100f0d">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f2752f'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='white' font-family='Georgia,serif' font-weight='bold'>i</text></svg>">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="cart.jsx"></script>
+  <script type="text/babel" src="navbar.jsx"></script>
+  <script type="text/babel" src="sections.jsx"></script>
+  <script type="text/babel" src="overlays.jsx"></script>
+  <script type="text/babel" src="content-page.jsx"></script>
+
+  <script type="text/babel">
+    function TrocasPage() {
+      const steps = [
+        {
+          num: "01",
+          title: "Entre em contato",
+          text: "Manda mensagem no WhatsApp com o número do pedido e uma foto do produto. A gente responde rápido e te orienta no processo.",
+        },
+        {
+          num: "02",
+          title: "Envie o produto",
+          text: "Você devolve a peça no prazo combinado. O produto precisa estar sem uso, com etiqueta e na embalagem original. O frete da primeira troca é por nossa conta.",
+        },
+        {
+          num: "03",
+          title: "Receba a troca",
+          text: "Após receber e conferir o produto, enviamos a nova peça em até 3 dias úteis. Você recebe o rastreio pelo WhatsApp.",
+        },
+      ];
+
+      const conds = [
+        "Prazo de 30 dias corridos a partir da data de entrega",
+        "Produto sem uso, sem lavagem e com etiqueta",
+        "Embalagem original ou equivalente",
+        "Frete grátis na primeira troca — nas demais, o envio é por conta do cliente",
+        "Defeito de fabricação: troca sem custo em qualquer prazo",
+        "Pedidos personalizados (bordados, estampas sob demanda) não têm direito a troca por tamanho",
+      ];
+
+      const S = {
+        hero: { background: "var(--ide-ink)", padding: "80px 20px 64px", textAlign: "center" },
+        crumb: { fontSize: 12, color: "rgba(255,255,255,.4)", marginBottom: 20 },
+        crumbA: { color: "rgba(255,255,255,.4)", textDecoration: "none" },
+        h1: { color: "var(--ide-cream)", fontSize: "clamp(2rem, 5vw, 3.5rem)", fontFamily: "var(--font-serif)", margin: "0 auto", lineHeight: 1.15 },
+        section: { maxWidth: 800, margin: "0 auto", padding: "60px 20px" },
+        h2: { fontFamily: "var(--font-serif)", fontSize: "clamp(1.4rem, 3vw, 1.9rem)", color: "var(--ide-ink)", marginBottom: 32 },
+        step: { display: "flex", gap: 20, marginBottom: 36, alignItems: "flex-start" },
+        num: { flexShrink: 0, width: 44, height: 44, borderRadius: "50%", background: "var(--ide-accent)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700, fontSize: ".85rem", fontFamily: "var(--font-sans)" },
+        stepBody: { paddingTop: 4 },
+        stepTitle: { fontWeight: 700, fontSize: "1rem", color: "var(--ide-ink)", marginBottom: 6, display: "block" },
+        stepText: { color: "var(--ide-ink-muted)", lineHeight: 1.7, fontSize: ".95rem", margin: 0 },
+        condList: { listStyle: "none", padding: 0, margin: 0 },
+        condItem: { display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 14, color: "var(--ide-ink-muted)", fontSize: ".95rem", lineHeight: 1.6 },
+        dot: { flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "var(--ide-accent)", marginTop: 7 },
+        divider: { borderTop: "1px solid var(--ide-stone)", margin: "0 20px" },
+        cta: { background: "var(--ide-ink)", textAlign: "center", padding: "64px 20px" },
+        ctaH: { color: "var(--ide-cream)", margin: "0 0 24px", fontFamily: "var(--font-serif)", fontSize: "clamp(1.4rem, 3vw, 2rem)" },
+      };
+
+      return (
+        <ContentPage title="Trocas e Devoluções">
+          <section style={S.hero}>
+            <nav style={S.crumb}>
+              <a href="Homepage @ide.hub.html" style={S.crumbA}>Início</a>
+              <span style={{ margin: "0 8px" }}>/</span>
+              <span style={{ color: "rgba(255,255,255,.75)" }}>Trocas e Devoluções</span>
+            </nav>
+            <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Sem burocracia</span>
+            <h1 style={S.h1}>Trocas em <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>30 dias.</em></h1>
+            <p style={{ color: "rgba(255,255,255,.65)", marginTop: 16, fontSize: ".95rem", lineHeight: 1.6 }}>
+              Frete grátis na primeira troca. Processo simples pelo WhatsApp.
+            </p>
+          </section>
+
+          <section style={S.section}>
+            <h2 style={S.h2}>Como solicitar a troca</h2>
+            {steps.map((s) => (
+              <div key={s.num} style={S.step}>
+                <div style={S.num}>{s.num}</div>
+                <div style={S.stepBody}>
+                  <span style={S.stepTitle}>{s.title}</span>
+                  <p style={S.stepText}>{s.text}</p>
+                </div>
+              </div>
+            ))}
+          </section>
+
+          <div style={S.divider} />
+
+          <section style={S.section}>
+            <h2 style={S.h2}>Condições da troca</h2>
+            <ul style={S.condList}>
+              {conds.map((c, i) => (
+                <li key={i} style={S.condItem}>
+                  <span style={S.dot} />
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p style={{ marginTop: 28, padding: "16px 20px", background: "var(--ide-stone-light, #f5f4f0)", borderRadius: 10, color: "var(--ide-ink-muted)", fontSize: ".9rem", lineHeight: 1.6 }}>
+              <strong style={{ color: "var(--ide-ink)" }}>Reembolso:</strong> em caso de devolução (sem troca), o reembolso é processado em até 5 dias úteis após a confirmação do recebimento do produto, na mesma forma de pagamento utilizada na compra.
+            </p>
+          </section>
+
+          <section style={S.cta}>
+            <span className="t-eyebrow t-eyebrow-light" style={{ display: "block", marginBottom: 12 }}>Precisa trocar?</span>
+            <h3 style={S.ctaH}>Fala com a gente <em style={{ fontStyle: "italic", color: "var(--ide-accent-soft)" }}>agora.</em></h3>
+            <a href="https://wa.me/5542984137740?text=Ol%C3%A1!%20Preciso%20solicitar%20uma%20troca." target="_blank" rel="noopener" className="ide-btn ide-btn-orange">
+              Solicitar troca pelo WhatsApp
+              <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor">
+                <path d="M16 3C9.4 3 4 8.4 4 15c0 2.3.6 4.5 1.9 6.5L4 29l7.7-1.8c1.9 1 4.1 1.6 4.3 1.6C22.6 28 28 22.6 28 16c0-7-5.4-13-12-13zm0 22.2c-1.7 0-3.4-.4-4.9-1.3l-.3-.1-3.2.7.7-3.2-.2-.3a9.9 9.9 0 1 1 17.4-6c0 5.5-4.5 10.2-9.5 10.2z"/>
+              </svg>
+            </a>
+          </section>
+        </ContentPage>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<TrocasPage />);
+  </script>
+</body>
+</html>
