@@ -362,16 +362,18 @@ function TrustBar() {
   ];
 
   return (
-    <div className="ide-trust-bar">
-      {items.map((item, i) => (
-        <div key={i} className="ide-trust-item">
-          <span className="ide-trust-icon">{item.icon}</span>
-          <div className="ide-trust-text">
-            <strong>{item.title}</strong>
-            <span>{item.sub}</span>
+    <div className="ide-trust-wrap">
+      <div className="ide-trust-bar">
+        {items.map((item, i) => (
+          <div key={i} className="ide-trust-item">
+            <span className="ide-trust-icon">{item.icon}</span>
+            <div className="ide-trust-text">
+              <strong>{item.title}</strong>
+              <span>{item.sub}</span>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
