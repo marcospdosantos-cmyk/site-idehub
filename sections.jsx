@@ -3,13 +3,12 @@
 function Manifesto() {
   return (
     <section id="manifesto" className="ide-manifesto">
-      <div className="ide-manifesto-bg-type" aria-hidden="true">FÉ</div>
       <div className="ide-manifesto-inner">
         <div className="ide-manifesto-l">
-          <span className="t-eyebrow">Por que a ide.hub existe</span>
+          <span className="t-eyebrow t-eyebrow-light">Por que a ide.hub existe</span>
           <h2>
             Fé também se&nbsp;
-            <span className="ide-italic">veste.</span>
+            <span className="ide-italic-soft">veste.</span>
           </h2>
         </div>
         <div className="ide-manifesto-r">
@@ -111,14 +110,14 @@ function Testimonials() {
   const [active, setActive] = React.useState(0);
 
   return (
-    <section className="ide-testi" style={{ backgroundColor: "rgb(0, 0, 0)" }}>
+    <section className="ide-testi">
       <div className="ide-testi-bg" />
       <div className="ide-section-head">
         <div>
-          <span className="t-eyebrow t-eyebrow-light">Prova social</span>
-          <h2 className="ide-section-title is-light">
+          <span className="t-eyebrow">Prova social</span>
+          <h2 className="ide-section-title">
             Quem veste,&nbsp;
-            <span className="ide-italic-soft">recomenda.</span>
+            <span className="ide-italic">recomenda.</span>
           </h2>
         </div>
         <span className="ide-testi-meta">+ 1.200 clientes em todo o Brasil · 4,9 ★</span>
@@ -130,21 +129,18 @@ function Testimonials() {
           key={t.name}
           className={`ide-testi-card ${active === i ? "is-active" : ""}`}
           onMouseEnter={() => setActive(i)}>
-          
+
             <div className="ide-testi-rating">
               {Array.from({ length: 5 }).map((_, j) =>
-            <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <svg key={j} width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2l2.6 6.5L22 9.3l-5.5 4.6L18 22l-6-3.5L6 22l1.5-8.1L2 9.3l7.4-.8L12 2z" />
                 </svg>
             )}
             </div>
             <p className="ide-testi-text">"{t.text}"</p>
             <div className="ide-testi-meta-row">
-              <img src={t.photo} alt={t.name} loading="lazy" />
-              <div>
-                <span className="ide-testi-name">{t.name}</span>
-                <span className="ide-testi-role">{t.role} · {t.city}</span>
-              </div>
+              <span className="ide-testi-name">{t.name}</span>
+              <span className="ide-testi-role">{t.role} · {t.city}</span>
             </div>
           </div>
         )}

@@ -303,6 +303,24 @@ const testimonials = [
     text: "Camiseta com mensagem que faz sentido na minha caminhada. Tecido grosso, caimento perfeito. Recomendo demais.",
     rating: 5,
   },
+  {
+    name: "Ana Beatriz",
+    handle: "@anabeatriz.cr",
+    city: "Goiânia, GO",
+    role: "comprou Jesus Way",
+    photo: "",
+    text: "Presentiei meu irmão com a Jesus Way e ele não tirou mais. A qualidade é diferente das coisas que a gente acha por aí. Vale cada centavo.",
+    rating: 5,
+  },
+  {
+    name: "Vitor Ribeiro",
+    handle: "@vitor.ribeiro",
+    city: "Porto Alegre, RS",
+    role: "comprou Reino Oversized",
+    photo: "",
+    text: "Oversized com caimento certo. Não fica largo demais, não fica pequeño. A estampa é discreta mas quem sabe, sabe. Chegou muito bem embalado.",
+    rating: 5,
+  },
 ];
 
 const ugcPosts = [
