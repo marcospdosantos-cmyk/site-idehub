@@ -2558,24 +2558,10 @@ body::before {
   .ide-hero-foot-mid { display: none; }
   .ide-hero-card { width: 100%; }
 
-  /* ── Trust bar — loop automático no mobile ── */
-  .ide-trust-wrap { display: flex; }
-  .ide-trust-bar,
-  .ide-trust-bar--loop {
-    display: flex !important;
-    flex-shrink: 0;
-    width: max-content;
-    margin: 0;
-    animation: trust-loop 14s linear infinite;
-  }
-  .ide-trust-bar--loop { display: flex !important; }
-  .ide-trust-item {
-    flex: 0 0 auto;
-    min-width: 200px;
-    padding: 14px 20px;
-    border-right: 1px solid var(--border);
-    border-top: none !important;
-  }
+  /* ── Trust bar — static grid no mobile ── */
+  .ide-trust-bar { grid-template-columns: repeat(2, 1fr); }
+  .ide-trust-bar--loop { display: none !important; }
+  .ide-trust-item { padding: 14px 16px; }
 
   /* ── Categories ── */
   .ide-cats { padding: 48px 0; }
